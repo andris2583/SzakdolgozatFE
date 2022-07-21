@@ -1,10 +1,14 @@
-import {Component, OnInit, ViewChildren} from '@angular/core';
+import {AfterContentInit, AfterViewInit, Component, OnInit, ViewChildren} from '@angular/core';
 import {ThumbnailService} from "../../services/thumbnail/thumbnail.service";
 import {HttpClient} from "@angular/common/http";
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 import {Thumbnail} from "../../models/thumbnail.model";
 import {Image} from "../../models/image.model";
 import {ImageService} from "../../services/image/image.service";
+import {MatDialog} from "@angular/material/dialog";
+import {ImageViewDialogComponent} from "./image-view-dialog/image-view-dialog.component";
+import {ImageUtilService} from "../../services/image/image-util.service";
+
 
 @Component({
   selector: 'app-categories',
@@ -17,18 +21,13 @@ export class CategoriesComponent implements OnInit {
               private thumbnailService: ThumbnailService,
               private imageService: ImageService,
               private http: HttpClient,
-              private sanitizer: DomSanitizer
+              public imageUtilService: ImageUtilService,
+              public dialog: MatDialog
   ) { }
 
 
   thumbnails: Thumbnail[] = []
 
-  images: Image[] = [];
-
-  showFullPreviewImage = false;
-  fullPreviewImagePath: SafeResourceUrl = "";
-  previewImageLeft = 0;
-  previewImageTop = 0;
 
   // @ViewChildren("previewImage")
   // previewImage: HTMLElement | undefined
@@ -36,32 +35,23 @@ export class CategoriesComponent implements OnInit {
   ngOnInit(): void {
     this.thumbnailService.getAllThumbnails().subscribe(value => {
       this.thumbnails = value;
+      this.openImageViewDialog("62d96b71f33d4118925b5f2e");
+
     })
-    this.imageService.getAllImages().subscribe(value => {
-      this.images = value;
-    })
   }
 
-  sanitizeImage(imgB64: string){
-    return this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'
-      + imgB64);
+  openImageViewDialog(imageID: string) {
+    this.imageService.getById(imageID).subscribe( value => {
+      if(value!=null){
+        this.dialog.open(ImageViewDialogComponent, {
+          data: value,
+          panelClass: 'panel-class'
+        });
+      }else{
+        console.log("Failed to load image!")
+      }
+    });
+
   }
 
-  showFullImage(imageID: string,event: MouseEvent) {
-    let currentImage = this.images.filter(image => {
-      return image.id == imageID;
-    })[0];
-
-    // @ts-ignore
-    this.previewImageLeft = Math.round(event.target.getBoundingClientRect().x-75);
-    // @ts-ignore
-    this.previewImageTop = Math.round(event.target.getBoundingClientRect().y-75);
-
-    this.fullPreviewImagePath = this.sanitizeImage(currentImage.imgB64);
-    this.showFullPreviewImage = true;
-  }
-
-  hideFullImage() {
-    this.showFullPreviewImage = false;
-  }
 }

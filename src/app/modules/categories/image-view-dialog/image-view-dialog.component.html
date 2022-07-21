@@ -1,0 +1,12 @@
+<div class="content">
+  <div class="dialog-header">
+    <span class="dialog-header-left">Author: Jhonh Smith</span>
+    <span class="dialog-header-right">
+      <button class="dialog-header-button mat-elevation-z8"  mat-raised-button >Save to collection</button>
+      <button class="dialog-header-button mat-elevation-z8" mat-raised-button >Download</button>
+    </span>
+  </div>
+  <div class="image-container">
+    <img class="image" [src]="imageUtilService.sanitizeImage(image.imgB64)" alt="X">
+  </div>
+</div>

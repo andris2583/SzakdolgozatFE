@@ -9,9 +9,10 @@
 
   <ul class="mdc-image-list mdc-image-list--masonry my-masonry-image-list">
     <li *ngFor="let thumbnail of thumbnails" class="mdc-image-list__item">
-      <div class="image-container" style="background-color: black;display: flex;align-items: center;justify-content: center;">
-        <img class="mdc-image-list__image" [src]="sanitizeImage(thumbnail.imgB64)" alt="X">
-        <div class="image-hover-data" style="position: absolute;bottom: 5px;left: 10px;color: white;z-index: 10">{{thumbnail.name}}</div>
+      <div class="image-container"
+           (click)="openImageViewDialog(thumbnail.imageID)">
+        <img class="mdc-image-list__image" [src]="imageUtilService.sanitizeImage(thumbnail.imgB64)" alt="X">
+        <div class="image-hover-data" style="position: absolute;bottom: 5px;left: 10px;color: white;z-index: 10">{{imageUtilService.getNoExtensionName(thumbnail.name)}}</div>
       </div>
   <!--    <div class="mdc-image-list__supporting">-->
   <!--      <span class="mdc-image-list__label">Text label</span>-->

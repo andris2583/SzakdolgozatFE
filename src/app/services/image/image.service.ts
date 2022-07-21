@@ -14,4 +14,8 @@ export class ImageService {
   getAllImages(): Observable<Image[]>{
     return this.httpClient.get<Image[]>("http://localhost:8080/image/getAll");
   }
+
+  getById(imageID: string): Observable<Image>{
+  return this.httpClient.get<Image>("http://localhost:8080/image/get?id="+imageID);
+}
 }
