@@ -9,7 +9,7 @@ import {ImageService} from "../../services/image/image.service";
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.component.html',
-  styleUrls: ['./categories.component.css']
+  styleUrls: ['./categories.component.scss']
 })
 export class CategoriesComponent implements OnInit {
 

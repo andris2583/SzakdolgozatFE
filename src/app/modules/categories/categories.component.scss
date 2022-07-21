@@ -1,0 +1,30 @@
+@use "@material/image-list";
+
+
+.my-masonry-image-list {
+  @include image-list.masonry-columns(5);
+}
+
+#content{
+  width: 95vw;
+}
+
+.image-container:hover::after {
+  box-shadow: 1px 200px 80px -131px rgba(0,0,0,0.6) inset,1px -200px 80px -131px rgba(0,0,0,0.6) inset;
+  -webkit-box-shadow: 1px 200px 80px -131px rgba(0,0,0,0.6) inset,1px -200px 80px -131px rgba(0,0,0,0.6) inset;
+  -moz-box-shadow: 1px 200px 80px -131px rgba(0,0,0,0.6) inset,1px -200px 80px -131px rgba(0,0,0,0.6) inset;
+  content: "";
+  display: block;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.image-hover-data{
+  display: none;
+}
+
+.image-container:hover  .image-hover-data{
+  display: block;
+}

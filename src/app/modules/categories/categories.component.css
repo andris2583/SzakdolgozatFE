@@ -1,9 +1,0 @@
-.holder {
-  width: auto;
-  display: inline-block;
-}
-
-.holder img {
-  width: 20%; /* Will shrink image to 30% of its original width */
-  height: auto;
-}

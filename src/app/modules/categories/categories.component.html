@@ -1,11 +1,20 @@
-<script src="tilt.jquery.js"></script>
-<!--<div class="holder">-->
-  <img [src]="fullPreviewImagePath" *ngIf="showFullPreviewImage" alt="X"
-       width="350" height="350px" style="z-index: 5" (mouseleave)="hideFullImage()"
-       [ngStyle]="{'left.px': previewImageLeft, 'top.px': previewImageTop,'position': 'absolute'}">
-<!--</div>-->
-<mat-grid-list cols="7" rowHeight="1:1">
-  <mat-grid-tile *ngFor="let thumbnail of thumbnails">
-    <img [src]="sanitizeImage(thumbnail.imgB64)"  alt="X" width="200" height="200" (mouseenter)="showFullImage(thumbnail.imageID,$event)">
-  </mat-grid-tile>
-</mat-grid-list>
+<!--  <img [src]="fullPreviewImagePath" *ngIf="showFullPreviewImage" alt="X"-->
+<!--       width="350" height="350px" style="z-index: 5" (mouseleave)="hideFullImage()"-->
+<!--       [ngStyle]="{'left.px': previewImageLeft, 'top.px': previewImageTop,'position': 'absolute'}">-->
+<!--<mat-grid-list cols="7" rowHeight="1:1">-->
+<!--  <mat-grid-tile *ngFor="let thumbnail of thumbnails">-->
+<!--    <img class="image-card" [src]="sanitizeImage(thumbnail.imgB64)"  alt="X" width="200" height="200" (mouseenter)="showFullImage(thumbnail.imageID,$event)">-->
+<!--  </mat-grid-tile>-->
+<!--</mat-grid-list>-->
+
+  <ul class="mdc-image-list mdc-image-list--masonry my-masonry-image-list">
+    <li *ngFor="let thumbnail of thumbnails" class="mdc-image-list__item">
+      <div class="image-container" style="background-color: black;display: flex;align-items: center;justify-content: center;">
+        <img class="mdc-image-list__image" [src]="sanitizeImage(thumbnail.imgB64)" alt="X">
+        <div class="image-hover-data" style="position: absolute;bottom: 5px;left: 10px;color: white;z-index: 10">{{thumbnail.name}}</div>
+      </div>
+  <!--    <div class="mdc-image-list__supporting">-->
+  <!--      <span class="mdc-image-list__label">Text label</span>-->
+  <!--    </div>-->
+    </li>
+  </ul>
