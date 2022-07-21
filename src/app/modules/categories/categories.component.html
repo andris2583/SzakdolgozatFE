@@ -1,0 +1,11 @@
+<script src="tilt.jquery.js"></script>
+<!--<div class="holder">-->
+  <img [src]="fullPreviewImagePath" *ngIf="showFullPreviewImage" alt="X"
+       width="350" height="350px" style="z-index: 5" (mouseleave)="hideFullImage()"
+       [ngStyle]="{'left.px': previewImageLeft, 'top.px': previewImageTop,'position': 'absolute'}">
+<!--</div>-->
+<mat-grid-list cols="7" rowHeight="1:1">
+  <mat-grid-tile *ngFor="let thumbnail of thumbnails">
+    <img [src]="sanitizeImage(thumbnail.imgB64)"  alt="X" width="200" height="200" (mouseenter)="showFullImage(thumbnail.imageID,$event)">
+  </mat-grid-tile>
+</mat-grid-list>
