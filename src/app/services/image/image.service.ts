@@ -9,17 +9,24 @@ import {Image} from "../../models/image.model";
 })
 export class ImageService {
 
-  constructor(private httpClient: HttpClient) { }
+  private baseUrl = "http://localhost:8080/image";
 
-  getAllImages(): Observable<Image[]>{
-    return this.httpClient.get<Image[]>("http://localhost:8080/image/getAll");
+  constructor(private httpClient: HttpClient) {
   }
 
-  getById(imageID: string): Observable<Image>{
-    return this.httpClient.get<Image>("http://localhost:8080/image/get?id="+imageID);
+  getAllImages(): Observable<Image[]> {
+    return this.httpClient.get<Image[]>(this.baseUrl+"/getAll");
   }
 
-  insertImage(image: Image): Observable<Image>{
-    return this.httpClient.put<Image>("http://localhost:8080/image/insert",image)
+  getById(imageID: string): Observable<Image> {
+    return this.httpClient.get<Image>(this.baseUrl+"/get?id=" + imageID);
+  }
+
+  insertImage(image: Image): Observable<Image> {
+    return this.httpClient.put<Image>(this.baseUrl+"/insert", image)
+  }
+
+  deleteImage(image: Image) : Observable<void>{
+    return  this.httpClient.delete<void>(this.baseUrl+"/delete/"+image.id );
   }
 }

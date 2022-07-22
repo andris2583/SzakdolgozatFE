@@ -40,10 +40,12 @@ export class CategoriesComponent implements OnInit {
 
   openImageViewDialog(imageID: string) {
     this.imageService.getById(imageID).subscribe(value => {
-      this.dialog.open(ImageViewDialogComponent, {
+      let dialogRef = this.dialog.open(ImageViewDialogComponent, {
         data: value,
         panelClass: 'panel-class'
       });
+      let instance = dialogRef.componentInstance;
+      instance.thumbnails = this.thumbnails;
     });
   }
 

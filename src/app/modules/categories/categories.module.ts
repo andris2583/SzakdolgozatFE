@@ -9,6 +9,8 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButtonModule} from "@angular/material/button";
 import {GetNoExtensionNamePipe, SanitizeImagePipe} from "../../services/image/image-util.pipe";
 import {NgxImageZoomModule} from "ngx-image-zoom";
+import {MatIconModule} from "@angular/material/icon";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 
 
@@ -17,7 +19,7 @@ import {NgxImageZoomModule} from "ngx-image-zoom";
     CategoriesComponent,
     ImageViewDialogComponent,
     GetNoExtensionNamePipe,
-    SanitizeImagePipe
+    SanitizeImagePipe,
   ],
   imports: [
     CommonModule,
@@ -27,7 +29,8 @@ import {NgxImageZoomModule} from "ngx-image-zoom";
     MatToolbarModule,
     MatButtonModule,
     NgxImageZoomModule,
-    // RedZoomModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
   ],
   providers: [
     SanitizeImagePipe

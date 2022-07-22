@@ -1,16 +1,31 @@
-<div class="content">
-  <div class="dialog-header">
+<div class="content" [class.hide]="loading">
+  <div class="dialog-header" >
     <span class="dialog-header-left">Author: Jhonh Smith</span>
     <span class="dialog-header-right">
       <button class="dialog-header-button mat-elevation-z8"  mat-raised-button >Save to collection</button>
       <button class="dialog-header-button mat-elevation-z8" mat-raised-button (click)="downloadButtonClick()">Download</button>
+      <button class="dialog-header-button mat-elevation-z8" mat-raised-button (click)="deleteImage()">Delete</button>
     </span>
   </div>
   <div class="image-container">
-    <img class="image" [src]="image.imgB64 | sanitizeImage" alt="X">
+    <img class="image" [src]="image!.imgB64 | sanitizeImage" alt="X" (load)="onLoad()">
 <!--    <lib-ngx-image-zoom [thumbImage]="'/assets/imgs/pexels-pratik-gupta-2748716t.jpg'" zoomMode="click"-->
 <!--                        [fullImage]="'/assets/imgs/pexels-pratik-gupta-2748716.jpg'">-->
 
 <!--    </lib-ngx-image-zoom>-->
   </div>
 </div>
+
+<div class="content" [class.hide]="!loading">
+  <div class="dialog-header">
+    <span class="dialog-header-left pulse" style="width: 5vw;height: 30px;"></span>
+    <span class="dialog-header-right">
+      <button class="dialog-header-button pulse" style="width: 5vw;height: 30px;" ></button>
+      <button class="dialog-header-button pulse" style="width: 5vw;height: 30px;" ></button>
+    </span>
+  </div>
+  <div class="image-container pulse" style="width: 40vw;height: 60vh">
+  </div>
+</div>
+<mat-icon class="move-icon" style="left: 6vw" (click)="goLeft()">keyboard_arrow_left</mat-icon>
+<mat-icon class="move-icon" style="right: 6vw" (click)="goRight()">keyboard_arrow_right</mat-icon>
