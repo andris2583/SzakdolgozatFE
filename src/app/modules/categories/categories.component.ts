@@ -7,7 +7,6 @@ import {Image} from "../../models/image.model";
 import {ImageService} from "../../services/image/image.service";
 import {MatDialog} from "@angular/material/dialog";
 import {ImageViewDialogComponent} from "./image-view-dialog/image-view-dialog.component";
-import {ImageUtilService} from "../../services/image/image-util.service";
 
 
 @Component({
@@ -21,13 +20,13 @@ export class CategoriesComponent implements OnInit {
               private thumbnailService: ThumbnailService,
               private imageService: ImageService,
               private http: HttpClient,
-              public imageUtilService: ImageUtilService,
               public dialog: MatDialog
   ) { }
 
 
   thumbnails: Thumbnail[] = []
 
+  imageToUpload: Image = {} as Image;
 
   // @ViewChildren("previewImage")
   // previewImage: HTMLElement | undefined
@@ -35,23 +34,43 @@ export class CategoriesComponent implements OnInit {
   ngOnInit(): void {
     this.thumbnailService.getAllThumbnails().subscribe(value => {
       this.thumbnails = value;
-      this.openImageViewDialog("62d96b71f33d4118925b5f2e");
-
     })
+
   }
 
   openImageViewDialog(imageID: string) {
-    this.imageService.getById(imageID).subscribe( value => {
-      if(value!=null){
-        this.dialog.open(ImageViewDialogComponent, {
-          data: value,
-          panelClass: 'panel-class'
-        });
-      }else{
-        console.log("Failed to load image!")
-      }
+    this.imageService.getById(imageID).subscribe(value => {
+      this.dialog.open(ImageViewDialogComponent, {
+        data: value,
+        panelClass: 'panel-class'
+      });
     });
+  }
 
+  handleFileInput(event: Event) {
+    // @ts-ignore
+    for (let i = 0; i < event.target.files.length; i++) {
+      const reader = new FileReader();
+      // @ts-ignore
+      reader.readAsDataURL(event.target.files[i]);
+      reader.onload = () => {
+        this.imageToUpload.imgB64 = (reader.result as string).replace('data:image/jpeg;base64,','');
+        // @ts-ignore
+        this.imageToUpload.name = event.target.files[i].name
+        this.imageToUpload.location = 'Kecskemét'
+        this.imageToUpload.categories = []
+        this.uploadImageButtonClick()
+      };
+    }
+
+  }
+
+  uploadImageButtonClick(){
+    this.imageService.insertImage(this.imageToUpload).subscribe(image => {
+      this.thumbnailService.getAllThumbnails().subscribe(thumbnails => {
+        this.thumbnails=thumbnails;
+      })
+    })
   }
 
 }

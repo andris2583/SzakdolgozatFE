@@ -7,13 +7,17 @@ import { ImageViewDialogComponent } from './image-view-dialog/image-view-dialog.
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButtonModule} from "@angular/material/button";
+import {GetNoExtensionNamePipe, SanitizeImagePipe} from "../../services/image/image-util.pipe";
+import {NgxImageZoomModule} from "ngx-image-zoom";
 
 
 
 @NgModule({
   declarations: [
     CategoriesComponent,
-    ImageViewDialogComponent
+    ImageViewDialogComponent,
+    GetNoExtensionNamePipe,
+    SanitizeImagePipe
   ],
   imports: [
     CommonModule,
@@ -21,7 +25,12 @@ import {MatButtonModule} from "@angular/material/button";
     MatGridListModule,
     MatDialogModule,
     MatToolbarModule,
-    MatButtonModule
+    MatButtonModule,
+    NgxImageZoomModule,
+    // RedZoomModule,
+  ],
+  providers: [
+    SanitizeImagePipe
   ]
 })
 export class CategoriesModule { }

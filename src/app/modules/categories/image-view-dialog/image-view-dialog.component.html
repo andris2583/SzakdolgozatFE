@@ -3,10 +3,14 @@
     <span class="dialog-header-left">Author: Jhonh Smith</span>
     <span class="dialog-header-right">
       <button class="dialog-header-button mat-elevation-z8"  mat-raised-button >Save to collection</button>
-      <button class="dialog-header-button mat-elevation-z8" mat-raised-button >Download</button>
+      <button class="dialog-header-button mat-elevation-z8" mat-raised-button (click)="downloadButtonClick()">Download</button>
     </span>
   </div>
   <div class="image-container">
-    <img class="image" [src]="imageUtilService.sanitizeImage(image.imgB64)" alt="X">
+    <img class="image" [src]="image.imgB64 | sanitizeImage" alt="X">
+<!--    <lib-ngx-image-zoom [thumbImage]="'/assets/imgs/pexels-pratik-gupta-2748716t.jpg'" zoomMode="click"-->
+<!--                        [fullImage]="'/assets/imgs/pexels-pratik-gupta-2748716.jpg'">-->
+
+<!--    </lib-ngx-image-zoom>-->
   </div>
 </div>

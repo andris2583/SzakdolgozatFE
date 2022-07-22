@@ -6,16 +6,23 @@
 <!--    <img class="image-card" [src]="sanitizeImage(thumbnail.imgB64)"  alt="X" width="200" height="200" (mouseenter)="showFullImage(thumbnail.imageID,$event)">-->
 <!--  </mat-grid-tile>-->
 <!--</mat-grid-list>-->
+<div class="form-group">
+  <label for="file">Choose File</label>
+  <input type="file"
+         id="file" multiple="multiple"
+         (change)="handleFileInput($event)">
+</div>
 
   <ul class="mdc-image-list mdc-image-list--masonry my-masonry-image-list">
     <li *ngFor="let thumbnail of thumbnails" class="mdc-image-list__item">
       <div class="image-container"
            (click)="openImageViewDialog(thumbnail.imageID)">
-        <img class="mdc-image-list__image" [src]="imageUtilService.sanitizeImage(thumbnail.imgB64)" alt="X">
-        <div class="image-hover-data" style="position: absolute;bottom: 5px;left: 10px;color: white;z-index: 10">{{imageUtilService.getNoExtensionName(thumbnail.name)}}</div>
+        <img class="mdc-image-list__image" [src]="thumbnail.imgB64 | sanitizeImage" alt="X">
+        <div class="image-hover-data" style="position: absolute;bottom: 5px;left: 10px;color: white;z-index: 10">{{thumbnail.name | getNoExtensionName}}</div>
       </div>
   <!--    <div class="mdc-image-list__supporting">-->
   <!--      <span class="mdc-image-list__label">Text label</span>-->
   <!--    </div>-->
     </li>
   </ul>
+

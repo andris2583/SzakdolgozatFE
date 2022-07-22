@@ -16,6 +16,10 @@ export class ImageService {
   }
 
   getById(imageID: string): Observable<Image>{
-  return this.httpClient.get<Image>("http://localhost:8080/image/get?id="+imageID);
-}
+    return this.httpClient.get<Image>("http://localhost:8080/image/get?id="+imageID);
+  }
+
+  insertImage(image: Image): Observable<Image>{
+    return this.httpClient.put<Image>("http://localhost:8080/image/insert",image)
+  }
 }
