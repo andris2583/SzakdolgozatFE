@@ -8,12 +8,15 @@
     </span>
   </div>
   <div class="image-container">
-    <img class="image" [src]="image!.imgB64 | sanitizeImage" alt="X" (load)="onLoad()">
-<!--    <lib-ngx-image-zoom [thumbImage]="'/assets/imgs/pexels-pratik-gupta-2748716t.jpg'" zoomMode="click"-->
-<!--                        [fullImage]="'/assets/imgs/pexels-pratik-gupta-2748716.jpg'">-->
+    <img class="image" [src]="'http://localhost:8080/image/getImageData/'+image.id" alt="X" (load)="onLoad()">
+<!--    <lib-ngx-image-zoom class="image" [fullImage]="'http://localhost:8080/image/getImageData/'+image.id" zoomMode="hover"-->
+<!--                        [thumbImage]="'http://localhost:8080/thumbnail/getThumbnailImageByImageId/'+image.id" (load)="onLoad()"-->
+<!--                        [enableScrollZoom]="true" [magnification]="0.2" [minZoomRatio]="0.2" [scrollStepSize]="0.3">-->
 
 <!--    </lib-ngx-image-zoom>-->
   </div>
+  <mat-icon class="move-icon" style="left: 6vw" (click)="goLeft()">keyboard_arrow_left</mat-icon>
+  <mat-icon class="move-icon" style="right: 6vw" (click)="goRight()">keyboard_arrow_right</mat-icon>
 </div>
 
 <div class="content" [class.hide]="!loading">
@@ -22,10 +25,12 @@
     <span class="dialog-header-right">
       <button class="dialog-header-button pulse" style="width: 5vw;height: 30px;" ></button>
       <button class="dialog-header-button pulse" style="width: 5vw;height: 30px;" ></button>
+      <button class="dialog-header-button pulse" style="width: 5vw;height: 30px;" ></button>
     </span>
   </div>
   <div class="image-container pulse" style="width: 40vw;height: 60vh">
   </div>
+  <mat-icon class="move-icon" style="left: 6vw" (click)="goLeft()">keyboard_arrow_left</mat-icon>
+  <mat-icon class="move-icon" style="right: 6vw" (click)="goRight()">keyboard_arrow_right</mat-icon>
+
 </div>
-<mat-icon class="move-icon" style="left: 6vw" (click)="goLeft()">keyboard_arrow_left</mat-icon>
-<mat-icon class="move-icon" style="right: 6vw" (click)="goRight()">keyboard_arrow_right</mat-icon>

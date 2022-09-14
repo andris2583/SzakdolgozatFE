@@ -19,7 +19,7 @@ export class ImageService {
   }
 
   getById(imageID: string): Observable<Image> {
-    return this.httpClient.get<Image>(this.baseUrl+"/get?id=" + imageID);
+    return this.httpClient.get<Image>(this.baseUrl+"/get/" + imageID);
   }
 
   insertImage(image: Image): Observable<Image> {
@@ -28,5 +28,9 @@ export class ImageService {
 
   deleteImage(image: Image) : Observable<void>{
     return  this.httpClient.delete<void>(this.baseUrl+"/delete/"+image.id );
+  }
+
+  getImageData(image: Image): Observable<Blob> {
+    return this.httpClient.get(this.baseUrl + "/getImageData/" + image.id, {responseType: 'blob'});
   }
 }

@@ -22,6 +22,7 @@
     "@angular/router": "^14.0.0",
     "@material/image-list": "^14.0.0",
     "file-saver": "^2.0.5",
+    "ng-image-fullscreen-view": "^3.0.3",
     "ngx-image-compress": "^13.1.13",
     "ngx-image-zoom": "^1.0.1",
     "rxjs": "~7.5.0",

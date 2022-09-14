@@ -22,56 +22,41 @@ export class ImageViewDialogComponent implements OnInit {
 
   thumbnails: Thumbnail[] = [];
 
-  // @ts-ignore
-  leftImage: Image;
-  // @ts-ignore
-  rightImage: Image;
-
-  loading: boolean = false;
+  loading: boolean = true;
 
   ngOnInit(): void {
     this.dialogRef.updateSize('80%', '80%');
-    // @ts-ignore
-    let id = this.thumbnails.indexOf(this.thumbnails.find(t => t.imageID == this.image.id))-1
-    this.imageService.getById(this.thumbnails[id].imageID).subscribe(value => {
-      this.leftImage = value;
-    })
-    // @ts-ignore
-    id = this.thumbnails.indexOf(this.thumbnails.find(t => t.imageID == this.image.id))+1
-    this.imageService.getById(this.thumbnails[id].imageID).subscribe(value => {
-      this.rightImage = value;
-    })
   }
 
   downloadButtonClick(){
-    // const downloadLink = document.createElement('a');
-    // const fileName = this.image.name;
-    //
-    // downloadLink.href = this.image.imgB64;
-    // downloadLink.download = fileName;
-    // downloadLink.click();
-  }
-
-//TODO current id 0 v. max akkor felt/right meghal
-  goLeft() {
-    this.loading=true;
-    this.rightImage = this.image;
-    this.image = this.leftImage;
-    // @ts-ignore
-    let id = this.thumbnails.indexOf(this.thumbnails.find(t => t.imageID == this.image.id))-1
-    this.imageService.getById(this.thumbnails[id].imageID).subscribe(value => {
-      this.leftImage = value;
+    this.imageService.getImageData(this.image).subscribe(value => {
+      const url = URL.createObjectURL(value);
+      const a: any = document.createElement('a');
+      a.href = url;
+      a.download = this.image.name;
+      document.body.appendChild(a);
+      a.style = 'display: none';
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
     })
   }
 
-  async goRight() {
+  goLeft() {
+    this.loading=true;
+    // @ts-ignore
+    let id = this.thumbnails.indexOf(this.thumbnails.find(t => t.imageID == this.image.id))-1
+    this.imageService.getById(this.thumbnails[id].imageID).subscribe(value => {
+      this.image = value;
+    })
+  }
+
+  goRight() {
     this.loading = true;
-    this.leftImage = this.image;
-    this.image = this.rightImage;
     // @ts-ignore
     let id = this.thumbnails.indexOf(this.thumbnails.find(t => t.imageID == this.image.id)) + 1
     this.imageService.getById(this.thumbnails[id].imageID).subscribe(value => {
-      this.rightImage = value;
+      this.image = value;
     })
   }
 
