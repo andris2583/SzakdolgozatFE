@@ -1,4 +1,4 @@
-<div class="content" [class.hide]="loading">
+<div class="content" [class.hide]="loading" >
   <div class="dialog-header" >
     <span class="dialog-header-left">Author: Jhonh Smith</span>
     <span class="dialog-header-right">
@@ -7,8 +7,8 @@
       <button class="dialog-header-button mat-elevation-z8" mat-raised-button (click)="deleteImage()">Delete</button>
     </span>
   </div>
-  <div class="image-container">
-    <img class="image" [src]="'http://localhost:8080/image/getImageData/'+image.id" alt="X" (load)="onLoad()">
+  <div class="image-container" >
+    <img class="image" [src]="'http://localhost:8080/image/getImageData/'+image.id" alt="Failed to load image..." (load)="onLoad()">
 <!--    <lib-ngx-image-zoom class="image" [fullImage]="'http://localhost:8080/image/getImageData/'+image.id" zoomMode="hover"-->
 <!--                        [thumbImage]="'http://localhost:8080/thumbnail/getThumbnailImageByImageId/'+image.id" (load)="onLoad()"-->
 <!--                        [enableScrollZoom]="true" [magnification]="0.2" [minZoomRatio]="0.2" [scrollStepSize]="0.3">-->
@@ -19,7 +19,7 @@
   <mat-icon class="move-icon" style="right: 6vw" (click)="goRight()">keyboard_arrow_right</mat-icon>
 </div>
 
-<div class="content" [class.hide]="!loading">
+<div class="content" [class.hide]="!loading" >
   <div class="dialog-header">
     <span class="dialog-header-left pulse" style="width: 5vw;height: 30px;"></span>
     <span class="dialog-header-right">
@@ -30,7 +30,7 @@
   </div>
   <div class="image-container pulse" style="width: 40vw;height: 60vh">
   </div>
-  <mat-icon class="move-icon" style="left: 6vw" (click)="goLeft()">keyboard_arrow_left</mat-icon>
+  <mat-icon class="move-icon" style="left: 6vw" (click)="goLeft()" >keyboard_arrow_left</mat-icon>
   <mat-icon class="move-icon" style="right: 6vw" (click)="goRight()">keyboard_arrow_right</mat-icon>
 
 </div>

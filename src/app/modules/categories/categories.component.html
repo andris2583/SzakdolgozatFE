@@ -1,28 +1,5 @@
-<!--  <img [src]="fullPreviewImagePath" *ngIf="showFullPreviewImage" alt="X"-->
-<!--       width="350" height="350px" style="z-index: 5" (mouseleave)="hideFullImage()"-->
-<!--       [ngStyle]="{'left.px': previewImageLeft, 'top.px': previewImageTop,'position': 'absolute'}">-->
-<!--<mat-grid-list cols="7" rowHeight="1:1">-->
-<!--  <mat-grid-tile *ngFor="let thumbnail of thumbnails">-->
-<!--    <img class="image-card" [src]="sanitizeImage(thumbnail.imgB64)"  alt="X" width="200" height="200" (mouseenter)="showFullImage(thumbnail.imageID,$event)">-->
-<!--  </mat-grid-tile>-->
-<!--</mat-grid-list>-->
-<div class="form-group">
-  <label for="file">Choose File</label>
-  <input type="file"
-         id="file" multiple="multiple"
-         (change)="handleFileInput($event)">
-</div>
-
-  <ul class="mdc-image-list mdc-image-list--masonry my-masonry-image-list">
-    <li *ngFor="let thumbnail of thumbnails" class="mdc-image-list__item">
-      <div class="image-container"
-           (click)="openImageViewDialog(thumbnail.imageID)">
-        <img class="mdc-image-list__image" [src]="thumbnail.imgB64 | sanitizeImage" alt="X">
-        <div class="image-hover-data" style="position: absolute;bottom: 5px;left: 10px;color: white;z-index: 10">{{thumbnail.name | getNoExtensionName}}</div>
-      </div>
-  <!--    <div class="mdc-image-list__supporting">-->
-  <!--      <span class="mdc-image-list__label">Text label</span>-->
-  <!--    </div>-->
-    </li>
-  </ul>
-
+<ul>
+  <li *ngFor="let category of categories" style="margin: 10px">
+      <a mat-raised-button routerLink="/images/{{category.name}}">{{category.name}}</a>
+  </li>
+</ul>

@@ -4,14 +4,6 @@
       <mat-icon>menu</mat-icon>
     </button>
     <span>My App</span>
-    <a mat-button [routerLink]="'/dashboard'">Dashboard</a>
-    <a mat-button [routerLink]="'/categories'">Categories</a>
-    <!--    <span class="spacer"></span>-->
-    <!--    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">-->
-    <!--      <mat-icon>favorite</mat-icon>-->
-    <!--    </button>-->
-    <!--    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">-->
-    <!--      <mat-icon>share</mat-icon>-->
-    <!--    </button>-->
+    <a *ngFor="let page of pages" mat-button [routerLink]="page.route">{{page.name}}</a>
   </mat-toolbar-row>
 </mat-toolbar>

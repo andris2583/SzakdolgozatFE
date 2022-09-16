@@ -1,9 +1,7 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
+import {Component, HostListener, Inject, Input, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {Image} from "../../../models/image.model";
 import {ImageService} from "../../../services/image/image.service";
-import {Thumbnail} from "../../../models/thumbnail.model";
-import {ThumbnailService} from "../../../services/thumbnail/thumbnail.service";
 
 @Component({
   selector: 'app-image-view-dialog',
@@ -16,11 +14,10 @@ export class ImageViewDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public image: Image,
     public dialogRef: MatDialogRef<any>,
     private imageService: ImageService,
-    private thumbnailService: ThumbnailService
   ) { }
 
 
-  thumbnails: Thumbnail[] = [];
+  images: Image[] = [];
 
   loading: boolean = true;
 
@@ -45,19 +42,21 @@ export class ImageViewDialogComponent implements OnInit {
   goLeft() {
     this.loading=true;
     // @ts-ignore
-    let id = this.thumbnails.indexOf(this.thumbnails.find(t => t.imageID == this.image.id))-1
-    this.imageService.getById(this.thumbnails[id].imageID).subscribe(value => {
-      this.image = value;
-    })
+    if (this.images.indexOf(this.image)==0){
+      this.loading=false;
+    }else{
+      this.image = this.images[this.images.indexOf(this.image)-1];
+    }
   }
 
   goRight() {
     this.loading = true;
     // @ts-ignore
-    let id = this.thumbnails.indexOf(this.thumbnails.find(t => t.imageID == this.image.id)) + 1
-    this.imageService.getById(this.thumbnails[id].imageID).subscribe(value => {
-      this.image = value;
-    })
+    if (this.images.indexOf(this.image)==this.images.length-1){
+      this.loading=false;
+    }else{
+      this.image = this.images[this.images.indexOf(this.image)+1];
+    }
   }
 
   onLoad(){
@@ -66,11 +65,20 @@ export class ImageViewDialogComponent implements OnInit {
 
   deleteImage(){
     this.imageService.deleteImage(this.image).subscribe(value => {
-      this.thumbnailService.getAllThumbnails().subscribe(thumbnails => {
-        this.thumbnails=thumbnails;
+      this.imageService.getAllImages().subscribe(images => {
+        this.images = images;
       })
     });
     this.dialogRef.close();
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key == 'ArrowLeft'){
+      this.goLeft();
+    }else if (event.key == 'ArrowRight'){
+      this.goRight();
+    }
   }
 
 }

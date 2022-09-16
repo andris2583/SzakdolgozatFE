@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Thumbnail} from "../../models/thumbnail.model";
 import {Image} from "../../models/image.model";
 
 @Injectable({

@@ -7,6 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
+  public pages: {route: string, name: string}[] = [
+    {route: '/dashboard',name: 'Dashboard'},
+    {route: '/images/all',name: 'Images'},
+    {route: '/categories',name: 'Categories'},
+  ]
+
   constructor() { }
 
   ngOnInit(): void {
