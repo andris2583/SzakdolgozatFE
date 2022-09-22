@@ -19,7 +19,7 @@
   <mat-icon class="move-icon" style="right: 6vw" (click)="goRight()">keyboard_arrow_right</mat-icon>
 </div>
 
-<div class="content" [class.hide]="!loading" >
+<div class="content" *ngIf="loading" >
   <div class="dialog-header">
     <span class="dialog-header-left pulse" style="width: 5vw;height: 30px;"></span>
     <span class="dialog-header-right">

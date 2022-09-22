@@ -30,4 +30,5 @@
   - GPS koordináta alapján szűrés
 
 
-TODO remove thumbnails, thumbnailB64 should be put in Image
+TODO BE image store should be done with ids instead of names
+TODO save img w,h to image entity, so loading ghost w,h is good
