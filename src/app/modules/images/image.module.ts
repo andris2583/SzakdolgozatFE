@@ -13,6 +13,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {NgxMasonryModule} from 'ngx-masonry';
+import {ImageUploadDialogComponent} from './image-upload-dialog/image-upload-dialog.component';
+import {MatChipsModule} from '@angular/material/chips';
 
 
 @NgModule({
@@ -21,6 +23,7 @@ import {NgxMasonryModule} from 'ngx-masonry';
         ImageViewDialogComponent,
         GetNoExtensionNamePipe,
         SanitizeImagePipe,
+        ImageUploadDialogComponent,
     ],
     imports: [
         CommonModule,
@@ -34,6 +37,7 @@ import {NgxMasonryModule} from 'ngx-masonry';
         MatProgressSpinnerModule,
         ScrollingModule,
         NgxMasonryModule,
+        MatChipsModule,
     ],
     providers: [
         SanitizeImagePipe

@@ -29,5 +29,30 @@
 }
 
 .masonry-item-width {
+    // - is 20*(rows-1)
     width: calc((90vw - (80px)) / 5);
 }
+
+.skeleton-image-div {
+    width: calc((90vw - (80px)) / 5);
+    margin-bottom: 20px;
+}
+
+.open-upload-dialog-button {
+    width: 4vw;
+    height: 4vw;
+    position: fixed;
+    bottom: 3vh;
+    right: 2vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 5vw;
+}
+
+.open-upload-dialog-button:hover {
+    color: #d7d7d7;
+}
+
+
+

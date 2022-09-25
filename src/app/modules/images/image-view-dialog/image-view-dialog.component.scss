@@ -1,102 +1,90 @@
-.content{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 
-.image-container{
-  position: relative;
+.image-container {
+    position: relative;
 }
 
-.image{
-  position: relative;
-  object-fit: scale-down;
-  max-height: 70vh;
-  max-width: 50vw;
-  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+.image {
+    position: relative;
+    object-fit: scale-down;
+    max-height: 70vh;
+    max-width: 50vw;
+    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
 }
 
-::ng-deep .ngxImageZoomContainer > img{
-  max-height: 70vh;
-  max-width: 50vw;
-  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
-
-}
-::ng-deep .ngxImageZoomThumbnail > img{
-  max-height: 70vh;
-  max-width: 50vw;
-  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+::ng-deep .ngxImageZoomContainer > img {
+    max-height: 70vh;
+    max-width: 50vw;
+    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
 
 }
 
-
-.dialog-header{
-  //background-color: black;
-  width: 100%;
-  height: 75px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.dialog-header-left{
-  color: black;
-  margin-left: 15px;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  font-size: 18px;
-  font-weight: 500;
-}
-
-.dialog-header-right{
-  //background-color: rebeccapurple;
-  margin-right: 15px;
-}
-
-.dialog-header-button{
-  margin-left: 15px;
-}
-
-.move-icon{
-  position: absolute;
-  top: 50vh;
-  transform: scale(4);
+::ng-deep .ngxImageZoomThumbnail > img {
+    max-height: 70vh;
+    max-width: 50vw;
+    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
 
 }
 
-.move-icon:hover{
-  color: #d7d7d7;
-  cursor: pointer;
+
+.dialog-header {
+    //background-color: black;
+    width: 100%;
+    height: 75px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.loading-indicator{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.dialog-header-left {
+    color: black;
+    margin-left: 15px;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 18px;
+    font-weight: 500;
 }
 
-.hide{
-  display: none;
+.dialog-header-right {
+    //background-color: rebeccapurple;
+    margin-right: 15px;
 }
 
-.pulse {
-  animation: pulse 1.0s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-  animation-delay: 0.5s;
-  background: rgba(229, 229, 229, 0.75) no-repeat;
-  border: none !important;
-  border-radius: 25px;
+.dialog-header-button {
+    margin-left: 15px;
 }
 
-@keyframes pulse {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.2;
-  }
-  100% {
-    opacity: 1;
-  }
+.image-view-main-content {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.move-icon {
+    position: absolute;
+    top: 50vh;
+    transform: scale(4);
+
+}
+
+.move-icon:hover {
+    color: #d7d7d7;
+    cursor: pointer;
+}
+
+.loading-indicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.hide {
+    display: none;
 }

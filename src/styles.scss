@@ -1,15 +1,41 @@
-@import "~@angular/material/prebuilt-themes/purple-green.css";
+@import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
 @import "@material/image-list/mdc-image-list.import.scss";
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 .panel-class {
-  mat-dialog-container {
-    padding: 0;
-    overflow-x: hidden;
-    background-color: whitesmoke;
-  }
+    mat-dialog-container {
+        padding: 0;
+        overflow-x: hidden;
+        background-color: whitesmoke;
+    }
+}
+
+.pulse {
+    animation: pulse 1.0s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    animation-delay: 0.5s;
+    background: rgba(229, 229, 229, 0.75) no-repeat;
+    border: none !important;
+    border-radius: 25px;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.2;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 //* {
