@@ -70,12 +70,13 @@
     position: absolute;
     top: 50vh;
     transform: scale(4);
-
+    transition: 0.1s;
 }
 
 .move-icon:hover {
     color: #d7d7d7;
     cursor: pointer;
+    transform: scale(4.5);
 }
 
 .loading-indicator {

@@ -1,5 +1,5 @@
 <div *ngIf="tagName != 'all'"
-     style="font-size: 30px;display: flex;align-items: center;justify-content: center">{{tagName}}</div>
+     style="font-size: 30px;display: flex;align-items: center;justify-content: center;margin-bottom: 2vh;">{{tagName}}</div>
 <ngx-masonry [options]="options" [ordered]="true" *ngIf="images.length!=0">
     <div ngxMasonryItem *ngFor="let image of images" class="image-container masonry-item-width"
          (click)="openImageViewDialog(image)">

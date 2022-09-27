@@ -48,10 +48,12 @@
     justify-content: center;
     align-items: center;
     font-size: 5vw;
+    transition: 0.1s;
 }
 
 .open-upload-dialog-button:hover {
     color: #d7d7d7;
+    transform: scale(1.1);
 }
 
 

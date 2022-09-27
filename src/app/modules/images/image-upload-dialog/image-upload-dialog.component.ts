@@ -38,7 +38,6 @@ export class ImageUploadDialogComponent implements OnInit {
                         delete this.image.properties[prop[0]];
                     }
                 }
-                console.log(this.image.properties);
             });
         // @ts-ignore
         for (let i = 0; i < event.target.files.length; i++) {

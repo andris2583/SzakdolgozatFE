@@ -23,7 +23,6 @@ export class ImageComponent implements OnInit {
 
     options: NgxMasonryOptions = {
         gutter: 20,
-        fitWidth: true
     };
 
     images: Image[] = [];

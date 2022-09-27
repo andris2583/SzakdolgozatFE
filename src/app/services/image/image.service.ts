@@ -25,6 +25,10 @@ export class ImageService {
         return this.httpClient.put<Image>(this.baseUrl + '/insert/', image);
     }
 
+    updateImage(image: Image): Observable<Image> {
+        return this.httpClient.put<Image>(this.baseUrl + '/update/', image);
+    }
+
     deleteImage(image: Image): Observable<void> {
         return this.httpClient.delete<void>(this.baseUrl + '/delete/' + image.id);
     }
