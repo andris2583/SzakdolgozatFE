@@ -20,6 +20,10 @@
     width: 100%;
 }
 
+.image-container:hover {
+    transform: scale(1.04);
+}
+
 .image-hover-data {
     display: none;
 }
@@ -55,6 +59,4 @@
     color: #d7d7d7;
     transform: scale(1.1);
 }
-
-
 

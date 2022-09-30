@@ -21,7 +21,6 @@
             <!--    </lib-ngx-image-zoom>-->
         </div>
         <div style="width: 200px;">
-            <span style="font-size: 1vw;color: black">Tags:</span>
             <mat-chip-list #chipList>
                 <mat-chip *ngFor="let tag of image.tags">
                     {{tag}}
@@ -29,7 +28,10 @@
             </mat-chip-list>
         </div>
     </div>
-    <pre style="color: black" [textContent]="getImagePropertiesAsString()"></pre>
+    <mat-list>
+        <mat-list-item *ngFor="let prop of  getImagePropertyEntries()">{{prop[0]}}
+            : {{prop[1]}}</mat-list-item>
+    </mat-list>
     <mat-icon class="move-icon" style="left: 6vw" (click)="goLeft()">keyboard_arrow_left</mat-icon>
     <mat-icon class="move-icon" style="right: 6vw" (click)="goRight()">keyboard_arrow_right</mat-icon>
 

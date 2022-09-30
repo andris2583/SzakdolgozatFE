@@ -15,6 +15,8 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 import {NgxMasonryModule} from 'ngx-masonry';
 import {ImageUploadDialogComponent} from './image-upload-dialog/image-upload-dialog.component';
 import {MatChipsModule} from '@angular/material/chips';
+import {MatListModule} from '@angular/material/list';
+import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 
 
 @NgModule({
@@ -38,6 +40,8 @@ import {MatChipsModule} from '@angular/material/chips';
         ScrollingModule,
         NgxMasonryModule,
         MatChipsModule,
+        MatListModule,
+        InfiniteScrollModule,
     ],
     providers: [
         SanitizeImagePipe

@@ -6,6 +6,7 @@ import {ImageViewDialogComponent} from './image-view-dialog/image-view-dialog.co
 import {ActivatedRoute} from '@angular/router';
 import {NgxMasonryOptions} from 'ngx-masonry';
 import {ImageUploadDialogComponent} from './image-upload-dialog/image-upload-dialog.component';
+import {BatchImageRequest} from '../../models/batch-image-request.model';
 
 @Component({
     selector: 'app-images',
@@ -29,13 +30,25 @@ export class ImageComponent implements OnInit {
     imageToUpload: Image = {} as Image;
     tagName: string | null = null;
     skeletonHeights: number[] = [];
+    batchImageRequest: BatchImageRequest = {tag: 'all', batchSize: 24, pageCount: 0};
+    loading: boolean = true;
 
     ngOnInit(): void {
         this.tagName = this.activatedRoute.snapshot.paramMap.get('tag');
-        this.imageService.getImages(this.tagName).subscribe(value => {
-            this.images = value;
-        });
+        this.batchImageRequest.tag = this.tagName;
+        this.loadImageData();
         this.generateRandomHeights();
+    }
+
+    loadImageData() {
+        console.log('scroll');
+        this.loading = true;
+        this.imageService.getImages(this.batchImageRequest).subscribe(value => {
+            this.images = this.images.concat(value);
+            this.loading = false;
+        });
+
+        this.batchImageRequest.pageCount++;
     }
 
     openImageViewDialog(image: Image) {
@@ -63,7 +76,7 @@ export class ImageComponent implements OnInit {
     }
 
     generateRandomHeights() {
-        for (let i = 0; i < 30; i++) {
+        for (let i = 0; i < this.batchImageRequest.batchSize; i++) {
             this.skeletonHeights.push(Math.round(Math.floor(Math.random() * 20)) + 30);
         }
     }

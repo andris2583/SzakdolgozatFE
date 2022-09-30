@@ -84,8 +84,8 @@ export class ImageViewDialogComponent implements OnInit {
         }
     }
 
-    getImagePropertiesAsString(): string {
-        return JSON.stringify(this.image.properties, null, 2);
+    getImagePropertyEntries(): [string, any][] {
+        return Object.entries(this.image.properties);
     }
 
 }

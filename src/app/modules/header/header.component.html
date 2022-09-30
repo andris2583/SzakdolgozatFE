@@ -1,9 +1,9 @@
 <mat-toolbar>
-  <mat-toolbar-row>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <span>My App</span>
-    <a *ngFor="let page of pages" mat-button [routerLink]="page.route">{{page.name}}</a>
-  </mat-toolbar-row>
+    <mat-toolbar-row>
+        <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <span>My App</span>
+        <a *ngFor="let page of pages" mat-button [routerLink]="page.route">{{page.name}}</a>
+    </mat-toolbar-row>
 </mat-toolbar>

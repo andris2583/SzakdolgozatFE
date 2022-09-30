@@ -1,8 +1,9 @@
-@import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 @import "@material/image-list/mdc-image-list.import.scss";
 
 html, body {
     height: 100%;
+    overflow: hidden;
 }
 
 body {
@@ -14,14 +15,14 @@ body {
     mat-dialog-container {
         padding: 0;
         overflow-x: hidden;
-        background-color: whitesmoke;
+        //background-color: whitesmoke;
     }
 }
 
 .pulse {
     animation: pulse 1.0s cubic-bezier(0.4, 0, 0.2, 1) infinite;
     animation-delay: 0.5s;
-    background: rgba(229, 229, 229, 0.75) no-repeat;
+    background: rgba(210, 210, 210, 0.75) no-repeat;
     border: none !important;
     border-radius: 25px;
 }
@@ -31,7 +32,7 @@ body {
         opacity: 1;
     }
     50% {
-        opacity: 0.2;
+        opacity: 0.1;
     }
     100% {
         opacity: 1;

@@ -1,0 +1,12 @@
+.app-body-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+}
+
+.app-body-container-container {
+    width: 90vw;
+    margin-top: 2vw;
+    height: 90vh;
+}
