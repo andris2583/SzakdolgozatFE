@@ -16,12 +16,14 @@
                  style="position: absolute;bottom: 5px;left: 10px;color: white;z-index: 10">{{image.name | getNoExtensionName}}</div>
         </div>
     </ng-container>
-    <ng-container *ngIf="loading">
-        <div ngxMasonryItem class="skeleton-image-div pulse" *ngFor="let height of skeletonHeights"
-             [style.height.vh]="height">
-            <div style="height: 100%;width: 100%" class="pulse"></div>
-        </div>
-    </ng-container>
+    <!--        maybe only hide it if all imgs is loaded-->
+
+    <!--    <ng-container *ngIf="loading">-->
+    <!--        <div ngxMasonryItem class="skeleton-image-div pulse" *ngFor="let height of skeletonHeights"-->
+    <!--             [style.height.vh]="height">-->
+    <!--            <div style="height: 100%;width: 100%" class="pulse"></div>-->
+    <!--        </div>-->
+    <!--    </ng-container>-->
 
 </ngx-masonry>
 

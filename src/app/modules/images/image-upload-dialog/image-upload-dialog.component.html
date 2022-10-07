@@ -1,23 +1,23 @@
 <div class="content">
-    <img *ngIf="imageUrl" src="{{imageUrl}}" alt="X" style="max-width: 40vw;max-height: 40vh">
-    <div class="form-group">
-        <label for="file">Choose File</label>
-        <input type="file"
-               id="file" multiple="multiple"
-               (change)="handleFileInput($event)">
+    <!--    <img *ngIf="imageUrl" src="{{imageUrl}}" alt="X" style="max-width: 40vw;max-height: 40vh">-->
+    <input type="file" id="upload" multiple style="display: none" (change)="filesUploaded($event)" alt=""/>
+    <label for="upload" class="area" appDragDrop (files)="filesDropped($event)"></label>
+    <div class="small-image-upload-preview-list">
+        <div *ngFor="let image of images">
+            <img src="{{image.imgB64}}" *ngIf="image.imgB64" class="small-image-upload-preview" alt="">
+        </div>
     </div>
-    <span *ngIf="imageUrl" style="color: black">{{image.name}}</span>
-    <div style="width: 50%;">
-        <span style="font-size: 1vw;color: black">Tags:</span>
-        <mat-chip-list #chipList>
-            <mat-chip *ngFor="let tag of image.tags">
-                {{tag}}
-                <button matChipRemove>
-                    <mat-icon>cancel</mat-icon>
-                </button>
-            </mat-chip>
-        </mat-chip-list>
-    </div>
+    <!--    <span *ngIf="imageUrl">{{image.name}}</span>-->
+    <!--    <div style="width: 50%;">-->
+    <!--        <mat-chip-list #chipList>-->
+    <!--            <mat-chip *ngFor="let tag of image.tags">-->
+    <!--                {{tag}}-->
+    <!--                <button matChipRemove>-->
+    <!--                    <mat-icon>cancel</mat-icon>-->
+    <!--                </button>-->
+    <!--            </mat-chip>-->
+    <!--        </mat-chip-list>-->
+    <!--    </div>-->
     <a mat-raised-button color="primary" class="open-upload-dialog-button" (click)="uploadButtonClick()">Upload</a>
 
 </div>

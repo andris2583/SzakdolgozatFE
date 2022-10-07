@@ -17,6 +17,7 @@ import {ImageUploadDialogComponent} from './image-upload-dialog/image-upload-dia
 import {MatChipsModule} from '@angular/material/chips';
 import {MatListModule} from '@angular/material/list';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
+import {DragDropDirective} from '../../directives/drag-drop/drag-drop.directive';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import {InfiniteScrollModule} from 'ngx-infinite-scroll';
         GetNoExtensionNamePipe,
         SanitizeImagePipe,
         ImageUploadDialogComponent,
+        DragDropDirective,
     ],
     imports: [
         CommonModule,

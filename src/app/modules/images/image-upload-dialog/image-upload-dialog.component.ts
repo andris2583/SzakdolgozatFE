@@ -3,6 +3,7 @@ import {MatDialogRef} from '@angular/material/dialog';
 import {ImageService} from '../../../services/image/image.service';
 import {Image} from '../../../models/image.model';
 import exifr from 'exifr';
+import {FileHandle} from '../../../directives/drag-drop/drag-drop.directive';
 
 @Component({
     selector: 'app-image-upload-dialog',
@@ -21,45 +22,62 @@ export class ImageUploadDialogComponent implements OnInit {
     @Output()
     uploadImage = new EventEmitter<Image>();
 
-    public image: Image = {} as Image;
-    public imageUrl: any;
+    public images: Image[] = [];
 
     ngOnInit(): void {
     }
 
-    handleFileInput(event: Event) {
+    filesUploaded(event: Event) {
+        let files: File[] = [];
         // @ts-ignore
-        exifr.parse(event.target.files[0], true)
-            .then((output: any) => {
-                this.image.properties = output;
-                for (let prop of Object.entries(this.image.properties)) {
-                    if (typeof prop[1] == 'object') {
-                        // @ts-ignore
-                        delete this.image.properties[prop[0]];
+        for (let file of event.target.files) {
+            files.push(file);
+        }
+        this.handleFiles(files);
+    }
+
+    filesDropped(event: FileHandle[]) {
+        let files: File[] = [];
+        for (let file of event) {
+            files.push(file.file);
+        }
+        this.handleFiles(files);
+    }
+
+    handleFiles(files: File[]) {
+        for (let i = 0; i < files.length; i++) {
+            let image = {} as Image;
+            exifr.parse(files[0], true)
+                .then((output: any) => {
+                    image.properties = output;
+                    for (let prop of Object.entries(image.properties)) {
+                        if (typeof prop[1] == 'object') {
+                            // @ts-ignore
+                            delete this.image.properties[prop[0]];
+                        }
                     }
-                }
-            });
-        // @ts-ignore
-        for (let i = 0; i < event.target.files.length; i++) {
+                });
             const reader = new FileReader();
-            // @ts-ignore
-            reader.readAsDataURL(event.target.files[i]);
+            reader.readAsDataURL(files[i]);
             reader.onload = () => {
                 this.imageService.getTags((reader.result as string).replace('data:image/jpeg;base64,', '')).subscribe(value => {
-                    this.image.tags = value;
-                    this.image.imgB64 = (reader.result as string).replace('data:image/jpeg;base64,', '');
-                    // @ts-ignore
-                    this.image.name = event.target.files[i].name;
-                    this.imageUrl = reader.result;
+                    image.tags = value;
+                    image.imgB64 = (reader.result as string).replace('data:image/jpeg;base64,', '');
+                    image.name = files[i].name;
                 });
             };
+            this.images.push(image);
         }
     }
 
     uploadButtonClick() {
-        this.imageService.insertImage(this.image).subscribe(value => {
-            this.uploadImage.emit(value);
-        });
+        for (let image of this.images) {
+            this.imageService.insertImage(image).subscribe(value => {
+                this.uploadImage.emit(value);
+            });
+        }
         this.dialogRef.close();
     }
+
+
 }
