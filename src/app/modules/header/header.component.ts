@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth/auth.service';
+import {Page} from '../../models/page.model';
 
 @Component({
     selector: 'app-header',
@@ -8,14 +9,17 @@ import {AuthService} from '../../services/auth/auth.service';
 })
 export class HeaderComponent implements OnInit {
 
-    public pages: { route: string, name: string }[] = [
-        {route: '/dashboard', name: 'Dashboard'},
-        {route: '/images/all', name: 'Images'},
-        {route: '/tags', name: 'Tags'},
+    public pages: Page[] = [
+        {route: '/dashboard', name: 'Dashboard', protected: true},
+        {route: '/images/all', name: 'Images', protected: true},
+        {route: '/tags', name: 'Tags', protected: true},
+        {route: '/login', name: 'Login', protected: false},
+        {route: '/register', name: 'Register', protected: false},
     ];
 
-    public loginPage: { route: string, name: string } = {route: '/login', name: 'Login'};
-    public profilePage: { route: string, name: string } = {route: '/profile', name: 'Profile'};
+    public loginPage: Page = {route: '/login', name: 'Login', protected: false};
+    public registerPage: Page = {route: '/register', name: 'Register', protected: false};
+    public profilePage: Page = {route: '/profile', name: 'Profile', protected: true};
 
     constructor(private authService: AuthService) {
     }
@@ -23,7 +27,12 @@ export class HeaderComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    logOut() {
-        this.authService.logOut();
+    shouldPageBeShown(page: Page): boolean {
+        let loggedIn = this.authService.isLoggedIn;
+        if (loggedIn) {
+            return page.protected;
+        } else {
+            return !page.protected;
+        }
     }
 }

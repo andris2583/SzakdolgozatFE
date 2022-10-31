@@ -12,7 +12,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {LoginModule} from './modules/login/login.module';
 import {ProfileComponent} from './modules/profile/profile.component';
 import {MatButtonModule} from '@angular/material/button';
-import { RegisterComponent } from './modules/register/register.component';
+import {RegisterComponent} from './modules/register/register.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { RegisterComponent } from './modules/register/register.component';
         FooterModule,
         HttpClientModule,
         LoginModule,
-        MatButtonModule
+        MatButtonModule,
+        ReactiveFormsModule
     ],
     providers: [
         // {

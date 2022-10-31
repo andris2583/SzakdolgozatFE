@@ -42,11 +42,11 @@ export class AuthService {
 
     get isLoggedIn(): boolean {
         let authToken = localStorage.getItem('user');
-        console.log(authToken);
         return authToken !== null;
     }
 
     logOut() {
         localStorage.removeItem('user');
+        this.router.navigate(['login']);
     }
 }

@@ -4,7 +4,12 @@
             <mat-icon>menu</mat-icon>
         </button>
         <span>My App</span>
-        <a *ngFor="let page of pages" mat-button [routerLink]="page.route">{{page.name}}</a>
-        <a mat-button [routerLink]="profilePage.route">Profile</a>
+        <a *ngFor="let page of pages" mat-button [class.hidden]="!shouldPageBeShown(page)" [routerLink]="page.route">
+            <ng-container *ngIf="shouldPageBeShown(page)">
+                {{page.name}}
+            </ng-container>
+        </a>
+        <a style="position: absolute;right: 2vw" *ngIf="shouldPageBeShown(profilePage)" mat-button
+           [routerLink]="profilePage.route">Profile</a>
     </mat-toolbar-row>
 </mat-toolbar>

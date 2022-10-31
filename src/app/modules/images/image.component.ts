@@ -41,7 +41,6 @@ export class ImageComponent implements OnInit {
     }
 
     loadImageData() {
-        console.log('scroll');
         this.loading = true;
         this.imageService.getImages(this.batchImageRequest).subscribe(value => {
             this.images = this.images.concat(value);
