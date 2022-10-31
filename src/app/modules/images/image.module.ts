@@ -18,6 +18,7 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatListModule} from '@angular/material/list';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 import {DragDropDirective} from '../../directives/drag-drop/drag-drop.directive';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import {DragDropDirective} from '../../directives/drag-drop/drag-drop.directive'
         MatChipsModule,
         MatListModule,
         InfiniteScrollModule,
+        MatTooltipModule,
     ],
     providers: [
         SanitizeImagePipe

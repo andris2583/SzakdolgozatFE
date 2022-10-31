@@ -9,11 +9,17 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HeaderModule} from './modules/header/header.module';
 import {FooterModule} from './modules/footer/footer.module';
 import {HttpClientModule} from '@angular/common/http';
+import {LoginModule} from './modules/login/login.module';
+import {ProfileComponent} from './modules/profile/profile.component';
+import {MatButtonModule} from '@angular/material/button';
+import { RegisterComponent } from './modules/register/register.component';
 
 
 @NgModule({
     declarations: [
         AppComponent,
+        ProfileComponent,
+        RegisterComponent,
     ],
     imports: [
         BrowserModule,
@@ -23,9 +29,17 @@ import {HttpClientModule} from '@angular/common/http';
         BrowserAnimationsModule,
         HeaderModule,
         FooterModule,
-        HttpClientModule
+        HttpClientModule,
+        LoginModule,
+        MatButtonModule
     ],
-    providers: [],
+    providers: [
+        // {
+        //     provide: HTTP_INTERCEPTORS,
+        //     useClass: AuthInterceptor,
+        //     multi: true
+        // },
+    ],
     exports: [],
     bootstrap: [AppComponent]
 })

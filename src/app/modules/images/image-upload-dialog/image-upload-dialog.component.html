@@ -3,8 +3,11 @@
     <input type="file" id="upload" multiple style="display: none" (change)="filesUploaded($event)" alt=""/>
     <label for="upload" class="area" appDragDrop (files)="filesDropped($event)"></label>
     <div class="small-image-upload-preview-list">
-        <div *ngFor="let image of images">
-            <img src="{{image.imgB64}}" *ngIf="image.imgB64" class="small-image-upload-preview" alt="">
+        <div *ngFor="let image of images"
+             matTooltip="{{getImageTagsString(image)}}"
+             matTooltipPosition="below">
+            <!--            <img src="{{image.imgB64}}" *ngIf="image.imgB64" class="small-image-upload-preview" alt="">-->
+            <img src="{{uploadImagePlaceholder}}" *ngIf="image.imgB64" class="small-image-upload-preview" alt="">
         </div>
     </div>
     <!--    <span *ngIf="imageUrl">{{image.name}}</span>-->

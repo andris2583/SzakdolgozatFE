@@ -28,7 +28,7 @@
 ## Extra funkciók
 
 - [] Filterek (pl: szépia, élénk, film)
-- [] EXIF információ feldolgozása
+- [X] EXIF információ feldolgozása
     - [] Térképen lokáció
     - [] Idővonal
     - [] GPS koordináta alapján szűrés
@@ -41,4 +41,8 @@
 - ~~look into Tensorflow - opencv auto image tagging~~
 - ~~image masonry loading pulse skeleton, random height thing to different own component~~
 - similar images under
-- file upload area
+- ~~file upload area~~
+- ~~image upload dialog tags for images~~
+- ~~image upload dialog preview for images~~
+- categories most popular, few preview images in category card
+- similar images based on tag, maybe 2-3 tags the match
