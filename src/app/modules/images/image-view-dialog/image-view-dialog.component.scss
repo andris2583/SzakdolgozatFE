@@ -75,3 +75,42 @@
 .hide {
     display: none;
 }
+
+.masonry-item-width {
+    //                    - is 20*(rows-1)
+    width: calc((80vw * 0.9 - (75px)) / 4);
+}
+
+.image-hover-data {
+    display: none;
+}
+
+.image-masonry-container {
+    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+    margin-bottom: 20px;
+    padding-bottom: -6px;
+}
+
+.image-masonry-container:hover::after {
+    box-shadow: 1px 200px 80px -131px rgba(0, 0, 0, 0.6) inset, 1px -200px 80px -131px rgba(0, 0, 0, 0.6) inset;
+    -webkit-box-shadow: 1px 200px 80px -131px rgba(0, 0, 0, 0.6) inset, 1px -200px 80px -131px rgba(0, 0, 0, 0.6) inset;
+    -moz-box-shadow: 1px 200px 80px -131px rgba(0, 0, 0, 0.6) inset, 1px -200px 80px -131px rgba(0, 0, 0, 0.6) inset;
+    content: "";
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.image-masonry-container:hover {
+    transform: scale(1.04);
+}
+
+.image-hover-data {
+    display: none;
+}
+
+.image-masonry-container:hover .image-hover-data {
+    display: block;
+}

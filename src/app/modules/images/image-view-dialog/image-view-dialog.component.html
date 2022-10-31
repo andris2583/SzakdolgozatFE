@@ -28,6 +28,22 @@
             </mat-chip-list>
         </div>
     </div>
+    <div
+        style="font-size: 30px;display: flex;margin-bottom: 2vh;margin-top: 2vh">
+        Similar images
+    </div>
+    <ngx-masonry style="width: 90%;margin-bottom: 2vh" [options]="options" [ordered]="true"
+                 *ngIf="similarImagesLoaded">
+        <ng-container *ngIf="similarImages.length != 0">
+            <div ngxMasonryItem *ngFor="let image of similarImages" class="image-masonry-container masonry-item-width"
+                 (click)="imageClicked(image)">
+                <img class="masonry-item-width" style="margin-bottom: -6px;"
+                     [src]="image.imgB64 | sanitizeImage" alt="X">
+                <div class="image-hover-data"
+                     style="position: absolute;bottom: 5px;left: 10px;color: white;z-index: 10">{{image.name | getNoExtensionName}}</div>
+            </div>
+        </ng-container>
+    </ngx-masonry>
     <mat-list>
         <mat-list-item *ngFor="let prop of  getImagePropertyEntries()">{{prop[0]}}
             : {{prop[1]}}</mat-list-item>

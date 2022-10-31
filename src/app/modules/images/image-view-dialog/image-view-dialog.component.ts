@@ -2,6 +2,7 @@ import {Component, EventEmitter, HostListener, Inject, OnInit, Output} from '@an
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Image} from '../../../models/image.model';
 import {ImageService} from '../../../services/image/image.service';
+import {NgxMasonryOptions} from 'ngx-masonry';
 
 @Component({
     selector: 'app-image-view-dialog',
@@ -20,13 +21,24 @@ export class ImageViewDialogComponent implements OnInit {
 
     images: Image[] = [];
 
+    similarImages: Image[] = [];
+
     loading: boolean = true;
+
+    similarImagesLoaded: boolean = true;
 
     @Output()
     deletedImageEvent = new EventEmitter<Image>();
 
+    options: NgxMasonryOptions = {
+        gutter: 20,
+    };
+
     ngOnInit(): void {
         this.dialogRef.updateSize('80%', '80%');
+        this.imageService.getSimilarImages(this.image.tags).subscribe(value => {
+            this.similarImages = value.filter(image => image.id != this.image.id);
+        });
     }
 
     downloadButtonClick() {
@@ -45,21 +57,33 @@ export class ImageViewDialogComponent implements OnInit {
 
     goLeft() {
         this.loading = true;
+        this.similarImagesLoaded = false;
         // @ts-ignore
         if (this.images.indexOf(this.image) == 0) {
             this.loading = false;
+            this.similarImagesLoaded = true;
         } else {
             this.image = this.images[this.images.indexOf(this.image) - 1];
+            this.imageService.getSimilarImages(this.image.tags).subscribe(value => {
+                this.similarImages = value.filter(image => image.id != this.image.id);
+                this.similarImagesLoaded = true;
+            });
         }
     }
 
     goRight() {
         this.loading = true;
+        this.similarImagesLoaded = false;
         // @ts-ignore
         if (this.images.indexOf(this.image) == this.images.length - 1) {
             this.loading = false;
+            this.similarImagesLoaded = true;
         } else {
             this.image = this.images[this.images.indexOf(this.image) + 1];
+            this.imageService.getSimilarImages(this.image.tags).subscribe(value => {
+                this.similarImages = value.filter(image => image.id != this.image.id);
+                this.similarImagesLoaded = true;
+            });
         }
     }
 
@@ -88,4 +112,14 @@ export class ImageViewDialogComponent implements OnInit {
         return Object.entries(this.image.properties);
     }
 
+    imageClicked(image: Image) {
+        this.loading = true;
+        this.similarImagesLoaded = false;
+        this.image = image;
+        this.imageService.getSimilarImages(this.image.tags).subscribe(value => {
+            this.images = this.similarImages;
+            this.similarImages = value.filter(image => image.id != this.image.id);
+            this.similarImagesLoaded = true;
+        });
+    }
 }

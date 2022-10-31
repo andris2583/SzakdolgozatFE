@@ -41,4 +41,8 @@ export class ImageService {
     getTags(imageB64: string): Observable<string[]> {
         return this.httpClient.put<string[]>(this.baseUrl + '/getTags/', imageB64);
     }
+
+    getSimilarImages(tags: string[]): Observable<Image[]> {
+        return this.httpClient.put<Image[]>(this.baseUrl + '/getSimilarImages/', tags);
+    }
 }
