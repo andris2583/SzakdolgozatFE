@@ -27,7 +27,6 @@ export class ImageComponent implements OnInit {
     };
 
     images: Image[] = [];
-    imageToUpload: Image = {} as Image;
     tagName: string | null = null;
     skeletonHeights: number[] = [];
     batchImageRequest: BatchImageRequest = {tag: 'all', batchSize: 24, pageCount: 0};

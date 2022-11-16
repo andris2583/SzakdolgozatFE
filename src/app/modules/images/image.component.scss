@@ -1,3 +1,5 @@
+@import "src/styles";
+
 #content {
     width: 95vw;
 }
@@ -34,7 +36,15 @@
 
 .masonry-item-width {
     // - is 20*(rows-1)
+    //@media screen and (min-width: $small) {
+    //    ma: calc((90vw - (40px)) / 3);
+    //}
+    //@media screen and (min-width: $medium) {
+    //    width: calc((90vw - (60px)) / 4);
+    //}
+    //@media screen and (min-width: $large) {
     width: calc((90vw - (80px)) / 5);
+    //}
 }
 
 .skeleton-image-div {

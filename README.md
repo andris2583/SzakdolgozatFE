@@ -40,9 +40,12 @@
 - ~~create good EXIF extractor~~
 - ~~look into Tensorflow - opencv auto image tagging~~
 - ~~image masonry loading pulse skeleton, random height thing to different own component~~
-- similar images under
+- ~~similar images under~~
 - ~~file upload area~~
 - ~~image upload dialog tags for images~~
 - ~~image upload dialog preview for images~~
 - categories most popular, few preview images in category card
-- similar images based on tag, maybe 2-3 tags the match
+- ~~similar images based on tag, maybe 2-3 tags the match~~
+- searchbar to header, suggest tags, can search for image names
+- Batchimagerequest tag to tags, exclusive or inclusive search, crossection or union
+- 

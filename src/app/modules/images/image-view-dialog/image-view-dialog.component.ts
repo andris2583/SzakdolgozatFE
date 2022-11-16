@@ -25,7 +25,7 @@ export class ImageViewDialogComponent implements OnInit {
 
     loading: boolean = true;
 
-    similarImagesLoaded: boolean = true;
+    similarImagesLoaded: boolean = false;
 
     @Output()
     deletedImageEvent = new EventEmitter<Image>();
@@ -38,6 +38,7 @@ export class ImageViewDialogComponent implements OnInit {
         this.dialogRef.updateSize('80%', '80%');
         this.imageService.getSimilarImages(this.image.tags).subscribe(value => {
             this.similarImages = value.filter(image => image.id != this.image.id);
+            this.similarImagesLoaded = true;
         });
     }
 

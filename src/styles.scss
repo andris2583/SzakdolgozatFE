@@ -1,6 +1,11 @@
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 @import "@material/image-list/mdc-image-list.import.scss";
 
+
+$small: 767.98pxpx;
+$medium: 991.98px;
+$large: 1199.98px;
+
 html, body {
     height: 100%;
     overflow: hidden;
@@ -65,4 +70,3 @@ body {
 //* {
 //  user-select: none;
 //}
-
