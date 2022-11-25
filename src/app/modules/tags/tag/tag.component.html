@@ -1,4 +1,4 @@
-<div class="tag-image-container">
+<div class="tag-image-container" routerLink="/images/{{tagName}}">
     <img *ngIf="previewImages.length != 0"
          [src]="getPreviewImage(0) | sanitizeImage"
          class="image-top"/>
@@ -18,10 +18,11 @@
 
         <div *ngIf="previewImages.length == 0" class="image-bottom pulse"></div>
 
+        <div *ngIf="previewImages.length != 0" class="image-count">+{{imageCount}}</div>
+
         <img *ngIf="previewImages.length != 0"
              [src]="getPreviewImage(3) | sanitizeImage"
              class="image-bottom"/>
-
         <div *ngIf="previewImages.length == 0" class="image-bottom pulse"></div>
 
     </div>

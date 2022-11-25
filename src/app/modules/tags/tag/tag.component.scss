@@ -26,8 +26,8 @@
 .image-top {
     overflow: hidden;
     width: 100%;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    border-top-left-radius: 20px !important;
+    border-top-right-radius: 20px !important;
     height: 250px;
     transition: 0.5s;
     margin-bottom: 4px;
@@ -44,12 +44,12 @@
 
 .image-bottom:first-child {
     margin-left: 0;
-    border-bottom-left-radius: 20px;
+    border-bottom-left-radius: 20px !important;
 }
 
 .image-bottom:last-child {
     margin-right: 0;
-    border-bottom-right-radius: 20px;
+    border-bottom-right-radius: 20px !important;
 }
 
 .image-bottom-container {
@@ -57,6 +57,7 @@
     width: 100%;
     margin-top: 4px;
     height: 100px;
+    position: relative;
 }
 
 
@@ -67,4 +68,13 @@
     text-overflow: ellipsis;
     margin-top: 4px;
     font-size: 18px;
+}
+
+.image-count {
+    position: absolute;
+    font-size: 40px;
+    color: white;
+    right: 10%;
+    top: 40%;
+    z-index: 1;
 }

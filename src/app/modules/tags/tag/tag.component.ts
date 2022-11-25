@@ -14,12 +14,17 @@ export class TagComponent implements OnInit {
 
     previewImages: Image[] = [];
 
+    imageCount: number | null = null;
+
     constructor(private imageService: ImageService) {
     }
 
     ngOnInit(): void {
         this.imageService.getImages({tag: this.tagName, pageCount: 0, batchSize: 4}).subscribe(value => {
             this.previewImages = value;
+        });
+        this.imageService.getImageCountWithTag(this.tagName).subscribe(value => {
+            this.imageCount = Math.max(0, value - 4);
         });
     }
 

@@ -45,4 +45,8 @@ export class ImageService {
     getSimilarImages(tags: string[]): Observable<Image[]> {
         return this.httpClient.put<Image[]>(this.baseUrl + '/getSimilarImages/', tags);
     }
+
+    getImageCountWithTag(tag: string): Observable<number> {
+        return this.httpClient.put<number>(this.baseUrl + '/getImageCountWithTag/', tag);
+    }
 }
