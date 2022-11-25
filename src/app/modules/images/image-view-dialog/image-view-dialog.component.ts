@@ -1,8 +1,8 @@
-import {Component, EventEmitter, HostListener, Inject, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, HostListener, Inject, OnInit, Output, ViewChildren} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Image} from '../../../models/image.model';
 import {ImageService} from '../../../services/image/image.service';
-import {NgxMasonryOptions} from 'ngx-masonry';
+import {NgxMasonryComponent, NgxMasonryOptions} from 'ngx-masonry';
 
 @Component({
     selector: 'app-image-view-dialog',
@@ -33,6 +33,9 @@ export class ImageViewDialogComponent implements OnInit {
     options: NgxMasonryOptions = {
         gutter: 20,
     };
+
+    @ViewChildren('similarImageList')
+    similarImageList!: NgxMasonryComponent;
 
     ngOnInit(): void {
         this.dialogRef.updateSize('80%', '80%');
@@ -123,4 +126,10 @@ export class ImageViewDialogComponent implements OnInit {
             this.similarImagesLoaded = true;
         });
     }
+
+    onSimilarImagesLoaded() {
+        this.similarImageList.reloadItems();
+        this.similarImageList.layout();
+    }
+
 }

@@ -32,9 +32,9 @@
         style="font-size: 30px;display: flex;margin-bottom: 2vh;margin-top: 2vh">
         Similar images
     </div>
-    <ngx-masonry style="width: 90%;margin-bottom: 2vh" [options]="options" [ordered]="true"
-                 *ngIf="similarImagesLoaded">
-        <ng-container *ngIf="similarImages.length != 0">
+    <ngx-masonry #similarImageList style="width: 90%;margin-bottom: 2vh" [options]="options" [ordered]="true"
+                 (layoutComplete)="onSimilarImagesLoaded()" *ngIf="!loading">
+        <ng-container>
             <div ngxMasonryItem *ngFor="let image of similarImages" class="image-masonry-container masonry-item-width"
                  (click)="imageClicked(image)">
                 <img class="masonry-item-width" style="margin-bottom: -6px;"
