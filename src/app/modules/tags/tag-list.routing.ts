@@ -1,11 +1,11 @@
 import {RouterModule, Routes} from '@angular/router';
 import {ModuleWithProviders} from '@angular/core';
-import {TagComponent} from './tag.component';
+import {TagListComponent} from './tag-list.component';
 
 const routes: Routes = [
     {
         path: '',
-        component: TagComponent,
+        component: TagListComponent,
     },
     // {
     //   path: 'other',
@@ -13,4 +13,4 @@ const routes: Routes = [
     // }
 ];
 
-export const TagRouting: ModuleWithProviders<any> = RouterModule.forChild(routes);
+export const TagListRouting: ModuleWithProviders<any> = RouterModule.forChild(routes);

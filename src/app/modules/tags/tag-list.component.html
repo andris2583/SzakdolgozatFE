@@ -1,0 +1,10 @@
+<div style="font-size: 30px;display: flex;align-items: center;justify-content: center;margin-bottom: 2vh;">Categories
+</div>
+<div class="tag-list" infiniteScroll
+     [infiniteScrollDistance]="0"
+     (scrolled)="loadTags()"
+     [fromRoot]="true"
+     [infiniteScrollContainer]="'.app-body-container'"
+     [scrollWindow]="false">
+    <app-tag *ngFor="let tag of shownTags" [tagName]="tag.name" routerLink="/images/{{tag.name}}"></app-tag>
+</div>

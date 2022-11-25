@@ -4,7 +4,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {AppComponent} from './app.component';
 import {ModuleRouting} from './app.routing';
 import {DashboardModule} from './modules/dashboard/dashboard.module';
-import {ImageModule} from './modules/images/image.module';
+import {ImageListModule} from './modules/images/image-list.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HeaderModule} from './modules/header/header.module';
 import {FooterModule} from './modules/footer/footer.module';
@@ -14,6 +14,7 @@ import {ProfileComponent} from './modules/profile/profile.component';
 import {MatButtonModule} from '@angular/material/button';
 import {RegisterComponent} from './modules/register/register.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import {TagListModule} from './modules/tags/tag-list.module';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import {ReactiveFormsModule} from '@angular/forms';
         BrowserModule,
         ModuleRouting,
         DashboardModule,
-        ImageModule,
+        ImageListModule,
+        TagListModule,
         BrowserAnimationsModule,
         HeaderModule,
         FooterModule,
@@ -42,7 +44,6 @@ import {ReactiveFormsModule} from '@angular/forms';
         //     multi: true
         // },
     ],
-    exports: [],
     bootstrap: [AppComponent]
 })
 export class AppModule {

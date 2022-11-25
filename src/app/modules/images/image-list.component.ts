@@ -3,23 +3,27 @@ import {Image} from '../../models/image.model';
 import {ImageService} from '../../services/image/image.service';
 import {MatDialog} from '@angular/material/dialog';
 import {ImageViewDialogComponent} from './image-view-dialog/image-view-dialog.component';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NgxMasonryOptions} from 'ngx-masonry';
 import {ImageUploadDialogComponent} from './image-upload-dialog/image-upload-dialog.component';
 import {BatchImageRequest} from '../../models/batch-image-request.model';
 
 @Component({
-    selector: 'app-images',
-    templateUrl: './image.component.html',
-    styleUrls: ['./image.component.scss']
+    selector: 'app-image-list',
+    templateUrl: './image-list.component.html',
+    styleUrls: ['./image-list.component.scss']
 })
-export class ImageComponent implements OnInit {
+export class ImageListComponent implements OnInit {
 
     constructor(
         private imageService: ImageService,
         public dialog: MatDialog,
-        private activatedRoute: ActivatedRoute
+        private activatedRoute: ActivatedRoute,
+        private router: Router
     ) {
+        this.router.routeReuseStrategy.shouldReuseRoute = () => {
+            return false;
+        };
     }
 
     options: NgxMasonryOptions = {

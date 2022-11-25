@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
     public pages: Page[] = [
         {route: '/dashboard', name: 'Dashboard', protected: true},
         {route: '/images/all', name: 'Images', protected: true},
-        {route: '/tags', name: 'Tags', protected: true},
+        {route: '/categories', name: 'Categories', protected: true},
         {route: '/login', name: 'Login', protected: false},
         {route: '/register', name: 'Register', protected: false},
     ];

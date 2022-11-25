@@ -1,0 +1,35 @@
+<div class="tag-image-container">
+    <img *ngIf="previewImages.length != 0"
+         [src]="getPreviewImage(0) | sanitizeImage"
+         class="image-top"/>
+    <div *ngIf="previewImages.length == 0" class="image-top pulse">
+
+    </div>
+    <div class="image-bottom-container">
+        <img *ngIf="previewImages.length != 0"
+             [src]="getPreviewImage(1) | sanitizeImage"
+             class="image-bottom"/>
+
+        <div *ngIf="previewImages.length == 0" class="image-bottom pulse"></div>
+
+        <img *ngIf="previewImages.length != 0"
+             [src]="getPreviewImage(2) | sanitizeImage"
+             class="image-bottom"/>
+
+        <div *ngIf="previewImages.length == 0" class="image-bottom pulse"></div>
+
+        <img *ngIf="previewImages.length != 0"
+             [src]="getPreviewImage(3) | sanitizeImage"
+             class="image-bottom"/>
+
+        <div *ngIf="previewImages.length == 0" class="image-bottom pulse"></div>
+
+    </div>
+    <div *ngIf="previewImages.length != 0"
+         class="tag-name-container">
+        {{tagName}}
+    </div>
+    <div *ngIf="previewImages.length == 0"
+         class="tag-name-container" style="height: 20px;">
+    </div>
+</div>

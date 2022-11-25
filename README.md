@@ -36,7 +36,6 @@
 ## TODO
 
 - ~~BE image store should be done with ids instead of names~~
-- save img w,h to image entity, so loading ghost w,h is good
 - ~~create good EXIF extractor~~
 - ~~look into Tensorflow - opencv auto image tagging~~
 - ~~image masonry loading pulse skeleton, random height thing to different own component~~
@@ -44,8 +43,13 @@
 - ~~file upload area~~
 - ~~image upload dialog tags for images~~
 - ~~image upload dialog preview for images~~
-- categories most popular, few preview images in category card
 - ~~similar images based on tag, maybe 2-3 tags the match~~
 - searchbar to header, suggest tags, can search for image names
 - Batchimagerequest tag to tags, exclusive or inclusive search, crossection or union
-- 
+- Dashboard with popular categories, themes,
+- categories most popular, few preview images in category card
+- save img w,h to image entity, so loading ghost w,h is good
+- like,dislike, comment
+- order by likes/dislikes/comments/upload,date/
+- filter by date
+- create album automatically

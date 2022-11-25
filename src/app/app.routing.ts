@@ -17,12 +17,12 @@ const routes: Routes = [
     {
         path: 'images/:tag',
         canActivate: [AuthGuard],
-        loadChildren: () => import('./modules/images/image.module').then(m => m.ImageModule)
+        loadChildren: () => import('./modules/images/image-list.module').then(m => m.ImageListModule)
     },
     {
-        path: 'tags',
+        path: 'categories',
         canActivate: [AuthGuard],
-        loadChildren: () => import('./modules/tags/tag.module').then(m => m.TagModule)
+        loadChildren: () => import('./modules/tags/tag-list.module').then(m => m.TagListModule)
     },
     {
         path: 'profile',
