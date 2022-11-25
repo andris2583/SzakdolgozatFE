@@ -3,14 +3,19 @@
         <!--        <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">-->
         <!--            <mat-icon>menu</mat-icon>-->
         <!--        </button>-->
-        <span>My App</span>
-        <a *ngFor="let page of pages" mat-button [class.hidden]="!shouldPageBeShown(page)"
+        <span class="header-element">My App</span>
+        <a class="header-element header-link" *ngFor="let page of pages" mat-button
+           [class.hidden]="!shouldPageBeShown(page)"
            [routerLink]="page.route">
             <ng-container *ngIf="shouldPageBeShown(page)">
                 {{page.name}}
             </ng-container>
         </a>
-        <a style="margin-left: auto" *ngIf="shouldPageBeShown(profilePage)" mat-button
+        <div class="searchbar-container">
+            <app-searchbar></app-searchbar>
+        </div>
+        <a class="header-element header-link" style="margin-left: auto" *ngIf="shouldPageBeShown(profilePage)"
+           mat-button
            [routerLink]="profilePage.route">Profile</a>
     </mat-toolbar-row>
 </mat-toolbar>

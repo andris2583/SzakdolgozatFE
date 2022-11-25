@@ -1,0 +1,7 @@
+<div class="searchbar-container">
+    <input class="search__input" id="search-input" type="text" placeholder="Search" (focus)="onSearchFocus()"
+           (blur)="onSearchBlur()"
+           (keydown)="onKeyDown($event)"
+           (keyup)="onKeyUp($event)" [(ngModel)]="searchbarValue">
+    <div *ngIf="this.searchbarInFocus" class="dropdown-menu" [@inOutAnimation]></div>
+</div>
