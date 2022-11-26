@@ -17,6 +17,10 @@ export class TagListComponent implements OnInit {
 
     pageCount: number = 0;
 
+    tagHeight: number = 400;
+
+    tagWidth: number = 370;
+
     constructor(
         private tagService: TagService,
     ) {

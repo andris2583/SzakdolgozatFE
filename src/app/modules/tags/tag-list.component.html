@@ -6,5 +6,5 @@
      [fromRoot]="true"
      [infiniteScrollContainer]="'.app-body-container'"
      [scrollWindow]="false">
-    <app-tag *ngFor="let tag of shownTags" [tagName]="tag.name"></app-tag>
+    <app-tag *ngFor="let tag of shownTags" [width]="tagWidth" [height]="tagHeight" [tagName]="tag.name"></app-tag>
 </div>

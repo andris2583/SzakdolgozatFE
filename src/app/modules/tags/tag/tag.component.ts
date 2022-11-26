@@ -12,6 +12,12 @@ export class TagComponent implements OnInit {
     @Input()
     tagName: string = 'N/A';
 
+    @Input()
+    width: number = 0;
+
+    @Input()
+    height: number = 0;
+
     previewImages: Image[] = [];
 
     imageCount: number | null = null;
@@ -36,5 +42,9 @@ export class TagComponent implements OnInit {
             return this.previewImages[index].imgB64;
         }
 
+    }
+
+    getTagNameFontSize() {
+        return Math.max((this.height * 0.0625), 14);
     }
 }

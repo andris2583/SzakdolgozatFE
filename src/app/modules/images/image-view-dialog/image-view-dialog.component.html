@@ -14,11 +14,6 @@
             <img class="image" [src]="'http://localhost:8080/image/getImageData/'+image.id"
                  alt="Failed to load image..."
                  (load)="onLoad()">
-            <!--    <lib-ngx-image-zoom class="image" [fullImage]="'http://localhost:8080/image/getImageData/'+image.id" zoomMode="hover"-->
-            <!--                        [thumbImage]="'http://localhost:8080/thumbnail/getThumbnailImageByImageId/'+image.id" (load)="onLoad()"-->
-            <!--                        [enableScrollZoom]="true" [magnification]="0.2" [minZoomRatio]="0.2" [scrollStepSize]="0.3">-->
-
-            <!--    </lib-ngx-image-zoom>-->
         </div>
         <div style="width: 200px;">
             <mat-chip-list #chipList>
@@ -33,7 +28,7 @@
         Similar images
     </div>
     <ngx-masonry #similarImageList style="width: 90%;margin-bottom: 2vh" [options]="options" [ordered]="true"
-                 (layoutComplete)="onSimilarImagesLoaded()" *ngIf="!loading">
+                 *ngIf="!loading">
         <ng-container>
             <div ngxMasonryItem *ngFor="let image of similarImages" class="image-masonry-container masonry-item-width"
                  (click)="imageClicked(image)">

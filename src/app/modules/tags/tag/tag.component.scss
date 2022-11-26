@@ -3,24 +3,16 @@
 
 
 .tag-image-container {
-    width: 370px;
     display: flex;
     flex-direction: column;
     margin: 20px;
     cursor: pointer;
 }
 
-.tag-image-container:hover .image-bottom {
+.tag-image-container:hover .image-bottom,
+.tag-image-container:hover .image-top,
+.tag-image-container:hover .image-bottom-last {
     filter: brightness(0.7);
-}
-
-.tag-image-container:hover .image-top {
-    filter: brightness(0.7);
-}
-
-.image-top-container {
-    height: 250px;
-    margin-bottom: 4px;
 }
 
 .image-top {
@@ -28,10 +20,10 @@
     width: 100%;
     border-top-left-radius: 20px !important;
     border-top-right-radius: 20px !important;
-    height: 250px;
     transition: 0.5s;
     margin-bottom: 4px;
     object-fit: cover;
+    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
 }
 
 .image-bottom {
@@ -40,6 +32,7 @@
     margin: 0 4px;
     transition: 0.5s;
     object-fit: cover;
+    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
 }
 
 .image-bottom:first-child {
@@ -47,16 +40,29 @@
     border-bottom-left-radius: 20px !important;
 }
 
-.image-bottom:last-child {
-    margin-right: 0;
+.image-bottom-last-container {
+    position: relative;
+    margin-left: 4px;
+    transition: 0.5s;
+    width: calc((100% - 16px) / 3);
+    height: 100%;
+    position: relative;
     border-bottom-right-radius: 20px !important;
+}
+
+.image-bottom-last {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    transition: 0.5s;
+    border-bottom-right-radius: 20px !important;
+    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
 }
 
 .image-bottom-container {
     display: flex;
     width: 100%;
     margin-top: 4px;
-    height: 100px;
     position: relative;
 }
 
@@ -64,18 +70,19 @@
 .tag-name-container {
     overflow: hidden;
     max-width: 100%;
+    border-radius: 20px;
     white-space: nowrap;
     text-overflow: ellipsis;
     margin-top: 10px;
-    font-size: 25px;
-    padding-left: 20px;
+    min-height: 20px;
+    font-weight: 500;
 }
 
 .image-count {
     position: absolute;
-    font-size: 40px;
     color: white;
-    right: 10%;
-    top: 40%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     z-index: 1;
 }

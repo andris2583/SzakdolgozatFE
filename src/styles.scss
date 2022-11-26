@@ -29,6 +29,8 @@ body {
     animation-delay: 0.5s;
     background: rgba(210, 210, 210, 0.75) no-repeat;
     border: none !important;
+    box-shadow: none !important;
+    filter: brightness(1) !important;
 }
 
 .rounded{
@@ -48,7 +50,6 @@ body {
 }
 
 //Scrollbar
-/* width */
 ::-webkit-scrollbar {
     width: 15px;
 }
@@ -69,6 +70,15 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: #c8c8c8;
 }
+
+html, body {
+  scroll-behavior: smooth;
+}
+
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
 
 //* {
 //  user-select: none;

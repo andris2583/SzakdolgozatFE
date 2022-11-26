@@ -1,8 +1,8 @@
 import {Component, EventEmitter, HostListener, Inject, OnInit, Output, ViewChildren} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Image} from '../../../models/image.model';
 import {ImageService} from '../../../services/image/image.service';
 import {NgxMasonryComponent, NgxMasonryOptions} from 'ngx-masonry';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 @Component({
     selector: 'app-image-view-dialog',
@@ -125,11 +125,6 @@ export class ImageViewDialogComponent implements OnInit {
             this.similarImages = value.filter(image => image.id != this.image.id);
             this.similarImagesLoaded = true;
         });
-    }
-
-    onSimilarImagesLoaded() {
-        this.similarImageList.reloadItems();
-        this.similarImageList.layout();
     }
 
 }

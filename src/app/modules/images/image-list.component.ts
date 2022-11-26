@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {Image} from '../../models/image.model';
 import {ImageService} from '../../services/image/image.service';
-import {MatDialog} from '@angular/material/dialog';
 import {ImageViewDialogComponent} from './image-view-dialog/image-view-dialog.component';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgxMasonryOptions} from 'ngx-masonry';
 import {ImageUploadDialogComponent} from './image-upload-dialog/image-upload-dialog.component';
 import {BatchImageRequest} from '../../models/batch-image-request.model';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
     selector: 'app-image-list',
@@ -60,7 +60,7 @@ export class ImageListComponent implements OnInit {
             autoFocus: false,
         });
         let instance = dialogRef.componentInstance;
-        instance.deletedImageEvent.subscribe(deletedImage => {
+        instance.deletedImageEvent.subscribe((deletedImage: Image) => {
             this.images.splice(this.images.indexOf(deletedImage), 1);
         });
         instance.images = this.images;
@@ -72,7 +72,7 @@ export class ImageListComponent implements OnInit {
             autoFocus: false,
         });
         let instance = dialogRef.componentInstance;
-        instance.uploadImage.subscribe(uploadedImage => {
+        instance.uploadImage.subscribe((uploadedImage: Image) => {
             this.images.push(uploadedImage);
         });
     }
