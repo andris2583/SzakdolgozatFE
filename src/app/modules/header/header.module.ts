@@ -17,7 +17,8 @@ import {FormsModule} from '@angular/forms';
         SearchbarComponent
     ],
     exports: [
-        HeaderComponent
+        HeaderComponent,
+        SearchbarComponent
     ],
     imports: [
         CommonModule,
