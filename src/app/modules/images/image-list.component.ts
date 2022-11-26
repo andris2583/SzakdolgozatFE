@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {Image} from '../../models/image.model';
 import {ImageService} from '../../services/image/image.service';
 import {ImageViewDialogComponent} from './image-view-dialog/image-view-dialog.component';
@@ -15,17 +15,6 @@ import {MatDialog} from '@angular/material/dialog';
 })
 export class ImageListComponent implements OnInit {
 
-    constructor(
-        private imageService: ImageService,
-        public dialog: MatDialog,
-        private activatedRoute: ActivatedRoute,
-        private router: Router
-    ) {
-        this.router.routeReuseStrategy.shouldReuseRoute = () => {
-            return false;
-        };
-    }
-
     options: NgxMasonryOptions = {
         gutter: 20,
     };
@@ -35,6 +24,44 @@ export class ImageListComponent implements OnInit {
     skeletonHeights: number[] = [];
     batchImageRequest: BatchImageRequest = {tag: 'all', batchSize: 24, pageCount: 0};
     loading: boolean = true;
+
+    sortTabOpen: boolean = false;
+    filterTabOpen: boolean = false;
+
+    @ViewChild('filterTab') filterTab: ElementRef | undefined;
+    @ViewChild('sortTab') sortTab: ElementRef | undefined;
+    @ViewChild('filterTabButton') filterTabButton: ElementRef | undefined;
+    @ViewChild('sortTabButton') sortTabButton: ElementRef | undefined;
+
+    constructor(
+        private imageService: ImageService,
+        public dialog: MatDialog,
+        private activatedRoute: ActivatedRoute,
+        private router: Router,
+        private renderer: Renderer2
+    ) {
+        this.router.routeReuseStrategy.shouldReuseRoute = () => {
+            return false;
+        };
+        this.renderer.listen('window', 'click', (event) => {
+            if (this.filterTab != undefined && this.filterTabButton != undefined) {
+                // @ts-ignore
+                if (event.target != this.filterTab.nativeElement && !this.filterTabButton._elementRef.nativeElement.contains(event.target)) {
+                    console.log(this.filterTabOpen);
+                    this.filterTabOpen = false;
+                }
+            }
+            if (this.sortTab != undefined && this.sortTabButton != undefined) {
+                // @ts-ignore
+                if (event.target != this.sortTab.nativeElement && !this.sortTabButton._elementRef.nativeElement.contains(event.target)) {
+                    console.log(this.sortTabButton);
+                    console.log(event.target);
+                    console.log(this.sortTabOpen);
+                    this.sortTabOpen = false;
+                }
+            }
+        });
+    }
 
     ngOnInit(): void {
         this.tagName = this.activatedRoute.snapshot.paramMap.get('tag');
@@ -83,4 +110,13 @@ export class ImageListComponent implements OnInit {
         }
     }
 
+    filterButtonClicked() {
+        this.filterTabOpen = !this.filterTabOpen;
+        this.sortTabOpen = false;
+    }
+
+    sortButtonClicked() {
+        this.sortTabOpen = !this.sortTabOpen;
+        this.filterTabOpen = false;
+    }
 }

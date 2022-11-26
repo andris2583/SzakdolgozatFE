@@ -1,5 +1,32 @@
-<div *ngIf="tagName != 'all'"
-     style="font-size: 30px;display: flex;align-items: center;justify-content: center;margin-bottom: 2vh;">{{tagName}}</div>
+<div
+    id="tag-name">{{tagName == 'all' ? '' : tagName}}</div>
+<div id="filter-sort-container">
+    <button #filterTabButton class="filter-sort-button" (click)="filterButtonClicked()" mat-raised-button>
+        Filter
+        <mat-icon>{{filterTabOpen ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</mat-icon>
+
+    </button>
+    <div #filterTab id="filter-tab" *ngIf="filterTabOpen">
+        <button mat-button class="sort-button">Fuck</button>
+        <br>
+        <button mat-button class="sort-button">Off</button>
+    </div>
+    <button #sortTabButton class="filter-sort-button" (click)="sortButtonClicked()" mat-raised-button>
+        Sort
+        <mat-icon>{{sortTabOpen ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</mat-icon>
+    </button>
+    <div #sortTab id="sort-tab" *ngIf="sortTabOpen">
+        <button mat-button class="sort-button">
+            Popular
+            <mat-icon>trending_up</mat-icon>
+        </button>
+        <br>
+        <button mat-button class="sort-button">
+            Latest
+            <mat-icon>access_time</mat-icon>
+        </button>
+    </div>
+</div>
 <ngx-masonry [options]="options" [ordered]="true"
              infiniteScroll
              [infiniteScrollDistance]="0"
