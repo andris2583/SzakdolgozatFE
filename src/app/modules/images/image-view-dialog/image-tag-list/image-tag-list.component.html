@@ -1,0 +1,21 @@
+<mat-chip-list>
+    <mat-chip class="tag-chip" *ngFor="let tag of image!.tags">
+        {{tag}}
+        <!--        &nbsp;&nbsp;&nbsp;&nbsp;-->
+        <button matChipRemove (click)="deleteTag(tag)">
+            <mat-icon>cancel</mat-icon>
+        </button>
+    </mat-chip>
+</mat-chip-list>
+<form id="tag-search-form">
+    <mat-form-field>
+        <input type="email" matInput [formControl]="tagSearch" placeholder="Add Tags" [matAutocomplete]="auto"
+               (keyup.enter)="handleEnter()">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            <mat-option *ngFor="let suggestion of filteredSuggestions | async | slice:0:10;" [value]="suggestion">
+                {{suggestion}}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+</form>
+

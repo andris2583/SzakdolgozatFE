@@ -19,6 +19,10 @@ import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 import {DragDropDirective} from '../../directives/drag-drop/drag-drop.directive';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {PipeModule} from '../pipe/pipe/pipe.module';
+import {ImageTagListComponent} from './image-view-dialog/image-tag-list/image-tag-list.component';
+import {MatInputModule} from '@angular/material/input';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 
 @NgModule({
@@ -27,6 +31,7 @@ import {PipeModule} from '../pipe/pipe/pipe.module';
         ImageViewDialogComponent,
         ImageUploadDialogComponent,
         DragDropDirective,
+        ImageTagListComponent,
     ],
     imports: [
         CommonModule,
@@ -44,7 +49,11 @@ import {PipeModule} from '../pipe/pipe/pipe.module';
         MatListModule,
         InfiniteScrollModule,
         MatTooltipModule,
-        PipeModule
+        PipeModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        MatAutocompleteModule,
+        FormsModule,
     ],
 })
 export class ImageListModule {

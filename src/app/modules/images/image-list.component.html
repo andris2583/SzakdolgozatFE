@@ -7,9 +7,9 @@
 
     </button>
     <div #filterTab id="filter-tab" *ngIf="filterTabOpen">
-        <button mat-button class="sort-button">Fuck</button>
+        <button mat-button class="filter-button">Some complicated</button>
         <br>
-        <button mat-button class="sort-button">Off</button>
+        <button mat-button class="filter-button">filter options</button>
     </div>
     <button #sortTabButton class="filter-sort-button" (click)="sortButtonClicked()" mat-raised-button>
         Sort
@@ -24,6 +24,11 @@
         <button mat-button class="sort-button">
             Latest
             <mat-icon>access_time</mat-icon>
+        </button>
+        <br>
+        <button mat-button class="sort-button">
+            Name
+            <mat-icon>sort_by_alpha</mat-icon>
         </button>
     </div>
 </div>

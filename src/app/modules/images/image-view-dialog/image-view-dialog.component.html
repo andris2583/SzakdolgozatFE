@@ -16,11 +16,7 @@
                  (load)="onLoad()">
         </div>
         <div style="width: 200px;">
-            <mat-chip-list #chipList>
-                <mat-chip *ngFor="let tag of image.tags">
-                    {{tag}}
-                </mat-chip>
-            </mat-chip-list>
+            <app-image-tag-list [image]="image"></app-image-tag-list>
         </div>
     </div>
     <div

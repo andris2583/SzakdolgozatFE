@@ -20,6 +20,9 @@ import {InfiniteScrollModule} from 'ngx-infinite-scroll';
         PipeModule,
         InfiniteScrollModule
     ],
+    exports: [
+        TagListComponent
+    ]
 })
 export class TagListModule {
 }
