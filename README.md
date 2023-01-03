@@ -56,3 +56,38 @@
 - add to collection, like, download on image hover
 - admin felület, szabályozni dolgokat felbontás,tárhely | free/prémium
 - Felhasználói szintek
+- Képekre Views, Downloads, Likes
+
+Collections
+
+- Every user has default liked photos collection
+- Save to collection button
+- Can see collections in user
+- Can name them
+- Can share them
+- Collection data:
+    - ID
+    - Name
+    - imageIds[]
+    - Owner
+    - Enum:Private/Public
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

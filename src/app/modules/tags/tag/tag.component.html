@@ -1,11 +1,11 @@
 <div class="tag-image-container" [style.width.px]="width" routerLink="/images/{{tagName}}">
     <img *ngIf="previewImages.length != 0"
          [src]="getPreviewImage(0) | sanitizeImage"
-         class="image-top" [style.height.px]="(height*0.65)"/>
-    <div *ngIf="previewImages.length == 0" class="image-top pulse" [style.height.px]="(height*0.65)">
+         class="image-top" [style.height.px]="(width*1.08*0.65)"/>
+    <div *ngIf="previewImages.length == 0" class="image-top pulse" [style.height.px]="(width*1.08*0.65)">
 
     </div>
-    <div class="image-bottom-container" [style.height.px]="(height*0.28)">
+    <div class="image-bottom-container" [style.height.px]="(width*1.08*0.28)">
         <img *ngIf="previewImages.length != 0"
              [src]="getPreviewImage(1) | sanitizeImage"
              class="image-bottom"/>
@@ -23,7 +23,7 @@
             <img *ngIf="previewImages.length != 0"
                  [src]="getPreviewImage(3) | sanitizeImage"
                  class="image-bottom-last"/>
-            <div *ngIf="previewImages.length != 0" class="image-count" [style.font-size.px]="(height*0.1)">
+            <div *ngIf="previewImages.length != 0" class="image-count" [style.font-size.px]="(width*1.08*0.1)">
                 +{{imageCount}}</div>
             <div *ngIf="previewImages.length == 0" class="image-bottom-last pulse"></div>
         </div>
@@ -31,10 +31,10 @@
     </div>
     <div *ngIf="previewImages.length != 0" [style.font-size.px]="getTagNameFontSize()"
          [style.padding-left.px]="width*0.05"
-         class="tag-name-container" [style.height.px]="(height*0.07)">
+         class="tag-name-container" [style.height.px]="(width*1.08*0.07)">
         {{tagName}}
     </div>
     <div *ngIf="previewImages.length == 0" style="width: 40%" [style.padding-left.px]="width*0.05"
-         class="tag-name-container pulse" [style.height.px]="(height*0.05)">
+         class="tag-name-container pulse" [style.height.px]="(width*1.08*0.05)">
     </div>
 </div>

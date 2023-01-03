@@ -9,6 +9,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {SearchbarComponent} from './searchbar/searchbar.component';
 import {FormsModule} from '@angular/forms';
+import {TagListModule} from '../tags/tag-list.module';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import {FormsModule} from '@angular/forms';
         RouterModule,
         MatFormFieldModule,
         MatInputModule,
-        FormsModule
+        FormsModule,
+        TagListModule,
     ]
 })
 export class HeaderModule {

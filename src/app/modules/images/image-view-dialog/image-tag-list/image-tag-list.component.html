@@ -9,7 +9,7 @@
 </mat-chip-list>
 <form id="tag-search-form">
     <mat-form-field>
-        <input type="email" matInput [formControl]="tagSearch" placeholder="Add Tags" [matAutocomplete]="auto"
+        <input matInput [formControl]="tagSearch" placeholder="Add Tags" [matAutocomplete]="auto"
                (keyup.enter)="handleEnter()">
         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
             <mat-option *ngFor="let suggestion of filteredSuggestions | async | slice:0:10;" [value]="suggestion">

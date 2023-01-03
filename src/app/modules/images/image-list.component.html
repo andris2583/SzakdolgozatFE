@@ -12,23 +12,24 @@
         <button mat-button class="filter-button">filter options</button>
     </div>
     <button #sortTabButton class="filter-sort-button" (click)="sortButtonClicked()" mat-raised-button>
-        Sort
+        {{getOrderByTypeString(batchImageRequest.requestOrderByType)}}
         <mat-icon>{{sortTabOpen ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</mat-icon>
     </button>
     <div #sortTab id="sort-tab" *ngIf="sortTabOpen">
-        <button mat-button class="sort-button">
-            Popular
+        <button (click)="selectOrderByType(orderByTypes.ALPHABETICAL)" mat-button
+                class="sort-button">
+            Alphabetical
+            <mat-icon>sort_by_alpha</mat-icon>
+        </button>
+        <br>
+        <button (click)="selectOrderByType(orderByTypes.POPULAR)" mat-button class="sort-button">
+            Popularity
             <mat-icon>trending_up</mat-icon>
         </button>
         <br>
-        <button mat-button class="sort-button">
-            Latest
+        <button (click)="selectOrderByType(orderByTypes.TIME)" mat-button class="sort-button">
+            Upload date
             <mat-icon>access_time</mat-icon>
-        </button>
-        <br>
-        <button mat-button class="sort-button">
-            Name
-            <mat-icon>sort_by_alpha</mat-icon>
         </button>
     </div>
 </div>

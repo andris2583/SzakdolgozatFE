@@ -44,6 +44,8 @@ export class ImageListComponent implements OnInit {
     @ViewChild('filterTabButton') filterTabButton: ElementRef | undefined;
     @ViewChild('sortTabButton') sortTabButton: ElementRef | undefined;
 
+    orderByTypes = RequestOrderByType;
+
     constructor(
         private imageService: ImageService,
         public dialog: MatDialog,
@@ -129,5 +131,24 @@ export class ImageListComponent implements OnInit {
     sortButtonClicked() {
         this.sortTabOpen = !this.sortTabOpen;
         this.filterTabOpen = false;
+    }
+
+    getOrderByTypeString(sortType: RequestOrderByType | null): string {
+        if (sortType == null) return 'Sort';
+        switch (sortType) {
+            case RequestOrderByType.ALPHABETICAL:
+                return 'Alphabetical';
+            case RequestOrderByType.POPULAR:
+                return 'Popularity';
+            case RequestOrderByType.TIME:
+                return 'Upload date';
+        }
+    }
+
+    selectOrderByType(value: RequestOrderByType) {
+        this.batchImageRequest.requestOrderByType = value;
+        this.batchImageRequest.pageCount = 0;
+        this.images = [];
+        this.loadImageData();
     }
 }

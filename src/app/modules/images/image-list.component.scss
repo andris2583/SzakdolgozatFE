@@ -94,13 +94,13 @@
 .filter-sort-button {
     margin: 0 10px 0 10px;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-    width: 6vw;
+    width: 7vw;
 }
 
 #filter-tab {
     position: absolute;
     top: 100%;
-    right: calc(6vw + 30px);
+    right: calc(7vw + 30px);
     background-color: #ffffff;
     z-index: 11;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
@@ -129,5 +129,5 @@
 }
 
 .sort-button {
-    width: calc(6vw);
+    width: calc(7vw);
 }
