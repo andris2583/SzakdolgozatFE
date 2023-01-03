@@ -1,6 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ImageService} from '../../../services/image/image.service';
 import {Image} from '../../../models/image.model';
+import {RequestOrderByType} from '../../../models/request/request-order-by-type';
+import {RequestOrderType} from '../../../models/request/request-order-type';
+import {RequestTagType} from '../../../models/request/request-tag-type';
 
 @Component({
     selector: 'app-tag',
@@ -26,7 +29,15 @@ export class TagComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.imageService.getImages({tag: this.tagName, pageCount: 0, batchSize: 4}).subscribe(value => {
+        this.imageService.getImages({
+            tags: [this.tagName],
+            pageCount: 0,
+            batchSize: 4,
+            requestFilter: null,
+            requestOrderByType: RequestOrderByType.ALPHABETICAL,
+            requestOrderType: RequestOrderType.ASC,
+            requestTagType: RequestTagType.OR
+        }).subscribe(value => {
             this.previewImages = value;
         });
         this.imageService.getImageCountWithTag(this.tagName).subscribe(value => {

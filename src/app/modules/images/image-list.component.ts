@@ -5,8 +5,11 @@ import {ImageViewDialogComponent} from './image-view-dialog/image-view-dialog.co
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgxMasonryOptions} from 'ngx-masonry';
 import {ImageUploadDialogComponent} from './image-upload-dialog/image-upload-dialog.component';
-import {BatchImageRequest} from '../../models/batch-image-request.model';
+import {BatchImageRequest} from '../../models/request/batch-image-request.model';
 import {MatDialog} from '@angular/material/dialog';
+import {RequestOrderByType} from '../../models/request/request-order-by-type';
+import {RequestOrderType} from '../../models/request/request-order-type';
+import {RequestTagType} from '../../models/request/request-tag-type';
 
 @Component({
     selector: 'app-image-list',
@@ -22,7 +25,15 @@ export class ImageListComponent implements OnInit {
     images: Image[] = [];
     tagName: string | null = null;
     skeletonHeights: number[] = [];
-    batchImageRequest: BatchImageRequest = {tag: 'all', batchSize: 24, pageCount: 0};
+    batchImageRequest: BatchImageRequest = {
+        tags: ['all'],
+        batchSize: 24,
+        pageCount: 0,
+        requestFilter: null,
+        requestOrderByType: RequestOrderByType.ALPHABETICAL,
+        requestOrderType: RequestOrderType.ASC,
+        requestTagType: RequestTagType.OR
+    };
     loading: boolean = true;
 
     sortTabOpen: boolean = false;
@@ -65,7 +76,7 @@ export class ImageListComponent implements OnInit {
 
     ngOnInit(): void {
         this.tagName = this.activatedRoute.snapshot.paramMap.get('tag');
-        this.batchImageRequest.tag = this.tagName;
+        this.batchImageRequest.tags = [this.tagName];
         this.loadImageData();
         this.generateRandomHeights();
     }

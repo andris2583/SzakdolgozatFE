@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Image} from '../../models/image.model';
-import {BatchImageRequest} from '../../models/batch-image-request.model';
+import {BatchImageRequest} from '../../models/request/batch-image-request.model';
 
 @Injectable({
     providedIn: 'root'

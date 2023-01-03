@@ -46,10 +46,13 @@
 - ~~similar images based on tag, maybe 2-3 tags the match~~
 - searchbar to header, suggest tags, can search for image names
 - Batchimagerequest tag to tags, exclusive or inclusive search, crossection or union
-- Dashboard with popular categories, themes,
+- Dashboard with popular categories, themes, maybe season specific tags
 - categories most popular, few preview images in category card
 - save img w,h to image entity, so loading ghost w,h is good
 - like,dislike, comment
 - order by likes/dislikes/comments/upload,date/
 - filter by date
 - create album automatically
+- add to collection, like, download on image hover
+- admin felület, szabályozni dolgokat felbontás,tárhely | free/prémium
+- Felhasználói szintek
