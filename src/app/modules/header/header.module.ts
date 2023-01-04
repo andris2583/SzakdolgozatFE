@@ -9,8 +9,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {SearchbarComponent} from './searchbar/searchbar.component';
 import {FormsModule} from '@angular/forms';
-import {TagListModule} from '../tags/tag-list.module';
 import {PipeModule} from '../pipe/pipe/pipe.module';
+import {SharedModule} from '../shared/shared.module';
 
 
 @NgModule({
@@ -31,8 +31,8 @@ import {PipeModule} from '../pipe/pipe/pipe.module';
         MatFormFieldModule,
         MatInputModule,
         FormsModule,
-        TagListModule,
         PipeModule,
+        SharedModule,
     ]
 })
 export class HeaderModule {

@@ -35,7 +35,7 @@ import {TagListModule} from './modules/tags/tag-list.module';
         HttpClientModule,
         LoginModule,
         MatButtonModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
     ],
     providers: [
         // {
