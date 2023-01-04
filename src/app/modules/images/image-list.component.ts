@@ -151,4 +151,25 @@ export class ImageListComponent implements OnInit {
         this.images = [];
         this.loadImageData();
     }
+
+    getRandomColor(): string {
+        let color = 'hsl(' + Math.random() * 360 + ', 100%, 75%)';
+        return color;
+    }
+
+    onDownloadButtonClick(event: MouseEvent) {
+        if (event.stopPropagation) event.stopPropagation();
+    }
+
+    onUserClickEvent(event: MouseEvent) {
+        if (event.stopPropagation) event.stopPropagation();
+    }
+
+    onFavouriteClickEvent(event: MouseEvent) {
+        if (event.stopPropagation) event.stopPropagation();
+    }
+
+    onAddToCollectionClickEvent(event: MouseEvent) {
+        if (event.stopPropagation) event.stopPropagation();
+    }
 }

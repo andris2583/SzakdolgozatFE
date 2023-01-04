@@ -131,3 +131,10 @@
 .sort-button {
     width: calc(7vw);
 }
+
+.image-container-icon-button {
+    z-index: 10;
+    position: absolute;
+    font-size: 24px;
+    color: white
+}

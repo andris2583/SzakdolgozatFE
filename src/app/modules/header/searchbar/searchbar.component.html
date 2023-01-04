@@ -4,11 +4,28 @@
            (input)="onInput()"
            (keyup)="onKeyUp($event)" [(ngModel)]="searchbarValue">
     <div *ngIf="this.searchbarInFocus" #dropdownMenu class="dropdown-menu" [@inOutAnimation]>
-        <div class="dropdown-title" *ngIf="suggestions.length != 0">Tags</div>
-        <div *ngIf="suggestions.length != 0" class="dropdown-tag-carousel">
-            <app-tag class="dropdown-tag-carousel-item" *ngFor="let tag of suggestions" [width]="tagWidth"
+        <div class="dropdown-title" *ngIf="imageSuggestionsLoaded !== undefined">Images</div>
+        <div *ngIf="(imageSuggestions | async)?.length != 0" class="dropdown-carousel">
+            <div class="dropdown-tag-carousel-item"
+                 style="margin: 20px;"
+                 (click)="openImageViewDialog(image)"
+                 *ngFor="let image of (imageSuggestions | async)">
+                <img style="width: 100px;height: 100px;object-fit: cover;border-radius: 5px"
+                     [src]="image.imgB64 | sanitizeImage" alt="X">
+            </div>
+        </div>
+
+        <div *ngIf="this.imageSuggestionsLoaded === false" class="dropdown-carousel">
+            <div class="dropdown-tag-carousel-item pulse" *ngFor="let _ of [].constructor(10)"
+                 style="margin: 20px;width: 100px;height: 100px;border-radius: 5px;flex-shrink: 0;"></div>
+        </div>
+
+        <div class="dropdown-title" *ngIf="tagSuggestionsLoaded !== undefined">Tags</div>
+        <div *ngIf="(tagSuggestions | async)?.length != 0" class="dropdown-carousel">
+            <app-tag class="dropdown-tag-carousel-item" *ngFor="let tag of (tagSuggestions | async)" [width]="tagWidth"
                      [tagName]="tag.name"></app-tag>
         </div>
+
         <div class="dropdown-title">Previous searches</div>
         <div>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -19,7 +36,7 @@
             <span>Celebration</span>
         </div>
         <div class="dropdown-title">Popular collection</div>
-        <div class="dropdown-tag-carousel">
+        <div class="dropdown-carousel">
             <app-tag class="dropdown-tag-carousel-item"
                      [width]="tagWidth" [tagName]="'Winter'"></app-tag>
             <app-tag class="dropdown-tag-carousel-item"

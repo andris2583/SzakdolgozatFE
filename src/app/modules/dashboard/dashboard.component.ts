@@ -9,24 +9,11 @@ import {AuthService} from '../../services/auth/auth.service';
 })
 export class DashboardComponent implements OnInit {
 
-    public pages: Page[] = [
-        {route: '/dashboard', name: 'Dashboard', protected: true},
-        {route: '/images/all', name: 'Images', protected: true},
-        {route: '/categories', name: 'Categories', protected: true},
-        {route: '/login', name: 'Login', protected: false},
-        {route: '/register', name: 'Register', protected: false},
-    ];
-
-    public loginPage: Page = {route: '/login', name: 'Login', protected: false};
-
-    public registerPage: Page = {route: '/register', name: 'Register', protected: false};
-    public profilePage: Page = {route: '/profile', name: 'Profile', protected: true};
-
-
     constructor(private authService: AuthService) {
     }
 
     ngOnInit(): void {
+        console.log('Kurva anyád');
     }
 
     shouldPageBeShown(page: Page): boolean {

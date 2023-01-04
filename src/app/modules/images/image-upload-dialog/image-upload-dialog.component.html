@@ -1,5 +1,4 @@
 <div class="content">
-    <!--    <img *ngIf="imageUrl" src="{{imageUrl}}" alt="X" style="max-width: 40vw;max-height: 40vh">-->
     <input type="file" id="upload" multiple style="display: none" (change)="filesUploaded($event)" alt=""/>
     <label for="upload" class="area" appDragDrop (files)="filesDropped($event)"></label>
     <div class="small-image-upload-preview-list">

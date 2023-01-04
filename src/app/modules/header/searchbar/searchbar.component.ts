@@ -2,6 +2,14 @@ import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core
 import {animate, style, transition, trigger} from '@angular/animations';
 import {TagService} from '../../../services/tag/tag.service';
 import {Tag} from '../../../models/tag.model';
+import {Image} from '../../../models/image.model';
+import {ImageService} from '../../../services/image/image.service';
+import {RequestOrderByType} from '../../../models/request/request-order-by-type';
+import {RequestOrderType} from '../../../models/request/request-order-type';
+import {RequestTagType} from '../../../models/request/request-tag-type';
+import {map, Observable, tap} from 'rxjs';
+import {ImageViewDialogComponent} from '../../images/image-view-dialog/image-view-dialog.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
     selector: 'app-searchbar',
@@ -37,15 +45,28 @@ export class SearchbarComponent implements OnInit {
     @ViewChild('dropdownMenu') dropdownMenu: ElementRef | undefined;
 
 
-    allTags: Tag[] = [];
-    suggestions: Tag[] = [];
+    allTags: Observable<Tag[]> = this.tagService.getAllTags();
+    tagSuggestions: Observable<Tag[]> = new Observable<Tag[]>();
+
+    allImages: Observable<Image[]> = this.imageService.getImages({
+        tags: ['all'],
+        batchSize: -1,
+        pageCount: 0,
+        requestFilter: null,
+        requestOrderByType: RequestOrderByType.ALPHABETICAL,
+        requestOrderType: RequestOrderType.ASC,
+        requestTagType: RequestTagType.OR
+    });
+    imageSuggestions: Observable<Image[]> = new Observable<Image[]>();
+    imageSuggestionsLoaded: boolean | undefined = undefined;
+    tagSuggestionsLoaded: boolean | undefined = undefined;
 
     searchbarInFocus: boolean = false;
 
     searchbarValue: string = '';
     tagWidth: number = 100;
 
-    constructor(private tagService: TagService, private renderer: Renderer2
+    constructor(private tagService: TagService, private imageService: ImageService, private renderer: Renderer2, public dialog: MatDialog
     ) {
         this.renderer.listen('window', 'click', (event) => {
             if (this.searchbarContainer != undefined) {
@@ -63,10 +84,6 @@ export class SearchbarComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.tagService.getAllTags().subscribe(tags => {
-            this.allTags = tags;
-            this.suggestions = [];
-        });
     }
 
     onSearchFocus() {
@@ -76,7 +93,8 @@ export class SearchbarComponent implements OnInit {
     onSearchBlur() {
         this.searchbarInFocus = false;
         this.searchbarValue = '';
-        this.suggestions = [];
+        this.tagSuggestions = new Observable<Tag[]>();
+        this.imageSuggestions = new Observable<Image[]>();
     }
 
     onKeyUp($event: KeyboardEvent) {
@@ -87,14 +105,38 @@ export class SearchbarComponent implements OnInit {
         this.searchbarValue = '';
         let form = document.getElementById('search-input');
         form?.blur();
-        this.suggestions = [];
+        this.tagSuggestions = new Observable<Tag[]>();
+        this.imageSuggestions = new Observable<Image[]>();
     }
 
     onInput() {
         if (this.searchbarValue == '') {
-            this.suggestions = [];
+            this.tagSuggestions = new Observable<Tag[]>();
+            this.imageSuggestions = new Observable<Image[]>();
+            this.imageSuggestionsLoaded = undefined;
+            this.tagSuggestionsLoaded = undefined;
         } else {
-            this.suggestions = this.allTags.filter(tempTag => tempTag.name.toLowerCase().startsWith(this.searchbarValue.toLowerCase())).slice(0, 10);
+            this.imageSuggestionsLoaded = false;
+            this.tagSuggestionsLoaded = true;
+            this.tagSuggestions = this.allTags.pipe(
+                map(tempTags => tempTags.filter(tempTag => tempTag.name.toLowerCase().startsWith(this.searchbarValue.toLowerCase())).slice(0, 10)),
+                tap(() => this.tagSuggestionsLoaded = true));
+            this.imageSuggestions = this.allImages.pipe(
+                map(tempImages => tempImages.filter(tempImage => tempImage.name.toLowerCase().startsWith(this.searchbarValue.toLowerCase())).slice(0, 10)),
+                tap(() => this.imageSuggestionsLoaded = true));
         }
+    }
+
+    openImageViewDialog(image: Image) {
+        let dialogRef = this.dialog.open(ImageViewDialogComponent, {
+            data: image,
+            panelClass: 'panel-class',
+            autoFocus: false,
+        });
+        let instance = dialogRef.componentInstance;
+        instance.deletedImageEvent.subscribe((deletedImage: Image) => {
+            //TODO delete image from frontend list
+        });
+        this.allImages.subscribe(value => instance.images = value);
     }
 }

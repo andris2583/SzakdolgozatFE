@@ -10,6 +10,7 @@ import {MatInputModule} from '@angular/material/input';
 import {SearchbarComponent} from './searchbar/searchbar.component';
 import {FormsModule} from '@angular/forms';
 import {TagListModule} from '../tags/tag-list.module';
+import {PipeModule} from '../pipe/pipe/pipe.module';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import {TagListModule} from '../tags/tag-list.module';
         MatInputModule,
         FormsModule,
         TagListModule,
+        PipeModule,
     ]
 })
 export class HeaderModule {

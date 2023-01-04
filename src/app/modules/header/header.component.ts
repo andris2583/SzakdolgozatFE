@@ -2,6 +2,7 @@ import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth/auth.service';
 import {Page} from '../../models/page.model';
 import {Router} from '@angular/router';
+import {Pages} from '../../models/constants/pages';
 
 @Component({
     selector: 'app-header',
@@ -9,17 +10,8 @@ import {Router} from '@angular/router';
     styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit, AfterViewInit {
-    public pages: Page[] = [
-        {route: '/dashboard', name: 'Dashboard', protected: true},
-        {route: '/images/all', name: 'Images', protected: true},
-        {route: '/categories', name: 'Categories', protected: true},
-        {route: '/login', name: 'Login', protected: false},
-        {route: '/register', name: 'Register', protected: false},
-    ];
+    public pages = new Pages().pages;
 
-    public loginPage: Page = {route: '/login', name: 'Login', protected: false};
-
-    public registerPage: Page = {route: '/register', name: 'Register', protected: false};
     public profilePage: Page = {route: '/profile', name: 'Profile', protected: true};
 
     constructor(private authService: AuthService, public router: Router) {

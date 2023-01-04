@@ -61,8 +61,9 @@
 Collections
 
 - Every user has default liked photos collection
+- Can create collection
 - Save to collection button
-- Can see collections in user
+- Can see collections in profile
 - Can name them
 - Can share them
 - Collection data:
@@ -71,23 +72,11 @@ Collections
     - imageIds[]
     - Owner
     - Enum:Private/Public
-  
 
+Image
 
+- Owner ID
 
+User
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- Image ID list

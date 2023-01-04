@@ -21,7 +21,6 @@ import {InfiniteScrollModule} from 'ngx-infinite-scroll';
         InfiniteScrollModule
     ],
     exports: [
-        TagListComponent,
         TagComponent
     ]
 })
