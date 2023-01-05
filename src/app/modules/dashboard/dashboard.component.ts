@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {Page} from '../../models/page.model';
 import {AuthService} from '../../services/auth/auth.service';
 
 @Component({
@@ -13,16 +12,6 @@ export class DashboardComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        console.log('Kurva anyád');
-    }
-
-    shouldPageBeShown(page: Page): boolean {
-        let loggedIn = this.authService.isLoggedIn;
-        if (loggedIn) {
-            return page.protected;
-        } else {
-            return !page.protected;
-        }
     }
 
 

@@ -1,11 +1,12 @@
 <!--<mat-toolbar *ngIf="shouldHeaderBeShown()">-->
-<mat-toolbar>
-    <mat-toolbar-row class="toolbar">
+<mat-toolbar [class.dashboard-mat-toolbar]="dashboardHeader" class="default-mat-toolbar">
+    <mat-toolbar-row class="toolbar-row">
         <!--        <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">-->
         <!--            <mat-icon>menu</mat-icon>-->
         <!--        </button>-->
-        <span class="header-element">My App</span>
-        <a class="header-element header-link" *ngFor="let page of pages" mat-raised-button
+        <span class="header-element" [class.dashboard-header-element]="dashboardHeader">My App</span>
+        <a class="header-element header-link" [class.dashboard-header-element]="dashboardHeader"
+           *ngFor="let page of pages" mat-raised-button
            [class.hidden]="!shouldPageBeShown(page)"
            [routerLink]="page.route">
             <ng-container *ngIf="shouldPageBeShown(page)">
@@ -13,9 +14,10 @@
             </ng-container>
         </a>
         <div class="searchbar-container">
-            <app-searchbar></app-searchbar>
+            <app-searchbar style="color: #F5F5F5 !important"></app-searchbar>
         </div>
-        <a class="header-element header-link" style="margin-left: auto" *ngIf="shouldPageBeShown(profilePage)"
+        <a class="header-element header-link" [class.dashboard-header-element]="dashboardHeader"
+           style="margin-left: auto" *ngIf="shouldPageBeShown(profilePage)"
            mat-raised-button
            [routerLink]="profilePage.route">Profile</a>
     </mat-toolbar-row>

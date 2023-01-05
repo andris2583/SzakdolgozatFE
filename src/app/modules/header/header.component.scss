@@ -2,18 +2,25 @@
     display: none;
 }
 
-.toolbar {
+.toolbar-row {
     display: flex;
     margin: 0 5vw 0 5vw;
-    //background-color: #c8c8c8;
     width: 90vw;
     padding: 0;
 }
 
-.mat-toolbar {
-    //background-color: #c8c8c8;
-    //width: 80vw;
+.default-mat-toolbar {
+    width: 101vw;
+    transform: translateX(-5vw);
     margin: 0;
+    position: fixed;
+    z-index: 1000;
+}
+
+.dashboard-mat-toolbar {
+    position: absolute;
+    background-color: transparent;
+
 }
 
 .searchbar-container {
@@ -26,6 +33,13 @@
 
 .header-element {
     margin: 0 10px 0 10px;
+    font-size: 20px;
+}
+
+.dashboard-header-element {
+    background-color: transparent;
+    color: #F5F5F5;
+    box-shadow: none !important;
 }
 
 .header-link {

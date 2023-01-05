@@ -1,6 +1,8 @@
-<app-header class="app-header"></app-header>
 <div class="app-body-container">
     <div class="app-body-container-container">
-        <router-outlet></router-outlet>
+        <app-header [dashboardHeader]="dashboardHeader" class="app-header"></app-header>
+        <div style="margin-top: 10vh">
+            <router-outlet></router-outlet>
+        </div>
     </div>
 </div>

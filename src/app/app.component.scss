@@ -3,12 +3,12 @@
     justify-content: center;
     align-items: center;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .app-body-container-container {
     width: 90vw;
-    margin-top: 2vh;
-    height: 90vh;
+    height: 100vh;
     position: relative;
 }
 

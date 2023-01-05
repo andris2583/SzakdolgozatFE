@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth/auth.service';
 import {Page} from '../../models/page.model';
 import {Router} from '@angular/router';
@@ -10,6 +10,9 @@ import {Pages} from '../../models/constants/pages';
     styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit, AfterViewInit {
+    @Input()
+    public dashboardHeader: boolean = false;
+
     public pages = new Pages().pages;
 
     public profilePage: Page = {route: '/profile', name: 'Profile', protected: true};
