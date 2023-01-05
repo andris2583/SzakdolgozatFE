@@ -48,15 +48,6 @@ export class SearchbarComponent implements OnInit {
     allTags: Observable<Tag[]> = this.tagService.getAllTags();
     tagSuggestions: Observable<Tag[]> = new Observable<Tag[]>();
 
-    allImages: Observable<Image[]> = this.imageService.getImages({
-        tags: ['all'],
-        batchSize: -1,
-        pageCount: 0,
-        requestFilter: null,
-        requestOrderByType: RequestOrderByType.ALPHABETICAL,
-        requestOrderType: RequestOrderType.ASC,
-        requestTagType: RequestTagType.OR
-    });
     imageSuggestions: Observable<Image[]> = new Observable<Image[]>();
     imageSuggestionsLoaded: boolean | undefined = undefined;
     tagSuggestionsLoaded: boolean | undefined = undefined;
@@ -97,9 +88,6 @@ export class SearchbarComponent implements OnInit {
         this.imageSuggestions = new Observable<Image[]>();
     }
 
-    onKeyUp($event: KeyboardEvent) {
-    }
-
     onEscape() {
         this.onSearchBlur();
         this.searchbarValue = '';
@@ -117,13 +105,19 @@ export class SearchbarComponent implements OnInit {
             this.tagSuggestionsLoaded = undefined;
         } else {
             this.imageSuggestionsLoaded = false;
-            this.tagSuggestionsLoaded = true;
+            this.tagSuggestionsLoaded = false;
             this.tagSuggestions = this.allTags.pipe(
                 map(tempTags => tempTags.filter(tempTag => tempTag.name.toLowerCase().startsWith(this.searchbarValue.toLowerCase())).slice(0, 10)),
                 tap(() => this.tagSuggestionsLoaded = true));
-            this.imageSuggestions = this.allImages.pipe(
-                map(tempImages => tempImages.filter(tempImage => tempImage.name.toLowerCase().startsWith(this.searchbarValue.toLowerCase())).slice(0, 10)),
-                tap(() => this.imageSuggestionsLoaded = true));
+            this.imageSuggestions = this.imageService.getImages({
+                tags: ['all'],
+                batchSize: -1,
+                pageCount: 0,
+                requestFilter: {nameFilterString: this.searchbarValue, maxCount: 10},
+                requestOrderByType: RequestOrderByType.ALPHABETICAL,
+                requestOrderType: RequestOrderType.ASC,
+                requestTagType: RequestTagType.OR
+            }).pipe(tap(() => this.imageSuggestionsLoaded = true));
         }
     }
 
@@ -137,6 +131,14 @@ export class SearchbarComponent implements OnInit {
         instance.deletedImageEvent.subscribe((deletedImage: Image) => {
             //TODO delete image from frontend list
         });
-        this.allImages.subscribe(value => instance.images = value);
+        this.imageService.getImages({
+            tags: ['all'],
+            batchSize: -1,
+            pageCount: 0,
+            requestFilter: null,
+            requestOrderByType: RequestOrderByType.ALPHABETICAL,
+            requestOrderType: RequestOrderType.ASC,
+            requestTagType: RequestTagType.OR
+        }).subscribe(value => instance.images = value);
     }
 }

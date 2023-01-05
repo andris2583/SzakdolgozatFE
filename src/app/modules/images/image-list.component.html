@@ -41,7 +41,8 @@
              [infiniteScrollContainer]="'.app-body-container'"
              [scrollWindow]="false">
     <ng-container *ngIf="images.length != 0">
-        <div ngxMasonryItem *ngFor="let image of images" class="image-container masonry-item-width"
+        <div ngxMasonryItem *ngFor="let image of images"
+             class="shared-image-box-shadow image-container masonry-item-width"
              (click)="openImageViewDialog(image)">
             <img class="masonry-item-width" style="margin-bottom: -6px;"
                  [src]="image.imgB64 | sanitizeImage" alt="X">

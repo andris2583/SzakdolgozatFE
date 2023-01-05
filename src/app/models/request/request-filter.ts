@@ -1,3 +1,4 @@
-export class RequestFilter {
-
+export interface RequestFilter {
+    nameFilterString: string | null;
+    maxCount: number | null;
 }

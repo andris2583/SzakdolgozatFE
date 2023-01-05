@@ -1,31 +1,31 @@
 <div class="tag-image-container" [style.width.px]="width" routerLink="/images/{{tagName}}">
     <img *ngIf="previewImages.length != 0"
          [src]="getPreviewImage(0) | sanitizeImage"
-         class="image-top" [style.height.px]="(width*1.08*0.65)"/>
+         class="image-top shared-image-box-shadow" [style.height.px]="(width*1.08*0.65)"/>
     <div *ngIf="previewImages.length == 0" class="image-top pulse" [style.height.px]="(width*1.08*0.65)">
 
     </div>
     <div class="image-bottom-container" [style.height.px]="(width*1.08*0.28)">
         <img *ngIf="previewImages.length != 0"
              [src]="getPreviewImage(1) | sanitizeImage"
-             class="image-bottom"/>
+             class="image-bottom shared-image-box-shadow"/>
 
         <div *ngIf="previewImages.length == 0" class="image-bottom pulse"></div>
 
         <img *ngIf="previewImages.length != 0"
              [src]="getPreviewImage(2) | sanitizeImage"
-             class="image-bottom"/>
+             class="image-bottom shared-image-box-shadow"/>
 
-        <div *ngIf="previewImages.length == 0" class="image-bottom pulse"></div>
+        <div *ngIf="previewImages.length == 0" class="image-bottom shared-image-box-shadow pulse"></div>
 
 
         <div class="image-bottom-last-container">
             <img *ngIf="previewImages.length != 0"
                  [src]="getPreviewImage(3) | sanitizeImage"
-                 class="image-bottom-last"/>
+                 class="image-bottom-last shared-image-box-shadow"/>
             <div *ngIf="previewImages.length != 0" class="image-count" [style.font-size.px]="(width*1.08*0.1)">
                 +{{imageCount}}</div>
-            <div *ngIf="previewImages.length == 0" class="image-bottom-last pulse"></div>
+            <div *ngIf="previewImages.length == 0" class="image-bottom-last shared-image-box-shadow pulse"></div>
         </div>
 
     </div>

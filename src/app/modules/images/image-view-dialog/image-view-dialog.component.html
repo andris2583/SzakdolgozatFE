@@ -5,14 +5,14 @@
       <button class="dialog-header-button mat-elevation-z8" mat-raised-button>Save to collection</button>
       <button class="dialog-header-button mat-elevation-z8" mat-raised-button
               (click)="downloadButtonClick()">Download</button>
-      <button disabled class="dialog-header-button mat-elevation-z8" mat-raised-button
+      <button class="dialog-header-button mat-elevation-z8" mat-raised-button
               (click)="deleteImage()">Delete</button>
     </span>
     </div>
     <div class="image-view-main-content">
         <div style="width: 200px;"></div>
         <div class="image-container">
-            <img class="image" [src]="'http://localhost:8080/image/getImageData/'+image.id"
+            <img class="shared-image-box-shadow image" [src]="'http://localhost:8080/image/getImageData/'+image.id"
                  alt="Failed to load image..."
                  (load)="onLoad()">
         </div>
@@ -27,7 +27,8 @@
     <ngx-masonry #similarImageList style="width: 90%;margin-bottom: 2vh" [options]="options" [ordered]="true"
                  *ngIf="!loading">
         <ng-container>
-            <div ngxMasonryItem *ngFor="let image of similarImages" class="image-masonry-container masonry-item-width"
+            <div ngxMasonryItem *ngFor="let image of similarImages"
+                 class="shared-image-box-shadow image-masonry-container masonry-item-width"
                  (click)="imageClicked(image)">
                 <img class="masonry-item-width" style="margin-bottom: -6px;"
                      [src]="image.imgB64 | sanitizeImage" alt="X">

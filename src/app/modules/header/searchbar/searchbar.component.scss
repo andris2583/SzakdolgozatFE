@@ -81,11 +81,19 @@
     overflow: auto;
 }
 
-.dropdown-tag-carousel-item {
+.dropdown-carousel-item {
     //transform: rotate(90deg);
     //transform-origin: right top;
 }
 
 .dropdown-title {
     margin: 1vw 1vw 0 1vw;
+}
+
+#dropdown-carousel-image:hover {
+    filter: brightness(0.7);
+}
+
+#dropdown-carousel-image {
+    transition: 0.3s;
 }

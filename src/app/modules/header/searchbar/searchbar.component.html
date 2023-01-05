@@ -2,11 +2,12 @@
     <input class="search__input" id="search-input" type="text" placeholder="Search" (focus)="onSearchFocus()"
            (keydown.escape)="onEscape()"
            (input)="onInput()"
-           (keyup)="onKeyUp($event)" [(ngModel)]="searchbarValue">
+           [(ngModel)]="searchbarValue">
     <div *ngIf="this.searchbarInFocus" #dropdownMenu class="dropdown-menu" [@inOutAnimation]>
         <div class="dropdown-title" *ngIf="imageSuggestionsLoaded !== undefined">Images</div>
         <div *ngIf="(imageSuggestions | async)?.length != 0" class="dropdown-carousel">
-            <div class="dropdown-tag-carousel-item"
+            <div class="dropdown-carousel-item"
+                 id="dropdown-carousel-image"
                  style="margin: 20px;"
                  (click)="openImageViewDialog(image)"
                  *ngFor="let image of (imageSuggestions | async)">
@@ -16,13 +17,13 @@
         </div>
 
         <div *ngIf="this.imageSuggestionsLoaded === false" class="dropdown-carousel">
-            <div class="dropdown-tag-carousel-item pulse" *ngFor="let _ of [].constructor(10)"
+            <div class="dropdown-carousel-item pulse" *ngFor="let _ of [].constructor(10)"
                  style="margin: 20px;width: 100px;height: 100px;border-radius: 5px;flex-shrink: 0;"></div>
         </div>
 
         <div class="dropdown-title" *ngIf="tagSuggestionsLoaded !== undefined">Tags</div>
         <div *ngIf="(tagSuggestions | async)?.length != 0" class="dropdown-carousel">
-            <app-tag class="dropdown-tag-carousel-item" *ngFor="let tag of (tagSuggestions | async)" [width]="tagWidth"
+            <app-tag class="dropdown-carousel-item" *ngFor="let tag of (tagSuggestions | async)" [width]="tagWidth"
                      [tagName]="tag.name"></app-tag>
         </div>
 
@@ -37,13 +38,13 @@
         </div>
         <div class="dropdown-title">Popular collection</div>
         <div class="dropdown-carousel">
-            <app-tag class="dropdown-tag-carousel-item"
+            <app-tag class="dropdown-carousel-item"
                      [width]="tagWidth" [tagName]="'Winter'"></app-tag>
-            <app-tag class="dropdown-tag-carousel-item"
+            <app-tag class="dropdown-carousel-item"
                      [width]="tagWidth" [tagName]="'Freezing'"></app-tag>
-            <app-tag class="dropdown-tag-carousel-item"
+            <app-tag class="dropdown-carousel-item"
                      [width]="tagWidth" [tagName]="'Snow'"></app-tag>
-            <app-tag class="dropdown-tag-carousel-item"
+            <app-tag class="dropdown-carousel-item"
                      [width]="tagWidth" [tagName]="'Autumn'"></app-tag>
         </div>
     </div>
