@@ -1,0 +1,8 @@
+<div
+    style="width: 10vw;padding: 2vh 1vw 2vh 1vw; display: flex;align-items: center;justify-content: center;flex-direction: column">
+    <div style="width: 100%;margin-bottom: 1vh">Manage collections...</div>
+    <div style="width: 100%" *ngFor="let collection of collections">
+        <mat-checkbox [checked]="collection.imageIds.includes(image.id)"></mat-checkbox>
+        {{collection.name}}
+    </div>
+</div>

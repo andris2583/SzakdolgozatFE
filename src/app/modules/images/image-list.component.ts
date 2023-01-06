@@ -14,6 +14,9 @@ import {AuthService} from '../../services/auth/auth.service';
 import {CollectionService} from '../../services/collection/collection.service';
 import {Collection} from '../../models/collection';
 import {CollectionType} from '../../models/collection-type';
+import {
+    CollectionManagerDialogComponent
+} from '../shared/collection-manager-dialog/collection-manager-dialog.component';
 
 @Component({
     selector: 'app-image-list',
@@ -189,12 +192,20 @@ export class ImageListComponent implements OnInit {
 
     onFavouriteClickEvent(event: MouseEvent, image: Image) {
         this.collectionService.saveToFavourites(this.authService.getCurrentUser().id, image.id).subscribe(value => {
+            this.userCollections[this.userCollections.indexOf(this.favouriteCollection)] = value;
             this.favouriteCollection = value;
         });
         if (event.stopPropagation) event.stopPropagation();
     }
 
     onAddToCollectionClickEvent(event: MouseEvent, image: Image) {
+        let dialogRef = this.dialog.open(CollectionManagerDialogComponent, {
+            data: image,
+            panelClass: 'panel-class',
+            autoFocus: false,
+        });
+        let instance = dialogRef.componentInstance;
+        instance.collections = this.userCollections;
         if (event.stopPropagation) event.stopPropagation();
     }
 
