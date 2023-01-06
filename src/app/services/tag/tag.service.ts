@@ -8,7 +8,7 @@ import {Tag} from '../../models/tag.model';
 })
 export class TagService {
 
-    private baseUrl = 'http://localhost:8080/tag';
+    private readonly baseUrl = 'http://localhost:8080/tag';
 
     constructor(private httpClient: HttpClient) {
     }

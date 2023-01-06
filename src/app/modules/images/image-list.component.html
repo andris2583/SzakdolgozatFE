@@ -1,5 +1,5 @@
 <div
-    id="tag-name">{{tagName == 'all' ? '' : tagName}}</div>
+    id="tag-name">{{tagName == 'all' ? 'Browse images' : tagName}}</div>
 <div id="filter-sort-container">
     <button #filterTabButton class="filter-sort-button" (click)="filterButtonClicked()" mat-raised-button>
         Filter
@@ -56,17 +56,23 @@
                     <span style="vertical-align: middle;">{{image.name | getNoExtensionName}}</span>
                 </div>
                 <div style="bottom: 5px;right: 5px" class="image-container-icon-button">
-                    <button mat-icon-button (click)="onDownloadButtonClick($event)">
+                    <button mat-icon-button (click)="onDownloadButtonClick($event,image)">
                         <mat-icon>download</mat-icon>
                     </button>
                 </div>
                 <div style="top: 5px;right: 5px;" class="image-container-icon-button">
-                    <button mat-icon-button (click)="onFavouriteClickEvent($event)">
-                        <mat-icon>star_border</mat-icon>
+                    <button mat-icon-button (click)="onFavouriteClickEvent($event,image)">
+                        <mat-icon
+                            *ngIf="!favouriteCollection.imageIds.includes(image.id)">
+                            star_border
+                        </mat-icon>
+                        <mat-icon
+                            *ngIf="favouriteCollection.imageIds.includes(image.id)">star
+                        </mat-icon>
                     </button>
                 </div>
                 <div style="top: 5px;right: 45px;" class="image-container-icon-button">
-                    <button mat-icon-button (click)="onAddToCollectionClickEvent($event)">
+                    <button mat-icon-button (click)="onAddToCollectionClickEvent($event,image)">
                         <mat-icon>add_to_photos</mat-icon>
                     </button>
                 </div>

@@ -9,7 +9,7 @@ import {BatchImageRequest} from '../../models/request/batch-image-request.model'
 })
 export class ImageService {
 
-    private baseUrl = 'http://localhost:8080/image';
+    private readonly baseUrl = 'http://localhost:8080/image';
 
     constructor(private httpClient: HttpClient) {
     }

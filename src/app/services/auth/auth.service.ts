@@ -7,10 +7,15 @@ import {Router} from '@angular/router';
     providedIn: 'root',
 })
 export class AuthService {
-    private baseUrl = 'http://localhost:8080/auth';
+    private readonly baseUrl = 'http://localhost:8080/auth';
     headers = new HttpHeaders().set('Content-Type', 'application/json');
+    private currentUser: User | null = null;
 
     constructor(private http: HttpClient, public router: Router) {
+        let userString = localStorage.getItem('user');
+        if (userString != null) {
+            this.currentUser = JSON.parse(userString);
+        }
     }
 
     register(user: User) {
@@ -25,10 +30,10 @@ export class AuthService {
     }
 
     signIn(user: User) {
-        this.http.put<boolean>(this.baseUrl + '/login', user).subscribe(value => {
-            console.log(value);
-            if (value) {
-                localStorage.setItem('user', JSON.stringify(user));
+        this.http.put<User>(this.baseUrl + '/login', user).subscribe(value => {
+            if (value != null) {
+                localStorage.setItem('user', JSON.stringify(value));
+                this.currentUser = value;
                 this.router.navigate(['dashboard']);
             } else {
                 this.router.navigate(['login']);
@@ -48,5 +53,10 @@ export class AuthService {
     logOut() {
         localStorage.removeItem('user');
         this.router.navigate(['login']);
+    }
+
+    getCurrentUser(): User {
+        // @ts-ignore
+        return this.currentUser;
     }
 }

@@ -2,3 +2,39 @@
 <p>Password: {{user?.password}}</p>
 
 <a mat-stroked-button (click)="logOut()">Logout</a>
+<div style="height: 10vh;"></div>
+<div style="display: flex;justify-content: center;align-items: center;width: fit-content">
+    <div>
+        <button mat-flat-button (click)="tabButtonClick(tabs.IMAGES)">Images</button>
+        <div [ngStyle]="activeTab == tabs.IMAGES?{'background-color':'#575756'} : {'background-color': '#eaeaea'}"
+             class="tab-underline"></div>
+    </div>
+    <div>
+        <button mat-flat-button (click)="tabButtonClick(tabs.COLLECTIONS)">Collections</button>
+        <div [ngStyle]="activeTab == tabs.COLLECTIONS?{'background-color':'#575756'} : {'background-color': '#eaeaea'}"
+             class="tab-underline"></div>
+
+    </div>
+    <div>
+        <button mat-flat-button (click)="tabButtonClick(tabs.STATISTICS)">Statistics</button>
+        <div [ngStyle]="activeTab == tabs.STATISTICS?{'background-color':'#575756'} : {'background-color': '#eaeaea'}"
+             class="tab-underline"></div>
+
+    </div>
+</div>
+
+<div>
+    <div *ngIf="activeTab == tabs.IMAGES">
+        Images
+    </div>
+    <div *ngIf="activeTab == tabs.COLLECTIONS">
+        Collections
+        <div *ngFor="let collection of (collections | async)">
+            <div>{{collection.name}}</div>
+            <div *ngFor="let imageId of collection.imageIds">&nbsp;&nbsp;&nbsp;&nbsp;{{imageId}}</div>
+        </div>
+    </div>
+    <div *ngIf="activeTab == tabs.STATISTICS">
+        Statistics
+    </div>
+</div>

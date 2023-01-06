@@ -6,7 +6,7 @@
         <!--        </button>-->
         <span class="header-element" [class.dashboard-header-element]="dashboardHeader">My App</span>
         <a class="header-element header-link" [class.dashboard-header-element]="dashboardHeader"
-           *ngFor="let page of pages" mat-raised-button
+           *ngFor="let page of pages" mat-stroked-button
            [class.hidden]="!shouldPageBeShown(page)"
            [routerLink]="page.route">
             <ng-container *ngIf="shouldPageBeShown(page)">
@@ -14,11 +14,11 @@
             </ng-container>
         </a>
         <div class="searchbar-container">
-            <app-searchbar style="color: #F5F5F5 !important"></app-searchbar>
+            <app-searchbar></app-searchbar>
         </div>
         <a class="header-element header-link" [class.dashboard-header-element]="dashboardHeader"
            style="margin-left: auto" *ngIf="shouldPageBeShown(profilePage)"
-           mat-raised-button
+           mat-stroked-button
            [routerLink]="profilePage.route">Profile</a>
     </mat-toolbar-row>
 </mat-toolbar>

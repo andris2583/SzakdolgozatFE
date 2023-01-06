@@ -10,6 +10,10 @@ import {MatDialog} from '@angular/material/dialog';
 import {RequestOrderByType} from '../../models/request/request-order-by-type';
 import {RequestOrderType} from '../../models/request/request-order-type';
 import {RequestTagType} from '../../models/request/request-tag-type';
+import {AuthService} from '../../services/auth/auth.service';
+import {CollectionService} from '../../services/collection/collection.service';
+import {Collection} from '../../models/collection';
+import {CollectionType} from '../../models/collection-type';
 
 @Component({
     selector: 'app-image-list',
@@ -46,13 +50,24 @@ export class ImageListComponent implements OnInit {
 
     orderByTypes = RequestOrderByType;
 
+    // @ts-ignore
+    favouriteCollection: Collection;
+    // @ts-ignore
+    userCollections: Collection[];
+
     constructor(
         private imageService: ImageService,
         public dialog: MatDialog,
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        private renderer: Renderer2
+        private renderer: Renderer2,
+        private authService: AuthService,
+        private collectionService: CollectionService
     ) {
+        this.collectionService.getCollectionsByUserId(this.authService.getCurrentUser().id).subscribe(collections => {
+            this.userCollections = collections;
+            this.favouriteCollection = collections.filter(collection => collection.type == CollectionType.FAVOURITE)[0];
+        });
         this.router.routeReuseStrategy.shouldReuseRoute = () => {
             return false;
         };
@@ -60,16 +75,12 @@ export class ImageListComponent implements OnInit {
             if (this.filterTab != undefined && this.filterTabButton != undefined) {
                 // @ts-ignore
                 if (event.target != this.filterTab.nativeElement && !this.filterTabButton._elementRef.nativeElement.contains(event.target)) {
-                    console.log(this.filterTabOpen);
                     this.filterTabOpen = false;
                 }
             }
             if (this.sortTab != undefined && this.sortTabButton != undefined) {
                 // @ts-ignore
                 if (event.target != this.sortTab.nativeElement && !this.sortTabButton._elementRef.nativeElement.contains(event.target)) {
-                    console.log(this.sortTabButton);
-                    console.log(event.target);
-                    console.log(this.sortTabOpen);
                     this.sortTabOpen = false;
                 }
             }
@@ -157,7 +168,18 @@ export class ImageListComponent implements OnInit {
         return color;
     }
 
-    onDownloadButtonClick(event: MouseEvent) {
+    onDownloadButtonClick(event: MouseEvent, image: Image) {
+        this.imageService.getImageData(image).subscribe(value => {
+            const url = URL.createObjectURL(value);
+            const a: any = document.createElement('a');
+            a.href = url;
+            a.download = image.name;
+            document.body.appendChild(a);
+            a.style = 'display: none';
+            a.click();
+            a.remove();
+            URL.revokeObjectURL(url);
+        });
         if (event.stopPropagation) event.stopPropagation();
     }
 
@@ -165,11 +187,22 @@ export class ImageListComponent implements OnInit {
         if (event.stopPropagation) event.stopPropagation();
     }
 
-    onFavouriteClickEvent(event: MouseEvent) {
+    onFavouriteClickEvent(event: MouseEvent, image: Image) {
+        this.collectionService.saveToFavourites(this.authService.getCurrentUser().id, image.id).subscribe(value => {
+            this.favouriteCollection = value;
+        });
         if (event.stopPropagation) event.stopPropagation();
     }
 
-    onAddToCollectionClickEvent(event: MouseEvent) {
+    onAddToCollectionClickEvent(event: MouseEvent, image: Image) {
         if (event.stopPropagation) event.stopPropagation();
     }
+
+    // isFavourite(id: string): boolean {
+    //     if (this.favouriteCollection != null) {
+    //         return this.favouriteCollection.imageIds.includes(id);
+    //     } else {
+    //         return false;
+    //     }
+    // }
 }
