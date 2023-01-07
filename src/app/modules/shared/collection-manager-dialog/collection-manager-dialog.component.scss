@@ -1,0 +1,26 @@
+.collection-list-element {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 1vh;
+    padding-top: 1vh;
+}
+
+.collection-manager-container {
+    width: 14vw;
+    padding: 2vh 1vw 2vh 1vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 18px;
+}
+
+::ng-deep .mat-checkbox .mat-checkbox-frame {
+    transform: scale(1.5)
+}
+
+::ng-deep .mat-checkbox-checked .mat-checkbox-background {
+    transform: scale(1.5)
+}
+

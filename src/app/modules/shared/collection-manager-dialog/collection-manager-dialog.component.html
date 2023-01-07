@@ -1,8 +1,40 @@
 <div
-    style="width: 10vw;padding: 2vh 1vw 2vh 1vw; display: flex;align-items: center;justify-content: center;flex-direction: column">
-    <div style="width: 100%;margin-bottom: 1vh">Manage collections...</div>
-    <div style="width: 100%" *ngFor="let collection of collections">
-        <mat-checkbox [checked]="collection.imageIds.includes(image.id)"></mat-checkbox>
-        {{collection.name}}
-    </div>
+    class="collection-manager-container">
+    <div style="width: 100%;margin-bottom: 3vh">Manage collections...</div>
+    <table>
+        <tr *ngFor="let collection of collections">
+            <td class="collection-list-element">
+                <mat-checkbox [checked]="collection.imageIds.includes(image.id)"
+                              style="margin-right: 1vw;" (click)="collectionCheckBoxClicked(collection)"></mat-checkbox>
+            </td>
+            <td style="max-width: 10vw;overflow: hidden">
+                {{collection.name}}
+            </td>
+        </tr>
+        <tr (click)="startNewCollectionCreation()">
+            <td class="collection-list-element">
+                <mat-icon style="margin-right: 1vw;transform: scale(1.5)">add</mat-icon>
+            </td>
+            <td>
+                Create new collection
+            </td>
+        </tr>
+    </table>
+    <form style="margin-top: 1vh;width: 100%" action="" *ngIf="isCreatingNewCollection">
+        <mat-form-field style="width: 100%">
+            <input matInput placeholder="Name" type="text" name="newCollectionName"
+                   [(ngModel)]="newCollectionName" required autocomplete="off">
+        </mat-form-field>
+        <mat-form-field style="width: 100%">
+            <mat-select name="newCollectionPrivacy" disableOptionCentering [(value)]="newCollectionPrivacy">
+                <mat-option [value]="privacyOptions.PRIVATE">
+                    Private
+                </mat-option>
+                <mat-option [value]="privacyOptions.PUBLIC">
+                    Public
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button style="float: right" (click)="createNewCollection()" mat-flat-button>Create</button>
+    </form>
 </div>

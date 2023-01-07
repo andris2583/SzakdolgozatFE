@@ -3,3 +3,82 @@
     width: 100%;
     height: 2px;
 }
+
+.collection-list-container {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+
+}
+
+.collection-image {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.35s;
+}
+
+.no-thumbnail-container {
+    background: url("https://raw.githubusercontent.com/material-icons/material-icons/af0ed9c0e1276bad43c4d6ca8e8aaa283e425195/svg/image_not_supported/baseline.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    width: 100%;
+    height: 100%;
+}
+
+.collection-grid-tile {
+    margin: 2vw;
+    height: 20vw;
+    object-fit: cover;
+    overflow: hidden;
+    position: relative;
+}
+
+.collection-name {
+    margin-top: 1vh;
+    margin-left: 1vh;
+    width: 80%;
+    overflow: hidden;
+}
+
+.collection-grid-tile:hover > .collection-image {
+    transform: scale(1.1);
+    filter: blur(1px) brightness(0.8);
+}
+
+.collection-image-data {
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    position: absolute;
+    border: 5px solid #F5F5F5;
+    opacity: 0;
+    top: 50%;
+    left: 50%;
+    transition: transform 0.35s;
+}
+
+.collection-grid-tile:hover > .collection-image-data {
+    transform: translate(-50%, -50%);
+    display: block;
+    opacity: 1;
+    transition: opacity 0.35s;
+}
+
+.collection-name {
+    transform: translate(-50%, -50%);
+    position: absolute;
+    width: 50%;
+    top: 50%;
+    left: 50%;
+    color: white;
+    opacity: 0;
+    text-align: center;
+    font-size: 24px;
+    margin: 0;
+}
+
+.collection-grid-tile:hover > .collection-name {
+    opacity: 1;
+    transition: opacity 0.35s;
+}

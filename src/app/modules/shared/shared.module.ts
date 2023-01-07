@@ -5,6 +5,11 @@ import {PipeModule} from '../pipe/pipe/pipe.module';
 import {RouterModule} from '@angular/router';
 import {CollectionManagerDialogComponent} from './collection-manager-dialog/collection-manager-dialog.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatSelectModule} from '@angular/material/select';
+import {MatButtonModule} from '@angular/material/button';
 
 
 @NgModule({
@@ -16,7 +21,13 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
         CommonModule,
         PipeModule,
         RouterModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        MatIconModule,
+        MatInputModule,
+        FormsModule,
+        MatSelectModule,
+        ReactiveFormsModule,
+        MatButtonModule
     ],
     exports: [
         TagComponent

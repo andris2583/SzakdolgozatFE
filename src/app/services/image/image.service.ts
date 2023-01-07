@@ -22,6 +22,10 @@ export class ImageService {
         return this.httpClient.get<Image>(this.baseUrl + '/get/' + imageID);
     }
 
+    getImagesByIds(imageIds: string[]): Observable<Image[]> {
+        return this.httpClient.put<Image[]>(this.baseUrl + '/getImagesByIds/', imageIds);
+    }
+
     insertImage(image: Image): Observable<Image> {
         return this.httpClient.put<Image>(this.baseUrl + '/insert/', image);
     }

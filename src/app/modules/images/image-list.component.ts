@@ -206,6 +206,9 @@ export class ImageListComponent implements OnInit {
         });
         let instance = dialogRef.componentInstance;
         instance.collections = this.userCollections;
+        instance.collectionsChanged.subscribe((collections: Collection[]) => {
+            this.userCollections = collections;
+        });
         if (event.stopPropagation) event.stopPropagation();
     }
 

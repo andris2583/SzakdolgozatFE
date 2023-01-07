@@ -16,6 +16,9 @@ import {RegisterComponent} from './modules/register/register.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {TagListModule} from './modules/tags/tag-list.module';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {PipeModule} from './modules/pipe/pipe/pipe.module';
+import {MatIconModule} from '@angular/material/icon';
 
 
 @NgModule({
@@ -38,6 +41,9 @@ import {MatTabsModule} from '@angular/material/tabs';
         MatButtonModule,
         ReactiveFormsModule,
         MatTabsModule,
+        MatGridListModule,
+        PipeModule,
+        MatIconModule,
     ],
     providers: [
         // {

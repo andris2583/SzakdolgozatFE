@@ -32,8 +32,8 @@
                  (click)="imageClicked(image)">
                 <img class="masonry-item-width" style="margin-bottom: -6px;"
                      [src]="image.imgB64 | sanitizeImage" alt="X">
-                <div class="image-hover-data"
-                     style="position: absolute;bottom: 5px;left: 10px;color: white;z-index: 10">{{image.name | getNoExtensionName}}</div>
+                <!--                <div class="image-hover-data"-->
+                <!--                     style="position: absolute;bottom: 5px;left: 10px;color: white;z-index: 10">{{image.name | getNoExtensionName}}</div>-->
             </div>
         </ng-container>
     </ngx-masonry>

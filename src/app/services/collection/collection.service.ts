@@ -25,7 +25,11 @@ export class CollectionService {
         return this.httpClient.get<Collection>(this.baseUrl + '/saveToFavourites/' + userId + '/' + imageId);
     }
 
-    saveToCollection(userId: string, collectionId: string, imageId: string): Observable<boolean> {
-        return this.httpClient.get<boolean>(this.baseUrl + '/saveToCollection/' + userId + '/' + collectionId + '/' + imageId);
+    saveToCollection(userId: string, collectionId: string, imageId: string): Observable<Collection> {
+        return this.httpClient.get<Collection>(this.baseUrl + '/saveToCollection/' + userId + '/' + collectionId + '/' + imageId);
+    }
+
+    insertCollection(collection: Collection): Observable<Collection> {
+        return this.httpClient.put<Collection>(this.baseUrl + '/insert/', collection);
     }
 }

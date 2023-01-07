@@ -29,10 +29,23 @@
     </div>
     <div *ngIf="activeTab == tabs.COLLECTIONS">
         Collections
-        <div *ngFor="let collection of (collections | async)">
-            <div>{{collection.name}}</div>
-            <div *ngFor="let imageId of collection.imageIds">&nbsp;&nbsp;&nbsp;&nbsp;{{imageId}}</div>
+        <!--        <div *ngFor="let collection of (collections | async)">-->
+        <!--            <div>{{collection.name}}</div>-->
+        <!--            <div *ngFor="let imageId of collection.imageIds">&nbsp;&nbsp;&nbsp;&nbsp;{{imageId}}</div>-->
+        <!--        </div>-->
+        <div class="collection-list-container">
+            <div *ngFor="let collection of (collections | async)" class="collection-grid-tile shared-image-box-shadow ">
+                <img *ngIf="getThumbnailData(collection) != null && thumbnailImagesLoaded" class="collection-image"
+                     style="margin-bottom: -6px;"
+                     [src]="getThumbnailData(collection) | sanitizeImage">
+                <div *ngIf="getThumbnailData(collection) == null &&thumbnailImagesLoaded"
+                     class="no-thumbnail-container"></div>
+                <div class="collection-name">{{collection.name}}</div>
+                <div class="collection-image-data"></div>
+            </div>
         </div>
+
+
     </div>
     <div *ngIf="activeTab == tabs.STATISTICS">
         Statistics
