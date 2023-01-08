@@ -28,18 +28,20 @@
         Images
     </div>
     <div *ngIf="activeTab == tabs.COLLECTIONS">
-        Collections
+        <div class="tab-title">Your private collections</div>
         <!--        <div *ngFor="let collection of (collections | async)">-->
         <!--            <div>{{collection.name}}</div>-->
         <!--            <div *ngFor="let imageId of collection.imageIds">&nbsp;&nbsp;&nbsp;&nbsp;{{imageId}}</div>-->
         <!--        </div>-->
         <div class="collection-list-container">
-            <div *ngFor="let collection of (collections | async)" class="collection-grid-tile shared-image-box-shadow ">
+            <div *ngFor="let collection of (collections | async)" class="collection-grid-tile shared-image-box-shadow"
+                 routerLink="/collection/{{collection.id}}">
                 <img *ngIf="getThumbnailData(collection) != null && thumbnailImagesLoaded" class="collection-image"
                      style="margin-bottom: -6px;"
                      [src]="getThumbnailData(collection) | sanitizeImage">
-                <div *ngIf="getThumbnailData(collection) == null &&thumbnailImagesLoaded"
-                     class="no-thumbnail-container"></div>
+                <img *ngIf="getThumbnailData(collection) == null &&thumbnailImagesLoaded"
+                     class="collection-image no-thumbnail-container" style="margin-bottom: -6px;"
+                     [src]="'https://raw.githubusercontent.com/material-icons/material-icons/af0ed9c0e1276bad43c4d6ca8e8aaa283e425195/svg/image_not_supported/baseline.svg'">
                 <div class="collection-name">{{collection.name}}</div>
                 <div class="collection-image-data"></div>
             </div>

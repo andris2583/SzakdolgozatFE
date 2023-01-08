@@ -1,22 +1,16 @@
 import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {Image} from '../../models/image.model';
 import {ImageService} from '../../services/image/image.service';
-import {ImageViewDialogComponent} from './image-view-dialog/image-view-dialog.component';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgxMasonryOptions} from 'ngx-masonry';
 import {ImageUploadDialogComponent} from './image-upload-dialog/image-upload-dialog.component';
 import {BatchImageRequest} from '../../models/request/batch-image-request.model';
 import {MatDialog} from '@angular/material/dialog';
 import {RequestOrderByType} from '../../models/request/request-order-by-type';
-import {RequestOrderType} from '../../models/request/request-order-type';
-import {RequestTagType} from '../../models/request/request-tag-type';
 import {AuthService} from '../../services/auth/auth.service';
 import {CollectionService} from '../../services/collection/collection.service';
 import {Collection} from '../../models/collection';
-import {CollectionType} from '../../models/collection-type';
-import {
-    CollectionManagerDialogComponent
-} from '../shared/collection-manager-dialog/collection-manager-dialog.component';
+import {ImageUtilService} from '../../services/image/image-util.service';
 
 @Component({
     selector: 'app-image-list',
@@ -32,16 +26,7 @@ export class ImageListComponent implements OnInit {
     images: Image[] = [];
     tagName: string | null = null;
     skeletonHeights: number[] = [];
-    batchImageRequest: BatchImageRequest = {
-        tags: ['all'],
-        batchSize: 24,
-        pageCount: 0,
-        requestFilter: null,
-        requestOrderByType: RequestOrderByType.ALPHABETICAL,
-        requestOrderType: RequestOrderType.ASC,
-        requestTagType: RequestTagType.OR
-    };
-    loading: boolean = true;
+    batchImageRequest: BatchImageRequest;
 
     sortTabOpen: boolean = false;
     filterTabOpen: boolean = false;
@@ -63,8 +48,18 @@ export class ImageListComponent implements OnInit {
         private router: Router,
         private renderer: Renderer2,
         private authService: AuthService,
-        private collectionService: CollectionService
+        private collectionService: CollectionService,
+        private imageUtilService: ImageUtilService,
     ) {
+        // @ts-ignore
+        this.batchImageRequest = this.imageUtilService.getBatchImageRequest();
+        if (this.batchImageRequest == null) {
+            this.batchImageRequest = this.imageUtilService.defaultBatchImageRequest;
+        }
+        this.tagName = this.activatedRoute.snapshot.paramMap.get('tag');
+        this.batchImageRequest.tags = [this.tagName];
+        this.loadImageData();
+        this.generateRandomHeights();
         this.collectionService.getCollectionsByUserId(this.authService.getCurrentUser().id).subscribe(collections => {
             this.userCollections = collections;
         });
@@ -88,33 +83,15 @@ export class ImageListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.tagName = this.activatedRoute.snapshot.paramMap.get('tag');
-        this.batchImageRequest.tags = [this.tagName];
-        this.loadImageData();
-        this.generateRandomHeights();
+
     }
 
     loadImageData() {
-        this.loading = true;
         this.imageService.getImages(this.batchImageRequest).subscribe(value => {
             this.images = this.images.concat(value);
-            this.loading = false;
         });
 
         this.batchImageRequest.pageCount++;
-    }
-
-    openImageViewDialog(image: Image) {
-        let dialogRef = this.dialog.open(ImageViewDialogComponent, {
-            data: image,
-            panelClass: 'panel-class',
-            autoFocus: false,
-        });
-        let instance = dialogRef.componentInstance;
-        instance.deletedImageEvent.subscribe((deletedImage: Image) => {
-            this.images.splice(this.images.indexOf(deletedImage), 1);
-        });
-        instance.images = this.images;
     }
 
     openImageUploadDialog() {
@@ -163,53 +140,4 @@ export class ImageListComponent implements OnInit {
         this.loadImageData();
     }
 
-    getRandomColor(): string {
-        let color = 'hsl(' + Math.random() * 360 + ', 100%, 75%)';
-        return color;
-    }
-
-    onDownloadButtonClick(event: MouseEvent, image: Image) {
-        this.imageService.getImageData(image).subscribe(value => {
-            const url = URL.createObjectURL(value);
-            const a: any = document.createElement('a');
-            a.href = url;
-            a.download = image.name;
-            document.body.appendChild(a);
-            a.style = 'display: none';
-            a.click();
-            a.remove();
-            URL.revokeObjectURL(url);
-        });
-        if (event.stopPropagation) event.stopPropagation();
-    }
-
-    onUserClickEvent(event: MouseEvent) {
-        if (event.stopPropagation) event.stopPropagation();
-    }
-
-    onFavouriteClickEvent(event: MouseEvent, image: Image) {
-        let favouriteCollection = this.userCollections.filter(tempCollection => tempCollection.type == CollectionType.FAVOURITE)[0];
-        if (favouriteCollection.imageIds.includes(image.id)) {
-            favouriteCollection.imageIds.splice(favouriteCollection.imageIds.indexOf(image.id), 1);
-        } else {
-            favouriteCollection.imageIds.push(image.id);
-        }
-        this.collectionService.saveCollection(favouriteCollection).subscribe(value => {
-        });
-        if (event.stopPropagation) event.stopPropagation();
-    }
-
-    onAddToCollectionClickEvent(event: MouseEvent, image: Image) {
-        let dialogRef = this.dialog.open(CollectionManagerDialogComponent, {
-            data: image,
-            panelClass: 'panel-class',
-            autoFocus: false,
-        });
-        let instance = dialogRef.componentInstance;
-        instance.collections = this.userCollections;
-        instance.collectionsChanged.subscribe((collections: Collection[]) => {
-            this.userCollections = collections;
-        });
-        if (event.stopPropagation) event.stopPropagation();
-    }
 }

@@ -23,6 +23,7 @@ import {ImageTagListComponent} from './image-view-dialog/image-tag-list/image-ta
 import {MatInputModule} from '@angular/material/input';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {SharedModule} from '../shared/shared.module';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
         ReactiveFormsModule,
         MatAutocompleteModule,
         FormsModule,
+        SharedModule,
     ],
 })
 export class ImageListModule {

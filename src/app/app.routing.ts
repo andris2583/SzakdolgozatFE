@@ -25,6 +25,11 @@ const routes: Routes = [
         loadChildren: () => import('./modules/tags/tag-list.module').then(m => m.TagListModule)
     },
     {
+        path: 'collection/:id',
+        canActivate: [AuthGuard],
+        loadChildren: () => import('./modules/collection/collection.module').then(m => m.CollectionModule)
+    },
+    {
         path: 'profile',
         canActivate: [AuthGuard],
         loadChildren: () => import('./modules/profile/profile.module').then(m => m.ProfileModule)
@@ -36,7 +41,7 @@ const routes: Routes = [
     {
         path: 'register',
         loadChildren: () => import('./modules/register/register.module').then(m => m.RegisterModule)
-    }
+    },
 
 ];
 

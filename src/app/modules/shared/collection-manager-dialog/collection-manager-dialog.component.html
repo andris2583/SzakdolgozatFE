@@ -8,7 +8,7 @@
                               style="margin-right: 1vw;"
                               (change)="collectionCheckBoxClicked(collection)"></mat-checkbox>
             </td>
-            <td style="max-width: 10vw;overflow: hidden">
+            <td style="max-width: 10vw;overflow: hidden" (click)="collectionCheckBoxClicked(collection)">
                 {{collection.name}}
             </td>
         </tr>

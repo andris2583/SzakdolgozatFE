@@ -11,4 +11,5 @@ export interface BatchImageRequest {
     batchSize: number;
     pageCount: number;
     requestFilter: RequestFilter | null;
+    collectionId: string | null;
 }

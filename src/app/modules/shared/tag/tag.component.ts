@@ -33,7 +33,8 @@ export class TagComponent implements OnInit {
             requestFilter: null,
             requestOrderByType: RequestOrderByType.ALPHABETICAL,
             requestOrderType: RequestOrderType.ASC,
-            requestTagType: RequestTagType.OR
+            requestTagType: RequestTagType.OR,
+            collectionId: null
         }).subscribe(value => {
             this.previewImages = value;
         });

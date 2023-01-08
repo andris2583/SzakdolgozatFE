@@ -116,7 +116,8 @@ export class SearchbarComponent implements OnInit {
                 requestFilter: {nameFilterString: this.searchbarValue, maxCount: 10},
                 requestOrderByType: RequestOrderByType.ALPHABETICAL,
                 requestOrderType: RequestOrderType.ASC,
-                requestTagType: RequestTagType.OR
+                requestTagType: RequestTagType.OR,
+                collectionId: null,
             }).pipe(tap(() => this.imageSuggestionsLoaded = true));
         }
     }
@@ -138,7 +139,8 @@ export class SearchbarComponent implements OnInit {
             requestFilter: null,
             requestOrderByType: RequestOrderByType.ALPHABETICAL,
             requestOrderType: RequestOrderType.ASC,
-            requestTagType: RequestTagType.OR
+            requestTagType: RequestTagType.OR,
+            collectionId: null
         }).subscribe(value => instance.images = value);
     }
 }

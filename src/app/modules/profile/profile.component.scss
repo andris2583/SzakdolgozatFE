@@ -4,6 +4,11 @@
     height: 2px;
 }
 
+.tab-title {
+    margin: 2vw 0 0 2vw;
+    font-size: 28px;
+}
+
 .collection-list-container {
     display: grid;
     grid-template-columns: 25% 25% 25% 25%;
@@ -18,10 +23,6 @@
 }
 
 .no-thumbnail-container {
-    background: url("https://raw.githubusercontent.com/material-icons/material-icons/af0ed9c0e1276bad43c4d6ca8e8aaa283e425195/svg/image_not_supported/baseline.svg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 100%;
     width: 100%;
     height: 100%;
 }
@@ -44,6 +45,7 @@
 .collection-grid-tile:hover > .collection-image {
     transform: scale(1.1);
     filter: blur(1px) brightness(0.8);
+    -webkit-filter: brightness(0.8);
 }
 
 .collection-image-data {

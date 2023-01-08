@@ -10,12 +10,16 @@ import {MatInputModule} from '@angular/material/input';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
+import {ImageMasonryListComponent} from './image-masonry-list/image-masonry-list.component';
+import {NgxMasonryModule} from 'ngx-masonry';
+import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 
 
 @NgModule({
     declarations: [
         TagComponent,
-        CollectionManagerDialogComponent
+        CollectionManagerDialogComponent,
+        ImageMasonryListComponent
     ],
     imports: [
         CommonModule,
@@ -27,10 +31,13 @@ import {MatButtonModule} from '@angular/material/button';
         FormsModule,
         MatSelectModule,
         ReactiveFormsModule,
-        MatButtonModule
+        MatButtonModule,
+        NgxMasonryModule,
+        InfiniteScrollModule
     ],
     exports: [
-        TagComponent
+        TagComponent,
+        ImageMasonryListComponent
     ]
 })
 export class SharedModule {

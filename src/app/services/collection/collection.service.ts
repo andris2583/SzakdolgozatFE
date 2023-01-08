@@ -28,4 +28,8 @@ export class CollectionService {
     insertCollection(collection: Collection): Observable<Collection> {
         return this.httpClient.put<Collection>(this.baseUrl + '/insert/', collection);
     }
+
+    getCollectionsById(id: string): Observable<Collection> {
+        return this.httpClient.get<Collection>(this.baseUrl + '/getCollectionsById/' + id);
+    }
 }
