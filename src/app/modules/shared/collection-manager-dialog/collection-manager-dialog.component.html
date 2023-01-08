@@ -4,8 +4,9 @@
     <table>
         <tr *ngFor="let collection of collections">
             <td class="collection-list-element">
-                <mat-checkbox [checked]="collection.imageIds.includes(image.id)"
-                              style="margin-right: 1vw;" (click)="collectionCheckBoxClicked(collection)"></mat-checkbox>
+                <mat-checkbox [checked]="shouldCheckBoxBeChecked(collection,image)"
+                              style="margin-right: 1vw;"
+                              (change)="collectionCheckBoxClicked(collection)"></mat-checkbox>
             </td>
             <td style="max-width: 10vw;overflow: hidden">
                 {{collection.name}}

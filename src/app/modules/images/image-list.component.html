@@ -62,12 +62,13 @@
                 </div>
                 <div style="top: 5px;right: 5px;" class="image-container-icon-button">
                     <button mat-icon-button (click)="onFavouriteClickEvent($event,image)">
+                        <!--                        TODO should replace [0] with something better-->
                         <mat-icon
-                            *ngIf="!favouriteCollection.imageIds.includes(image.id)">
+                            *ngIf="!userCollections[0].imageIds.includes(image.id)">
                             star_border
                         </mat-icon>
                         <mat-icon
-                            *ngIf="favouriteCollection.imageIds.includes(image.id)">star
+                            *ngIf="userCollections[0].imageIds.includes(image.id)">star
                         </mat-icon>
                     </button>
                 </div>

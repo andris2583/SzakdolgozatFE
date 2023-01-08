@@ -54,8 +54,6 @@ export class ImageListComponent implements OnInit {
     orderByTypes = RequestOrderByType;
 
     // @ts-ignore
-    favouriteCollection: Collection;
-    // @ts-ignore
     userCollections: Collection[];
 
     constructor(
@@ -69,7 +67,6 @@ export class ImageListComponent implements OnInit {
     ) {
         this.collectionService.getCollectionsByUserId(this.authService.getCurrentUser().id).subscribe(collections => {
             this.userCollections = collections;
-            this.favouriteCollection = collections.filter(collection => collection.type == CollectionType.FAVOURITE)[0];
         });
         this.router.routeReuseStrategy.shouldReuseRoute = () => {
             return false;
@@ -191,9 +188,13 @@ export class ImageListComponent implements OnInit {
     }
 
     onFavouriteClickEvent(event: MouseEvent, image: Image) {
-        this.collectionService.saveToFavourites(this.authService.getCurrentUser().id, image.id).subscribe(value => {
-            this.userCollections[this.userCollections.indexOf(this.favouriteCollection)] = value;
-            this.favouriteCollection = value;
+        let favouriteCollection = this.userCollections.filter(tempCollection => tempCollection.type == CollectionType.FAVOURITE)[0];
+        if (favouriteCollection.imageIds.includes(image.id)) {
+            favouriteCollection.imageIds.splice(favouriteCollection.imageIds.indexOf(image.id), 1);
+        } else {
+            favouriteCollection.imageIds.push(image.id);
+        }
+        this.collectionService.saveCollection(favouriteCollection).subscribe(value => {
         });
         if (event.stopPropagation) event.stopPropagation();
     }
@@ -211,12 +212,4 @@ export class ImageListComponent implements OnInit {
         });
         if (event.stopPropagation) event.stopPropagation();
     }
-
-    // isFavourite(id: string): boolean {
-    //     if (this.favouriteCollection != null) {
-    //         return this.favouriteCollection.imageIds.includes(id);
-    //     } else {
-    //         return false;
-    //     }
-    // }
 }

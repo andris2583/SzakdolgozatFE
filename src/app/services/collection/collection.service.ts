@@ -21,12 +21,8 @@ export class CollectionService {
         return this.httpClient.get<Collection[]>(this.baseUrl + '/getCollectionsByUserId/' + userId);
     }
 
-    saveToFavourites(userId: string, imageId: string): Observable<Collection> {
-        return this.httpClient.get<Collection>(this.baseUrl + '/saveToFavourites/' + userId + '/' + imageId);
-    }
-
-    saveToCollection(userId: string, collectionId: string, imageId: string): Observable<Collection> {
-        return this.httpClient.get<Collection>(this.baseUrl + '/saveToCollection/' + userId + '/' + collectionId + '/' + imageId);
+    saveCollection(collection: Collection): Observable<Collection> {
+        return this.httpClient.put<Collection>(this.baseUrl + '/saveCollection', collection);
     }
 
     insertCollection(collection: Collection): Observable<Collection> {

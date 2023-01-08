@@ -55,15 +55,17 @@ export class CollectionManagerDialogComponent implements OnInit {
     }
 
     collectionCheckBoxClicked(collection: Collection) {
-        this.collectionsService.saveToCollection(this.authService.getCurrentUser().id, collection.id, this.image.id).subscribe(value => {
-            if (value != null) {
-                this.collections.forEach(tempCollection => {
-                    if (tempCollection.id == collection.id) {
-                        tempCollection.imageIds = value.imageIds;
-                    }
-                });
-                this.collectionsChanged.emit(this.collections);
-            }
+        if (collection.imageIds.indexOf(this.image.id) != -1) {
+            collection.imageIds.splice(collection.imageIds.indexOf(this.image.id), 1);
+        } else {
+            collection.imageIds.push(this.image.id);
+        }
+        this.collectionsChanged.emit(this.collections);
+        this.collectionsService.saveCollection(collection).subscribe(value => {
         });
+    }
+
+    shouldCheckBoxBeChecked(collection: Collection, image: Image) {
+        return collection.imageIds.indexOf(image.id) != -1;
     }
 }

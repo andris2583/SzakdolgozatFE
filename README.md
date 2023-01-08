@@ -81,3 +81,7 @@ Image
 User
 
 - Image ID list
+
+TODO
+
+- Replace redundant endpoints with rest save
