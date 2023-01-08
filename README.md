@@ -5,12 +5,12 @@
 ## Funkciók
 
 - [X] Képfeltöltés
-- [] Címkézés
+- [X] Címkézés
     - [X] Feltöltéskor
-    - [] Utólagosan
+    - [X] Utólagosan
     - [X] Automatikus címkézés
     - [X] Szűrés címkék alapján
-- [] Rendszerezés gyűjteményekbe
+- [X] Rendszerezés gyűjteményekbe
 - [] Zip fájlba exportálás
     - [] Gyűjtemények exportálása
     - [] Csak kiválasztott képek exportálása
@@ -50,29 +50,31 @@
 - ~~categories most popular, few preview images in category card~~
 - save img w,h to image entity, so loading ghost w,h is good
 - ~~like,dislike, comment~~ star/favourite instead
-- order by likes/dislikes/comments/upload,date/
+- ~~order by likes/dislikes/comments/upload,date/~~
 - filter by date
 - create album automatically
-- add to collection, like, download on image hover
+- ~~add to collection, like, download on image hover~~
 - admin felület, szabályozni dolgokat felbontás,tárhely | free/prémium
 - Felhasználói szintek
 - Képekre Views, Downloads, Likes
+- ~~Replace redundant endpoints with rest save~~
+- When deleting images remove from collections
 
 Collections
 
-- Every user has default liked photos collection
-- Can create collection
-- Save to collection button
-- Can see collections in profile
+- ~~Every user has default liked photos collection~~
+- ~~Can create collection~~
+- ~~Save to collection button~~
+- ~~Can see collections in profile~~
 - Can name them
-- Can share them
-- Collection data:
-    - ID
-    - Name
-    - imageIds[]
-    - Owner
-    - Enum:Private/Public
-    - Enum: Favourites/Created
+- Can share them -> make privacy public
+- ~~Collection data:~~
+    - ~~ID~~
+    - ~~Name~~
+    - ~~imageIds[]~~
+    - ~~Owner~~
+    - ~~Enum:Private/Public~~
+    - ~~Enum: Favourites/Created~~
 
 Image
 
@@ -82,6 +84,3 @@ User
 
 - Image ID list
 
-TODO
-
-- Replace redundant endpoints with rest save

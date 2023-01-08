@@ -1,8 +1,46 @@
-<p>Username: {{user?.username}}</p>
-<p>Password: {{user?.password}}</p>
+<div style="display: flex;justify-content: center;align-items: center">
+    <div style="display: flex;justify-content: center;align-items: center;flex-direction: column ">
+        <mat-icon
+            style="color: greenyellow;vertical-align: middle;font-size: 12vw;width: fit-content;height: fit-content;">
+            account_circle
+        </mat-icon>
+        <div
+            style="display: flex;justify-content: center;align-items: center;font-size: 28px;position: relative">{{user?.username}}
+            <a style="position: absolute;left: 150%" mat-stroked-button>Edit profile</a>
+        </div>
+        <div
+            style="display: grid;column-gap: 1vw;row-gap: 1vw;margin-top: 2vw;margin-bottom: 2vw;grid-template-columns: 4vw 0.1vw 4vw 0.1vw 4vw;">
+            <div style="font-size: 20px;text-align: center">
+                Images
+            </div>
+            <div class="profile-divider"></div>
+            <div style="font-size: 20px;text-align: center">
+                Views
+            </div>
+            <div class="profile-divider"></div>
+            <div style="font-size: 20px;text-align: center">
+                Likes
+            </div>
+            <div style="font-size: 20px;text-align: center">
+                23
+            </div>
+            <div class="profile-divider"></div>
+            <div style="font-size: 20px;text-align: center">
+                4.5K
+            </div>
+            <div class="profile-divider"></div>
+            <div style="font-size: 20px;text-align: center">
+                328
+            </div>
+        </div>
+        <div>
+            <a mat-stroked-button (click)="logOut()">Logout</a>
+        </div>
+    </div>
+</div>
 
-<a mat-stroked-button (click)="logOut()">Logout</a>
 <div style="height: 10vh;"></div>
+
 <div style="display: flex;justify-content: center;align-items: center;width: fit-content">
     <div>
         <button mat-flat-button (click)="tabButtonClick(tabs.IMAGES)">Images</button>

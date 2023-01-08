@@ -13,7 +13,6 @@ import {CollectionType} from '../../../models/collection-type';
     styleUrls: ['./collection-manager-dialog.component.scss']
 })
 export class CollectionManagerDialogComponent implements OnInit {
-
     collections: Collection[] = [];
     isCreatingNewCollection: boolean = false;
     newCollectionName: string = '';
@@ -60,6 +59,7 @@ export class CollectionManagerDialogComponent implements OnInit {
         } else {
             collection.imageIds.push(this.image.id);
         }
+        //TODO something is broken here, not removing adding good at BE
         this.collectionsChanged.emit(this.collections);
         this.collectionsService.saveCollection(collection).subscribe(value => {
         });
