@@ -1,5 +1,6 @@
 <div *ngIf="collection">
     <div class="collection-name">{{collection.name}}</div>
     <app-image-masonry-list (loadImageData)="loadImageData()" [images]="images"
-                            [userCollections]="userCollections"></app-image-masonry-list>
+                            [userCollections]="userCollections"
+                            (collectionChanged)="onCollectionChanged($event)"></app-image-masonry-list>
 </div>

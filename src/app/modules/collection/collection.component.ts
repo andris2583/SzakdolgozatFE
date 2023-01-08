@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Collection} from '../../models/collection';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {CollectionService} from '../../services/collection/collection.service';
 import {Image} from '../../models/image.model';
 import {BatchImageRequest} from '../../models/request/batch-image-request.model';
@@ -25,12 +25,12 @@ export class CollectionComponent implements OnInit {
                 private collectionService: CollectionService,
                 private imageUtilService: ImageUtilService,
                 private imageService: ImageService,
-                private authService: AuthService) {
+                private authService: AuthService,
+                private router: Router) {
         // @ts-ignore
         this.collectionId = this.activatedRoute.snapshot.paramMap.get('id');
         this.collectionService.getCollectionsById(this.collectionId).subscribe(value => {
             this.collection = value;
-            console.log(this.collection);
         });
         this.batchImageRequest = this.imageUtilService.defaultBatchImageRequest;
         this.batchImageRequest.collectionId = this.collectionId;
@@ -49,5 +49,22 @@ export class CollectionComponent implements OnInit {
         });
 
         this.batchImageRequest.pageCount++;
+    }
+
+    onCollectionChanged($event: Collection[]) {
+        let changedCurrentCollection = $event.filter(tempCollection => tempCollection.id == this.collectionId)[0];
+        if (changedCurrentCollection.imageIds.length != this.images.length) {
+            this.resetData();
+        }
+    }
+
+    resetData() {
+        this.batchImageRequest = this.imageUtilService.defaultBatchImageRequest;
+        this.batchImageRequest.collectionId = this.collectionId;
+        this.collectionService.getCollectionsByUserId(this.authService.getCurrentUser().id).subscribe(collections => {
+            this.userCollections = collections;
+        });
+        this.images = [];
+        this.loadImageData();
     }
 }

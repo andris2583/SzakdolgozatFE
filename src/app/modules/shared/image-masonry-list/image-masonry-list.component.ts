@@ -28,6 +28,8 @@ export class ImageMasonryListComponent implements OnInit {
     };
     @Output()
     loadImageData = new EventEmitter<null>();
+    @Output()
+    collectionChanged = new EventEmitter<Collection[]>();
 
     constructor(private imageService: ImageService,
                 public dialog: MatDialog,
@@ -88,6 +90,7 @@ export class ImageMasonryListComponent implements OnInit {
         instance.collections = this.userCollections;
         instance.collectionsChanged.subscribe((collections: Collection[]) => {
             this.userCollections = collections;
+            this.collectionChanged.emit(collections);
         });
         if (event.stopPropagation) event.stopPropagation();
     }
