@@ -54,14 +54,15 @@ export class CollectionManagerDialogComponent implements OnInit {
     }
 
     collectionCheckBoxClicked(collection: Collection) {
+        let originalCollection = structuredClone(collection);
         if (collection.imageIds.indexOf(this.image.id) != -1) {
             collection.imageIds.splice(collection.imageIds.indexOf(this.image.id), 1);
         } else {
             collection.imageIds.push(this.image.id);
         }
-        //TODO something is broken here, not removing adding good at BE
-        this.collectionsChanged.emit(this.collections);
         this.collectionsService.saveCollection(collection).subscribe(value => {
+            this.collections[this.collections.indexOf(originalCollection)] = value;
+            this.collectionsChanged.emit(this.collections);
         });
     }
 
