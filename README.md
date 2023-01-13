@@ -55,10 +55,12 @@
 - create album automatically
 - ~~add to collection, like, download on image hover~~
 - admin felület, szabályozni dolgokat felbontás,tárhely | free/prémium
+- admin usernek végtelen space
 - Felhasználói szintek
 - Képekre Views, Downloads, Likes
 - ~~Replace redundant endpoints with rest save~~
 - When deleting images remove from collections
+- webp not compatible yet, is it even needed?
 
 Collections
 
@@ -83,4 +85,5 @@ Image
 User
 
 - Image ID list
+
 

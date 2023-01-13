@@ -64,7 +64,7 @@ export class ImageUploadDialogComponent implements OnInit {
             reader.onload = () => {
                 this.imageService.getTags((reader.result as string).replace('data:image/jpeg;base64,', '')).subscribe(value => {
                     image.tags = value;
-                    image.imgB64 = (reader.result as string).replace('data:image/jpeg;base64,', '');
+                    image.imgB64 = (reader.result as string);
                     image.name = files[i].name;
                 });
             };
