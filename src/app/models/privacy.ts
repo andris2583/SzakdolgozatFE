@@ -1,3 +1,3 @@
 export enum Privacy {
-    PUBLIC, PRIVATE
+    PUBLIC = 'PUBLIC', PRIVATE = 'PRIVATE'
 }

@@ -60,7 +60,7 @@
 .dropdown-menu {
     position: absolute;
     width: 100%;
-    //height: 40vh;
+    max-height: 60vh;
     overflow: auto;
     background-color: #F5F5F5;
     border-bottom-right-radius: 20px;
@@ -90,10 +90,10 @@
     margin: 1vw 1vw 0 1vw;
 }
 
-#dropdown-carousel-image:hover {
+.dropdown-carousel-image:hover {
     filter: brightness(0.7);
 }
 
-#dropdown-carousel-image {
+.dropdown-carousel-image {
     transition: 0.3s;
 }

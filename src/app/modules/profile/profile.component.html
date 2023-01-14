@@ -63,7 +63,7 @@
 
 <div>
     <div *ngIf="activeTab == tabs.IMAGES">
-        Images
+        IMPLEMENT PRIVATE IMAGES
     </div>
     <div *ngIf="activeTab == tabs.COLLECTIONS">
         <div class="tab-title">Your private collections</div>
@@ -74,10 +74,10 @@
         <div class="collection-list-container">
             <div *ngFor="let collection of (collections | async)" class="collection-grid-tile shared-image-box-shadow"
                  routerLink="/collection/{{collection.id}}">
-                <img *ngIf="getThumbnailData(collection) != null && thumbnailImagesLoaded" class="collection-image"
+                <img *ngIf="collection.imageIds.length != 0" class="collection-image"
                      style="margin-bottom: -6px;"
-                     [src]="getThumbnailData(collection) | sanitizeImage">
-                <img *ngIf="getThumbnailData(collection) == null &&thumbnailImagesLoaded"
+                     [src]="'http://localhost:8080/image/getImageThumbnailData/'+collection.imageIds[0]">
+                <img *ngIf="collection.imageIds.length == 0"
                      class="collection-image no-thumbnail-container" style="margin-bottom: -6px;"
                      [src]="'https://raw.githubusercontent.com/material-icons/material-icons/af0ed9c0e1276bad43c4d6ca8e8aaa283e425195/svg/image_not_supported/baseline.svg'">
                 <div class="collection-name">{{collection.name}}</div>
@@ -88,6 +88,6 @@
 
     </div>
     <div *ngIf="activeTab == tabs.STATISTICS">
-        Statistics
+        IMPLEMENT PROFILE STATISTICS
     </div>
 </div>

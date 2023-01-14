@@ -6,25 +6,43 @@
     <div *ngIf="this.searchbarInFocus" #dropdownMenu class="dropdown-menu" [@inOutAnimation]>
         <div class="dropdown-title" *ngIf="imageSuggestionsLoaded !== undefined">Images</div>
         <div *ngIf="(imageSuggestions | async)?.length != 0" class="dropdown-carousel">
-            <div class="dropdown-carousel-item"
-                 id="dropdown-carousel-image"
-                 style="margin: 20px;"
+            <div class="dropdown-carousel-item dropdown-carousel-image"
+                 style="margin: 10px 20px 10px 20px;"
                  (click)="openImageViewDialog(image)"
                  *ngFor="let image of (imageSuggestions | async)">
                 <img style="width: 100px;height: 100px;object-fit: cover;border-radius: 5px"
                      [src]="image.imgB64 | sanitizeImage" alt="X">
+                <div style="width: 100px;overflow: hidden;font-size: 14px">{{image.name}}</div>
             </div>
         </div>
 
         <div *ngIf="this.imageSuggestionsLoaded === false" class="dropdown-carousel">
             <div class="dropdown-carousel-item pulse" *ngFor="let _ of [].constructor(10)"
-                 style="margin: 20px;width: 100px;height: 100px;border-radius: 5px;flex-shrink: 0;"></div>
+                 style="margin: 10px 20px 10px 20px;width: 100px;height: 100px;border-radius: 5px;flex-shrink: 0;"></div>
         </div>
 
-        <div class="dropdown-title" *ngIf="tagSuggestionsLoaded !== undefined">Tags</div>
+        <div class="dropdown-title" *ngIf="tagSuggestionsLoaded !== undefined">Categories</div>
         <div *ngIf="(tagSuggestions | async)?.length != 0" class="dropdown-carousel">
             <app-tag class="dropdown-carousel-item" *ngFor="let tag of (tagSuggestions | async)" [width]="tagWidth"
-                     [tagName]="tag.name"></app-tag>
+                     [tagName]="tag.name" (click)="onSearchBlur()"></app-tag>
+        </div>
+
+        <div class="dropdown-title" *ngIf="collectionSuggestionsLoaded !== undefined">Collections</div>
+        <div *ngIf="(collectionSuggestions | async)?.length != 0" class="dropdown-carousel">
+            <div class="dropdown-carousel-item dropdown-carousel-image"
+                 style="margin: 10px 20px 10px 20px;"
+                 routerLink="/collection/{{collection.id}}"
+                 (click)="onSearchBlur()"
+                 *ngFor="let collection of (collectionSuggestions | async)">
+                <img *ngIf="collection.imageIds.length != 0"
+                     style="width: 100px;height: 100px;object-fit: cover;border-radius: 5px"
+                     [src]="'http://localhost:8080/image/getImageData/'+collection.imageIds[0]" alt="X">
+                <img *ngIf="collection.imageIds.length == 0"
+                     style="width: 100px;height: 100px;object-fit: cover;border-radius: 5px"
+                     [src]="'https://raw.githubusercontent.com/material-icons/material-icons/af0ed9c0e1276bad43c4d6ca8e8aaa283e425195/svg/image_not_supported/baseline.svg'"
+                     alt="X">
+                <div style="width: 100px;overflow: hidden;font-size: 14px">{{collection.name}}</div>
+            </div>
         </div>
 
         <div class="dropdown-title">Previous searches</div>
@@ -38,13 +56,13 @@
         </div>
         <div class="dropdown-title">Popular collection</div>
         <div class="dropdown-carousel">
-            <app-tag class="dropdown-carousel-item"
+            <app-tag class="dropdown-carousel-item" (click)="onSearchBlur()"
                      [width]="tagWidth" [tagName]="'Winter'"></app-tag>
-            <app-tag class="dropdown-carousel-item"
+            <app-tag class="dropdown-carousel-item" (click)="onSearchBlur()"
                      [width]="tagWidth" [tagName]="'Freezing'"></app-tag>
-            <app-tag class="dropdown-carousel-item"
+            <app-tag class="dropdown-carousel-item" (click)="onSearchBlur()"
                      [width]="tagWidth" [tagName]="'Snow'"></app-tag>
-            <app-tag class="dropdown-carousel-item"
+            <app-tag class="dropdown-carousel-item" (click)="onSearchBlur()"
                      [width]="tagWidth" [tagName]="'Autumn'"></app-tag>
         </div>
     </div>

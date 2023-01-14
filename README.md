@@ -61,8 +61,9 @@
 - ~~Replace redundant endpoints with rest save~~
 - When deleting images remove from collections
 - webp not compatible yet, is it even needed?
-
-Collections
+- private/public collection, image accessibility
+- edit collections,images
+  Collections
 
 - ~~Every user has default liked photos collection~~
 - ~~Can create collection~~

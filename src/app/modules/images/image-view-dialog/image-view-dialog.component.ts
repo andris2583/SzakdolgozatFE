@@ -3,6 +3,13 @@ import {Image} from '../../../models/image.model';
 import {ImageService} from '../../../services/image/image.service';
 import {NgxMasonryComponent, NgxMasonryOptions} from 'ngx-masonry';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {Dialog} from '@angular/cdk/dialog';
+import {
+    CollectionManagerDialogComponent
+} from '../../shared/collection-manager-dialog/collection-manager-dialog.component';
+import {Collection} from '../../../models/collection';
+import {CollectionService} from '../../../services/collection/collection.service';
+import {AuthService} from '../../../services/auth/auth.service';
 
 @Component({
     selector: 'app-image-view-dialog',
@@ -15,7 +22,18 @@ export class ImageViewDialogComponent implements OnInit {
         @Inject(MAT_DIALOG_DATA) public image: Image,
         public dialogRef: MatDialogRef<any>,
         private imageService: ImageService,
+        private dialog: Dialog,
+        private collectionService: CollectionService,
+        private authService: AuthService
     ) {
+        this.dialogRef.updateSize('80%', '80%');
+        this.imageService.getSimilarImages(this.image.tags).subscribe(value => {
+            this.similarImages = value.filter(image => image.id != this.image.id);
+            this.similarImagesLoaded = true;
+        });
+        this.collectionService.getCollectionsByUserId(this.authService.getCurrentUser().id).subscribe(value => {
+            this.userCollections = value;
+        });
     }
 
 
@@ -37,12 +55,9 @@ export class ImageViewDialogComponent implements OnInit {
     @ViewChildren('similarImageList')
     similarImageList!: NgxMasonryComponent;
 
+    userCollections: Collection[] = [];
+
     ngOnInit(): void {
-        this.dialogRef.updateSize('80%', '80%');
-        this.imageService.getSimilarImages(this.image.tags).subscribe(value => {
-            this.similarImages = value.filter(image => image.id != this.image.id);
-            this.similarImagesLoaded = true;
-        });
     }
 
     downloadButtonClick() {
@@ -112,6 +127,23 @@ export class ImageViewDialogComponent implements OnInit {
         }
     }
 
+    onAddToCollectionClickEvent(event: MouseEvent) {
+        let dialogRef = this.dialog.open(CollectionManagerDialogComponent, {
+            data: this.image,
+            panelClass: 'panel-class',
+            autoFocus: false,
+        });
+        let instance = dialogRef.componentInstance;
+        // @ts-ignore
+        instance.collections = this.userCollections;
+        // @ts-ignore
+        instance.collectionsChanged.subscribe((collections: Collection[]) => {
+            // @ts-ignore
+            this.userCollections = collections;
+        });
+        if (event.stopPropagation) event.stopPropagation();
+    }
+
     getImagePropertyEntries(): [string, any][] {
         return Object.entries(this.image.properties);
     }
@@ -126,5 +158,6 @@ export class ImageViewDialogComponent implements OnInit {
             this.similarImagesLoaded = true;
         });
     }
+
 
 }
