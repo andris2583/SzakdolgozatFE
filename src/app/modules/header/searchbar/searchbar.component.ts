@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {animate, style, transition, trigger} from '@angular/animations';
 import {TagService} from '../../../services/tag/tag.service';
 import {Tag} from '../../../models/tag.model';
@@ -47,6 +47,8 @@ export class SearchbarComponent implements OnInit {
 
     @ViewChild('searchbarContainer') searchbarContainer: ElementRef | undefined;
     @ViewChild('dropdownMenu') dropdownMenu: ElementRef | undefined;
+    @Input()
+    dashboard: boolean = false;
 
 
     allTags: Observable<Tag[]> = this.tagService.getAllTags();

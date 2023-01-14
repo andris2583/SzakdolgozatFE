@@ -14,7 +14,7 @@
             </ng-container>
         </a>
         <div class="searchbar-container">
-            <app-searchbar></app-searchbar>
+            <app-searchbar *ngIf="!dashboardHeader"></app-searchbar>
         </div>
         <a class="header-element header-link" [class.dashboard-header-element]="dashboardHeader"
            style="margin-left: auto" *ngIf="shouldPageBeShown(profilePage)"

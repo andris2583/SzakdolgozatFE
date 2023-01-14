@@ -1,5 +1,6 @@
 <div #searchbarContainer class="searchbar-container">
-    <input class="search__input" id="search-input" type="text" placeholder="Search" (focus)="onSearchFocus()"
+    <input [class.dashboard-searchbar]="dashboard" class="search__input" id="search-input" type="text"
+           placeholder="Search" (focus)="onSearchFocus()"
            (keydown.escape)="onEscape()"
            (input)="onInput()"
            [(ngModel)]="searchbarValue">

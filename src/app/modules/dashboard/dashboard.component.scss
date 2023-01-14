@@ -51,7 +51,7 @@
     filter: brightness(0.5);
 }
 
-app-searchbar > div > #search-input {
-    border: 3px solid #575756 !important;
-    background-color: #F5F5F5 !important;
+.dashboard-header {
+    position: fixed;
+    top: 0;
 }

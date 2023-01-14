@@ -82,6 +82,8 @@
 Image
 
 - Owner ID
+- View, whenever imageViewDialog is opened with this image
+-
 
 User
 
