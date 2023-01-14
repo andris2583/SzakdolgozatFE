@@ -4,7 +4,9 @@
         <!--        <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">-->
         <!--            <mat-icon>menu</mat-icon>-->
         <!--        </button>-->
-        <span class="header-element" [class.dashboard-header-element]="dashboardHeader">My App</span>
+        <img src="/assets/logo2.png" width="64" height="64" alt="x" [class.dashboard-logo]="dashboardHeader"
+             class="header-element"
+             [class.dashboard-header-element]="dashboardHeader">
         <a class="header-element header-link" [class.dashboard-header-element]="dashboardHeader"
            *ngFor="let page of pages" mat-stroked-button
            [class.hidden]="!shouldPageBeShown(page)"
