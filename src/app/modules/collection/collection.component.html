@@ -1,5 +1,24 @@
 <div *ngIf="collection">
-    <div class="collection-name">{{collection.name}}</div>
+    <!--    <div *ngIf="!editingName" class="collection-name">{{collection.name}}-->
+    <!--        <mat-icon class="edit-button" (click)="editButtonClicked()">edit</mat-icon>-->
+    <!--    </div>-->
+    <div class="collection-name">
+        <input [disabled]="!editingName" placeholder="Collection name" #CollectionNameForm
+               style="-webkit-appearance: none;font-size: 40px;border: 0;"
+               [style.width]="collection.name.length+1+'ch'"
+               [(ngModel)]="collection.name">
+        <mat-icon *ngIf="authService.getCurrentUser().id == collection.userId" class="edit-button"
+                  (click)="editButtonClicked()">{{editingName ? 'check' : 'edit'}}</mat-icon>
+    </div>
+    <div class="slider-container">
+        <mat-slide-toggle
+            *ngIf="authService.getCurrentUser().id == collection.userId"
+            class="example-margin"
+            [checked]='collection.privacy == "PUBLIC"'
+            (change)="privacyChanged()">
+            {{collection.privacy}}
+        </mat-slide-toggle>
+    </div>
     <app-image-masonry-list (loadImageData)="loadImageData()" [images]="images"
                             [userCollections]="userCollections"
                             (collectionChanged)="onCollectionChanged($event)"></app-image-masonry-list>

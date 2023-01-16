@@ -1,8 +1,23 @@
 .collection-name {
     font-size: 40px;
-    display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 4vh;
-    margin-top: 2vh;
+    display: flex;
+}
+
+.edit-button {
+    font-size: 24px;
+    color: rgba(0, 0, 0, 0.4);
+    margin-left: 0.5vw;
+}
+
+.edit-button:hover {
+    color: black;
+}
+
+.slider-container {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    margin-bottom: 2vh;
 }

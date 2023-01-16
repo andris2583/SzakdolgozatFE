@@ -3,6 +3,11 @@ import {CommonModule} from '@angular/common';
 import {CollectionComponent} from './collection.component';
 import {CollectionRouting} from './collection-routing.module';
 import {SharedModule} from '../shared/shared.module';
+import {MatIconModule} from '@angular/material/icon';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {FormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -12,7 +17,12 @@ import {SharedModule} from '../shared/shared.module';
     imports: [
         CommonModule,
         CollectionRouting,
-        SharedModule
+        SharedModule,
+        MatIconModule,
+        MatSlideToggleModule,
+        MatFormFieldModule,
+        MatInputModule,
+        FormsModule
     ]
 })
 export class CollectionModule {

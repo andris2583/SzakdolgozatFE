@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Collection} from '../../models/collection';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CollectionService} from '../../services/collection/collection.service';
@@ -7,6 +7,7 @@ import {BatchImageRequest} from '../../models/request/batch-image-request.model'
 import {ImageUtilService} from '../../services/image/image-util.service';
 import {ImageService} from '../../services/image/image.service';
 import {AuthService} from '../../services/auth/auth.service';
+import {Privacy} from '../../models/privacy';
 
 @Component({
     selector: 'app-collection',
@@ -20,12 +21,16 @@ export class CollectionComponent implements OnInit {
     userCollections: Collection[] = [];
     batchImageRequest: BatchImageRequest;
     collectionId: string;
+    editingName: boolean = false;
+    @ViewChild('CollectionNameForm')
+    collectionNameForm: ElementRef | undefined;
+
 
     constructor(private activatedRoute: ActivatedRoute,
                 private collectionService: CollectionService,
                 private imageUtilService: ImageUtilService,
                 private imageService: ImageService,
-                private authService: AuthService,
+                public authService: AuthService,
                 private router: Router) {
         // @ts-ignore
         this.collectionId = this.activatedRoute.snapshot.paramMap.get('id');
@@ -66,5 +71,35 @@ export class CollectionComponent implements OnInit {
         });
         this.images = [];
         this.loadImageData();
+    }
+
+    editButtonClicked() {
+        this.editingName = !this.editingName;
+        if (this.editingName) {
+            setTimeout(() => {
+                if (this.collectionNameForm) {
+                    this.collectionNameForm.nativeElement.focus();
+                }
+            }, 0);
+        } else {
+            if (this.collection) {
+                this.collectionService.saveCollection(this.collection).subscribe(value => {
+                    this.collection = value;
+                });
+            }
+        }
+    }
+
+    privacyChanged() {
+        if (this.collection?.privacy == Privacy.PRIVATE) {
+            this.collection.privacy = Privacy.PUBLIC;
+        } else if (this.collection?.privacy == Privacy.PUBLIC) {
+            this.collection.privacy = Privacy.PRIVATE;
+        }
+        if (this.collection) {
+            this.collectionService.saveCollection(this.collection).subscribe(value => {
+                this.collection = value;
+            });
+        }
     }
 }
