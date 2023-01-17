@@ -24,7 +24,7 @@ export class ImageMasonryListComponent implements OnInit {
     @Input()
     userCollections: Collection[] = [];
     options: NgxMasonryOptions = {
-        gutter: 20,
+        gutter: 40,
     };
     @Output()
     loadImageData = new EventEmitter<null>();

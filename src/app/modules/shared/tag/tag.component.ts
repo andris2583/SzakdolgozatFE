@@ -20,7 +20,7 @@ export class TagComponent implements OnInit {
 
     previewImages: Image[] = [];
 
-    imageCount: number | null = null;
+    imageCount: number = 0;
 
     constructor(private imageService: ImageService) {
     }
@@ -44,16 +44,20 @@ export class TagComponent implements OnInit {
     }
 
 
-    getPreviewImage(index: number): string | null {
+    getPreviewImage(index: number): Image {
         if (this.previewImages.length < index + 1) {
-            return this.previewImages[index % this.previewImages.length].imgB64;
+            return this.previewImages[index % this.previewImages.length];
         } else {
-            return this.previewImages[index].imgB64;
+            return this.previewImages[index];
         }
 
     }
 
     getTagNameFontSize() {
         return Math.max((this.width * 1.08 * 0.0625), 14);
+    }
+
+    shouldImageBeBlurred(number: number) {
+        return this.previewImages.length <= number;
     }
 }

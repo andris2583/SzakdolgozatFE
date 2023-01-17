@@ -5,21 +5,23 @@
 .toolbar-row {
     display: flex;
     margin: 0 5vw 0 5vw;
-    width: 90vw;
+    width: 80vw;
     padding: 0;
 }
 
 .default-mat-toolbar {
     width: 101vw;
-    transform: translateX(-5vw);
+    transform: translateX(-10vw);
     margin: 0;
     position: fixed;
     z-index: 1000;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
 .dashboard-mat-toolbar {
     position: absolute;
     background-color: transparent;
+    box-shadow: none !important;
 
 }
 

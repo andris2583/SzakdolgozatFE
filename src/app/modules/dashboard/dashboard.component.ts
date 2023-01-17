@@ -11,6 +11,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     @ViewChild('dashboardImage')
     dashboardImage: ElementRef | undefined;
     stickyHeader: boolean = false;
+    headerImageURL: string = '../../../assets/dashboard/dashboard' + Math.floor(Math.random() * 5) + '.jpg';
 
     constructor(private authService: AuthService, private renderer: Renderer2) {
     }
