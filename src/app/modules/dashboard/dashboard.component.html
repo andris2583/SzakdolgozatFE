@@ -2,6 +2,7 @@
      alt="">
 <div>
     <div style="height: 100%;z-index: -1">
+        <app-header *ngIf="stickyHeader" class="dashboard-header"></app-header>
         <div class="dashboard-image-spacer"></div>
         <div style="display: flex;justify-content: center;align-items: center;">
             <!--            TODO not centered, searchbar input padding -->
@@ -17,7 +18,7 @@
         <div class="dashboard-container-spacer"></div>
         <div
             class="dashboard-content-container"></div>
-        <app-header *ngIf="stickyHeader" class="dashboard-header"></app-header>
+        <div class="dashboard-container-spacer"></div>
     </div>
 </div>
 

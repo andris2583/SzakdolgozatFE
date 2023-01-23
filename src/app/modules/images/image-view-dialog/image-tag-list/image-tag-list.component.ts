@@ -49,9 +49,12 @@ export class ImageTagListComponent implements OnInit, OnChanges {
         return this.suggestions.filter(suggestion => suggestion.toLowerCase().startsWith(filterValue));
     }
 
-    handleEnter() {
-        if (this.suggestions.includes(this.tagSearch.value as string)) {
-            this.image?.tags.push(this.tagSearch.value as string);
+    addTag(value: string | null) {
+        if (value == null) {
+            value = this.tagSearch.value;
+        }
+        if (this.suggestions.includes(value as string)) {
+            this.image?.tags.push(value as string);
             this.tagSearch.reset();
             if (this.image != null) {
                 this.imageService.updateImage(this.image).subscribe(updatedImage => this.image = updatedImage);

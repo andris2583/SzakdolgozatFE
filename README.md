@@ -57,9 +57,9 @@
 - admin felület, szabályozni dolgokat felbontás,tárhely | free/prémium
 - admin usernek végtelen space
 - Felhasználói szintek
-- Képekre Views, Downloads, Likes
+- ~~Képekre Views, Downloads, Likes~~
 - ~~Replace redundant endpoints with rest save~~
-- When deleting images remove from collections
+- ~~When deleting images remove from collections~~
 - webp not compatible yet, is it even needed?
 - private/public collection, image accessibility
 - edit collections,images
@@ -82,7 +82,7 @@
 Image
 
 - Owner ID
-- View, whenever imageViewDialog is opened with this image
+- Views count, whenever imageViewDialog is opened with this image
 -
 
 User

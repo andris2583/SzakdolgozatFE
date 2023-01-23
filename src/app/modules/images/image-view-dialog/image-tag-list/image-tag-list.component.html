@@ -1,6 +1,6 @@
 <mat-chip-list>
     <mat-chip class="tag-chip" *ngFor="let tag of image!.tags">
-        {{tag}}
+        <span routerLink="/images/{{tag}}" [mat-dialog-close]="true">{{tag}}</span>
         <!--        &nbsp;&nbsp;&nbsp;&nbsp;-->
         <button matChipRemove (click)="deleteTag(tag)">
             <mat-icon>cancel</mat-icon>
@@ -10,10 +10,11 @@
 <form id="tag-search-form">
     <mat-form-field>
         <input matInput [formControl]="tagSearch" placeholder="Add Tags" [matAutocomplete]="auto"
-               (keyup.enter)="handleEnter()">
+               (keyup.enter)="addTag(null)">
         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-            <mat-option *ngFor="let suggestion of filteredSuggestions | async | slice:0:10;" [value]="suggestion">
-                {{suggestion}}
+            <mat-option *ngFor="let suggestion of filteredSuggestions | async | slice:0:10;" [value]="suggestion"
+                        (click)="addTag(suggestion)">
+                <span>{{suggestion}}</span>
             </mat-option>
         </mat-autocomplete>
     </mat-form-field>

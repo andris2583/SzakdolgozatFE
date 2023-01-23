@@ -106,8 +106,10 @@ export class ImageViewDialogComponent implements OnInit {
         }
     }
 
-    onLoad() {
-        this.loading = false;
+    onLoad(event: boolean) {
+        if (event) {
+            this.loading = false;
+        }
     }
 
     deleteImage() {

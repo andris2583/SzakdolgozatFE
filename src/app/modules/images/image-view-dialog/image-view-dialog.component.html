@@ -15,7 +15,17 @@
         <div class="image-container">
             <img class="shared-image-box-shadow image" [src]="'http://localhost:8080/image/getImageData/'+image.id"
                  alt="Failed to load image..."
-                 (load)="onLoad()">
+                 (load)="onLoad(true)">
+            <!--            <div style="max-height: 70vh;max-width: 50vw;">-->
+            <!--                <lib-ngx-image-zoom class="shared-image-box-shadow"-->
+            <!--                                    style="max-height: 70vh;max-width: 50vw;position: relative;"-->
+            <!--                                    (imagesLoaded)="onLoad($event)"-->
+            <!--                                    zoomMode="toggle-click"-->
+            <!--                                    [enableScrollZoom]=true-->
+            <!--                                    [magnification]="1.2"-->
+            <!--                                    [thumbImage]="'http://localhost:8080/image/getImageData/'+image.id"-->
+            <!--                ></lib-ngx-image-zoom>-->
+            <!--            </div>-->
         </div>
         <div style="width: 200px;">
             <app-image-tag-list [image]="image"></app-image-tag-list>

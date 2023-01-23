@@ -112,3 +112,8 @@
 .image-masonry-container:hover .image-hover-data {
     display: block;
 }
+
+::ng-deep .ngxImageZoomContainer > img {
+    max-height: 70vh !important;
+    max-width: 50vw !important;
+}
