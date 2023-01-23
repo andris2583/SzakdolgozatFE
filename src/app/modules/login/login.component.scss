@@ -1,0 +1,36 @@
+.auth-wrapper {
+    width: 15vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2vw 2vw 2vw 2vw;
+    border: 1px solid rgba(0, 0, 0, .12);;
+    border-radius: 5px;
+}
+
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 10vw;
+}
+
+.form-group {
+    width: 100%;
+    margin-bottom: 1vw;
+}
+
+.header {
+    font-size: 24px;
+    margin-bottom: 2vw;
+}
+
+.form-button-divider {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: calc(1vw + 1.34375em);
+    width: 100%;
+}

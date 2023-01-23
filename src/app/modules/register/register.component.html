@@ -1,25 +1,28 @@
-<div>
-    <form class="form-register" [formGroup]="registerForm" (ngSubmit)="registerUser()">
-        <h3 class="h3 mb-3 font-weight-normal text-center">Registration</h3>
-        <div class="form-group">
-            <label>Username</label>
-            <input
-                type="username"
-                class="form-control"
-                formControlName="username"
-                placeholder="Enter username"
-                required
-            />
-        </div>
-        <div class="form-group">
-            <label>Password</label>
-            <input
-                type="password"
-                class="form-control"
-                formControlName="password"
-                placeholder="Password"
-            />
-        </div>
-        <button type="submit" mat-stroked-button>Register</button>
-    </form>
+<div class="container">
+    <div class="auth-wrapper">
+        <form class="form-register" [formGroup]="registerForm" (ngSubmit)="registerUser()">
+            <h3 class="header">Register</h3>
+            <mat-form-field appearance="fill" class="form-group">
+                <mat-label>Username</mat-label>
+                <input
+                    type="username"
+                    matInput
+                    formControlName="username"
+                    placeholder="Enter username"
+                    required
+                />
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="form-group">
+                <mat-label>Password</mat-label>
+                <input
+                    type="password"
+                    formControlName="password"
+                    matInput
+                    required
+                />
+            </mat-form-field>
+            <button style="float: right;width: 100%" type="submit" mat-stroked-button>Register
+            </button>
+        </form>
+    </div>
 </div>

@@ -19,6 +19,8 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {PipeModule} from './modules/pipe/pipe/pipe.module';
 import {MatIconModule} from '@angular/material/icon';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
 
 
 @NgModule({
@@ -44,6 +46,8 @@ import {MatIconModule} from '@angular/material/icon';
         MatGridListModule,
         PipeModule,
         MatIconModule,
+        MatFormFieldModule,
+        MatInputModule,
     ],
     providers: [
         // {
