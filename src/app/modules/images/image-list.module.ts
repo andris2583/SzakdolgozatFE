@@ -24,6 +24,7 @@ import {MatInputModule} from '@angular/material/input';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {SharedModule} from '../shared/shared.module';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 
 @NgModule({
@@ -56,6 +57,7 @@ import {SharedModule} from '../shared/shared.module';
         MatAutocompleteModule,
         FormsModule,
         SharedModule,
+        MatSlideToggleModule,
     ],
 })
 export class ImageListModule {

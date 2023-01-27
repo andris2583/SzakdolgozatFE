@@ -127,7 +127,7 @@ export class SearchbarComponent implements OnInit {
                 map(tempTags => tempTags.filter(tempTag => tempTag.name.toLowerCase().startsWith(this.searchbarValue.toLowerCase())).slice(0, 10)),
                 tap(() => this.tagSuggestionsLoaded = true));
             this.imageSuggestions = this.imageService.getImages({
-                tags: ['all'],
+                tags: [],
                 batchSize: -1,
                 pageCount: 0,
                 requestFilter: {nameFilterString: this.searchbarValue, maxCount: 10},
@@ -156,7 +156,7 @@ export class SearchbarComponent implements OnInit {
             //TODO delete image from frontend list
         });
         this.imageService.getImages({
-            tags: ['all'],
+            tags: [],
             batchSize: -1,
             pageCount: 0,
             requestFilter: null,

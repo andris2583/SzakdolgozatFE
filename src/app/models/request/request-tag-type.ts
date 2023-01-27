@@ -1,3 +1,3 @@
 export enum RequestTagType {
-    AND, OR
+    AND = 'AND', OR = 'OR'
 }

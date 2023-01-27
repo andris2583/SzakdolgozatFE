@@ -89,3 +89,4 @@ User
 
 - Image ID list
 - leaflet
+- Show tags no currently in use

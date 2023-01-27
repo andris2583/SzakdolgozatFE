@@ -42,7 +42,6 @@
     display: flex;
     justify-content: end;
     align-items: center;
-    margin-bottom: 4vh;
     position: relative;
     flex-direction: row;
 }
@@ -86,4 +85,32 @@
 
 .sort-button {
     width: calc(7vw);
+}
+
+.image-search-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4vh;
+
+}
+
+.tag-chip {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.tag-list {
+    width: 100%;
+    margin-left: 1vw;
+}
+
+.slider-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 1vw;
+    width: 10vw;
 }

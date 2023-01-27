@@ -1,36 +1,69 @@
 <div
-    id="tag-name">{{tagName == 'all' ? 'Browse images' : tagName}}</div>
-<div id="filter-sort-container">
-    <button #filterTabButton class="filter-sort-button" (click)="filterButtonClicked()" mat-raised-button>
-        Filter
-        <mat-icon>{{filterTabOpen ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</mat-icon>
-
-    </button>
-    <div #filterTab id="filter-tab" *ngIf="filterTabOpen">
-        <button mat-button class="filter-button">Some complicated</button>
-        <br>
-        <button mat-button class="filter-button">filter options</button>
+    id="tag-name">{{tagName == null ? 'Browse images' : tagName}}</div>
+<div class="image-search-container">
+    <div class="slider-container">
+        <mat-slide-toggle
+            class="example-margin"
+            [checked]='batchImageRequest.requestTagType == "AND"'
+            (change)="requestTagTypeChanged()">
+            {{batchImageRequest.requestTagType}}
+        </mat-slide-toggle>
     </div>
-    <button #sortTabButton class="filter-sort-button" (click)="sortButtonClicked()" mat-raised-button>
-        {{getOrderByTypeString(batchImageRequest.requestOrderByType)}}
-        <mat-icon>{{sortTabOpen ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</mat-icon>
-    </button>
-    <div #sortTab id="sort-tab" *ngIf="sortTabOpen">
-        <button (click)="selectOrderByType(orderByTypes.ALPHABETICAL)" mat-button
-                class="sort-button">
-            Alphabetical
-            <mat-icon>sort_by_alpha</mat-icon>
+    <form id="tag-search-form">
+        <mat-form-field>
+            <input matInput [formControl]="tagSearch" placeholder="Filter width tags" [matAutocomplete]="auto"
+                   (keyup.enter)="addTag(null)">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                <mat-option *ngFor="let suggestion of filteredSuggestions | async | slice:0:10;"
+                            [value]="suggestion"
+                            (click)="addTag(suggestion)">
+                    <span>{{suggestion}}</span>
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </form>
+    <mat-chip-list class="tag-list">
+        <mat-chip class="tag-chip" *ngFor="let tag of batchImageRequest.tags">
+            <span routerLink="/images/{{tag}}" [mat-dialog-close]="true">{{tag}}</span>
+            <!--        &nbsp;&nbsp;&nbsp;&nbsp;-->
+            <button matChipRemove (click)="deleteTag(tag)">
+                <mat-icon>cancel</mat-icon>
+            </button>
+        </mat-chip>
+    </mat-chip-list>
+
+    <div id="filter-sort-container">
+        <button #filterTabButton class="filter-sort-button" (click)="filterButtonClicked()" mat-raised-button>
+            Filter
+            <mat-icon>{{filterTabOpen ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</mat-icon>
+
         </button>
-        <br>
-        <button (click)="selectOrderByType(orderByTypes.POPULAR)" mat-button class="sort-button">
-            Popularity
-            <mat-icon>trending_up</mat-icon>
+        <div #filterTab id="filter-tab" *ngIf="filterTabOpen">
+            <button mat-button class="filter-button">Some complicated</button>
+            <br>
+            <button mat-button class="filter-button">filter options</button>
+        </div>
+        <button #sortTabButton class="filter-sort-button" (click)="sortButtonClicked()" mat-raised-button>
+            {{getOrderByTypeString(batchImageRequest.requestOrderByType)}}
+            <mat-icon>{{sortTabOpen ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</mat-icon>
         </button>
-        <br>
-        <button (click)="selectOrderByType(orderByTypes.TIME)" mat-button class="sort-button">
-            Upload date
-            <mat-icon>access_time</mat-icon>
-        </button>
+        <div #sortTab id="sort-tab" *ngIf="sortTabOpen">
+            <button (click)="selectOrderByType(orderByTypes.ALPHABETICAL)" mat-button
+                    class="sort-button">
+                Alphabetical
+                <mat-icon>sort_by_alpha</mat-icon>
+            </button>
+            <br>
+            <button (click)="selectOrderByType(orderByTypes.POPULAR)" mat-button class="sort-button">
+                Popularity
+                <mat-icon>trending_up</mat-icon>
+            </button>
+            <br>
+            <button (click)="selectOrderByType(orderByTypes.TIME)" mat-button class="sort-button">
+                Upload date
+                <mat-icon>access_time</mat-icon>
+            </button>
+        </div>
     </div>
 </div>
 <app-image-masonry-list (loadImageData)="loadImageData()" [images]="images"

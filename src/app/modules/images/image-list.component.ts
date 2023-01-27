@@ -11,6 +11,11 @@ import {AuthService} from '../../services/auth/auth.service';
 import {CollectionService} from '../../services/collection/collection.service';
 import {Collection} from '../../models/collection';
 import {ImageUtilService} from '../../services/image/image-util.service';
+import {FormControl} from '@angular/forms';
+import {Tag} from '../../models/tag.model';
+import {map, Observable, startWith} from 'rxjs';
+import {TagService} from '../../services/tag/tag.service';
+import {RequestTagType} from '../../models/request/request-tag-type';
 
 @Component({
     selector: 'app-image-list',
@@ -41,6 +46,11 @@ export class ImageListComponent implements OnInit {
     // @ts-ignore
     userCollections: Collection[];
 
+    tagSearch = new FormControl('');
+    allTags: Tag[] = [];
+    filteredSuggestions: Observable<string[]> = new Observable<string[]>();
+
+
     constructor(
         private imageService: ImageService,
         public dialog: MatDialog,
@@ -50,14 +60,19 @@ export class ImageListComponent implements OnInit {
         private authService: AuthService,
         private collectionService: CollectionService,
         private imageUtilService: ImageUtilService,
+        private tagService: TagService,
     ) {
         // @ts-ignore
         this.batchImageRequest = this.imageUtilService.getBatchImageRequest();
         if (this.batchImageRequest == null) {
             this.batchImageRequest = this.imageUtilService.defaultBatchImageRequest;
         }
-        this.tagName = this.activatedRoute.snapshot.paramMap.get('tag');
-        this.batchImageRequest.tags = [this.tagName];
+        if (this.activatedRoute.snapshot.paramMap.get('tag')!.trim() == '') {
+            this.tagName = null;
+        } else {
+            this.tagName = this.activatedRoute.snapshot.paramMap.get('tag')!.trim();
+            this.batchImageRequest.tags = [this.tagName];
+        }
         this.loadImageData();
         this.generateRandomHeights();
         this.collectionService.getCollectionsByUserId(this.authService.getCurrentUser().id).subscribe(collections => {
@@ -80,6 +95,13 @@ export class ImageListComponent implements OnInit {
                 }
             }
         });
+        this.tagService.getAllTags().subscribe(tags => {
+            this.allTags = tags;
+        });
+        this.filteredSuggestions = this.tagSearch.valueChanges.pipe(
+            startWith(''),
+            map(value => this.filter(value || '').map(value => value.name)),
+        );
     }
 
     ngOnInit(): void {
@@ -88,6 +110,7 @@ export class ImageListComponent implements OnInit {
 
     loadImageData() {
         this.imageService.getImages(this.batchImageRequest).subscribe(value => {
+            console.log(value);
             this.images = this.images.concat(value);
         });
 
@@ -140,4 +163,42 @@ export class ImageListComponent implements OnInit {
         this.loadImageData();
     }
 
+    addTag(value: any) {
+        if (value == null) {
+            value = this.tagSearch.value;
+        }
+        if (!this.batchImageRequest.tags.includes(value as string) && this.allTags.map(value => value.name).includes(value as string)) {
+            this.batchImageRequest.tags.push(value as string);
+            this.tagSearch.reset();
+            this.batchImageRequest.pageCount = 0;
+            this.images = [];
+            this.loadImageData();
+        }
+    }
+
+    deleteTag(tagToDelete: any) {
+        this.batchImageRequest.tags = this.batchImageRequest.tags.filter(tempTag => tempTag != tagToDelete);
+        this.tagSearch.reset();
+        this.batchImageRequest.pageCount = 0;
+        this.images = [];
+        this.loadImageData();
+    }
+
+    filter(value: string): Tag[] {
+        const filterValue = value.toLowerCase();
+        return this.allTags.filter(suggestion => suggestion.name.toLowerCase().startsWith(filterValue));
+    }
+
+    requestTagTypeChanged() {
+        if (this.batchImageRequest.requestTagType == RequestTagType.AND) {
+            this.batchImageRequest.requestTagType = RequestTagType.OR;
+        } else if (this.batchImageRequest.requestTagType == RequestTagType.OR) {
+            this.batchImageRequest.requestTagType = RequestTagType.AND;
+        }
+        if (this.batchImageRequest.tags.length > 1) {
+            this.images = [];
+            this.batchImageRequest.pageCount = 0;
+            this.loadImageData();
+        }
+    }
 }

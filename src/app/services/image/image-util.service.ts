@@ -10,7 +10,7 @@ import {RequestTagType} from '../../models/request/request-tag-type';
 export class ImageUtilService {
 
     private _defaultBatchImageRequest: BatchImageRequest = {
-        tags: ['all'],
+        tags: [],
         batchSize: 24,
         pageCount: 0,
         requestFilter: null,
