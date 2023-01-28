@@ -6,6 +6,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {HeaderModule} from '../header/header.module';
 import {MatButtonModule} from '@angular/material/button';
 import {NgxMasonryModule} from 'ngx-masonry';
+import {SharedModule} from '../shared/shared.module';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import {NgxMasonryModule} from 'ngx-masonry';
         HeaderModule,
         MatButtonModule,
         NgxMasonryModule,
+        SharedModule,
     ],
 })
 export class DashboardModule {

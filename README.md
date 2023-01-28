@@ -51,7 +51,7 @@
 - save img w,h to image entity, so loading ghost w,h is good
 - ~~like,dislike, comment~~ star/favourite instead
 - ~~order by likes/dislikes/comments/upload,date/~~
-- filter by date
+- ~~filter by date~~
 - create album automatically
 - ~~add to collection, like, download on image hover~~
 - admin felület, szabályozni dolgokat felbontás,tárhely | free/prémium
@@ -63,14 +63,17 @@
 - webp not compatible yet, is it even needed?
 - private/public collection, image accessibility
 - edit collections,images
-  Collections
+- Navigate to specific page of user with dropdown menu
+- appTag width from px to vw
+
+Collections
 
 - ~~Every user has default liked photos collection~~
 - ~~Can create collection~~
 - ~~Save to collection button~~
 - ~~Can see collections in profile~~
-- Can name them
-- Can share them -> make privacy public
+- ~~Can name them~~
+- ~~Can share them -> make privacy public~~
 - ~~Collection data:~~
     - ~~ID~~
     - ~~Name~~

@@ -110,7 +110,6 @@ export class ImageListComponent implements OnInit {
 
     loadImageData() {
         this.imageService.getImages(this.batchImageRequest).subscribe(value => {
-            console.log(value);
             this.images = this.images.concat(value);
         });
 
@@ -178,10 +177,14 @@ export class ImageListComponent implements OnInit {
 
     deleteTag(tagToDelete: any) {
         this.batchImageRequest.tags = this.batchImageRequest.tags.filter(tempTag => tempTag != tagToDelete);
-        this.tagSearch.reset();
-        this.batchImageRequest.pageCount = 0;
-        this.images = [];
-        this.loadImageData();
+        if (this.batchImageRequest.tags.length == 0) {
+            this.router.navigate(['images/ ']);
+        } else {
+            this.tagSearch.reset();
+            this.batchImageRequest.pageCount = 0;
+            this.images = [];
+            this.loadImageData();
+        }
     }
 
     filter(value: string): Tag[] {

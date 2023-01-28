@@ -1,5 +1,6 @@
 import {AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {AuthService} from '../../services/auth/auth.service';
+import {DashboardService} from '../../services/dashboard/dashboard.service';
 
 @Component({
     selector: 'app-dashboard',
@@ -12,11 +13,15 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     dashboardImage: ElementRef | undefined;
     stickyHeader: boolean = false;
     headerImageURL: string = '../../../assets/dashboard/dashboard' + Math.floor(Math.random() * 5) + '.jpg';
+    seasonalTags: string[] = [];
 
-    constructor(private authService: AuthService, private renderer: Renderer2) {
+    constructor(private authService: AuthService, private renderer: Renderer2, private dashboardService: DashboardService) {
     }
 
     ngOnInit(): void {
+        this.dashboardService.getSeasonalTags().subscribe(value => {
+            this.seasonalTags = value;
+        });
     }
 
     ngAfterViewInit(): void {
