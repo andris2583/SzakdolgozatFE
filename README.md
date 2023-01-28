@@ -69,6 +69,7 @@
 - leaflet
 - Show tags no currently in use
 - randomize tag component images so not always the same
+- seasonal dashboard image
 
 - ~~Every user has default liked photos collection~~
 - ~~Can create collection~~

@@ -152,6 +152,8 @@ export class ImageListComponent implements OnInit {
                 return 'Popularity';
             case RequestOrderByType.TIME:
                 return 'Upload date';
+            case RequestOrderByType.RANDOM:
+                return 'Random';
         }
     }
 

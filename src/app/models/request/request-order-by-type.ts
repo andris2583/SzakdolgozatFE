@@ -1,3 +1,3 @@
 export enum RequestOrderByType {
-    ALPHABETICAL, TIME, POPULAR
+    ALPHABETICAL, TIME, POPULAR, RANDOM
 }

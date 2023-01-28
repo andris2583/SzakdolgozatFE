@@ -52,7 +52,7 @@ import {MatInputModule} from '@angular/material/input';
     providers: [
         // {
         //     provide: HTTP_INTERCEPTORS,
-        //     useClass: AuthInterceptor,
+        //     useClass: TagOrderShufflerInterceptor,
         //     multi: true
         // },
     ],

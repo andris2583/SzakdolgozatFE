@@ -31,7 +31,7 @@ export class TagComponent implements OnInit {
             pageCount: 0,
             batchSize: 4,
             requestFilter: null,
-            requestOrderByType: RequestOrderByType.ALPHABETICAL,
+            requestOrderByType: RequestOrderByType.RANDOM,
             requestOrderType: RequestOrderType.ASC,
             requestTagType: RequestTagType.OR,
             collectionId: null
