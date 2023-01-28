@@ -76,6 +76,7 @@ export class ImageMasonryListComponent implements OnInit {
             favouriteCollection.imageIds.push(image.id);
         }
         this.collectionService.saveCollection(favouriteCollection).subscribe(value => {
+            this.collectionChanged.emit(this.userCollections);
         });
         if (event.stopPropagation) event.stopPropagation();
     }

@@ -60,13 +60,15 @@
 - ~~Képekre Views, Downloads, Likes~~
 - ~~Replace redundant endpoints with rest save~~
 - ~~When deleting images remove from collections~~
-- webp not compatible yet, is it even needed?
 - private/public collection, image accessibility
 - edit collections,images
 - Navigate to specific page of user with dropdown menu
 - appTag width from px to vw
-
-Collections
+- Routing scrolltop not fucking working
+- Weird af zindex bug on dashboard header-tag component
+- leaflet
+- Show tags no currently in use
+- randomize tag component images so not always the same
 
 - ~~Every user has default liked photos collection~~
 - ~~Can create collection~~
@@ -85,11 +87,10 @@ Collections
 Image
 
 - Owner ID
-- Views count, whenever imageViewDialog is opened with this image
+- Views count
+- Privacy
 -
 
 User
 
-- Image ID list
-- leaflet
-- Show tags no currently in use
+

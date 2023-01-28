@@ -14,6 +14,7 @@ import {AuthService} from '../../../services/auth/auth.service';
 import {Collection} from '../../../models/collection';
 import {CollectionService} from '../../../services/collection/collection.service';
 import {Privacy} from '../../../models/privacy';
+import {UtilService} from '../../../services/util/util.service';
 
 @Component({
     selector: 'app-searchbar',
@@ -69,7 +70,8 @@ export class SearchbarComponent implements OnInit {
                 private renderer: Renderer2,
                 public dialog: MatDialog,
                 private authService: AuthService,
-                private collectionService: CollectionService
+                private collectionService: CollectionService,
+                public utilService: UtilService,
     ) {
         this.renderer.listen('window', 'click', (event) => {
             if (this.searchbarContainer != undefined) {

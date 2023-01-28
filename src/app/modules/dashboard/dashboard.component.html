@@ -13,14 +13,17 @@
         <h1>Seasonal categories</h1>
         <div
             class="dashboard-content-container">
-            <app-tag class="dropdown-carousel-item" *ngFor="let tag of seasonalTags"
+            <app-tag *ngFor="let tag of seasonalTags"
                      [width]="250" [tagName]=tag></app-tag>
         </div>
         <div class="dashboard-container-spacer"></div>
         <!--        TODO tags from user favourites-->
         <h1>Categories you may like...</h1>
         <div
-            class="dashboard-content-container"></div>
+            class="dashboard-content-container">
+            <app-tag *ngFor="let tag of favouriteTags"
+                     [width]="250" [tagName]=tag></app-tag>
+        </div>
         <div class="dashboard-container-spacer"></div>
         <!--        TODO collections from users images?-->
         <h1>Like your images...</h1>

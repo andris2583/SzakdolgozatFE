@@ -14,6 +14,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     stickyHeader: boolean = false;
     headerImageURL: string = '../../../assets/dashboard/dashboard' + Math.floor(Math.random() * 5) + '.jpg';
     seasonalTags: string[] = [];
+    favouriteTags: string[] = [];
 
     constructor(private authService: AuthService, private renderer: Renderer2, private dashboardService: DashboardService) {
     }
@@ -21,6 +22,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     ngOnInit(): void {
         this.dashboardService.getSeasonalTags().subscribe(value => {
             this.seasonalTags = value;
+        });
+        this.dashboardService.getFavouriteTags(this.authService.getCurrentUser()).subscribe(value => {
+            this.favouriteTags = value;
         });
     }
 
