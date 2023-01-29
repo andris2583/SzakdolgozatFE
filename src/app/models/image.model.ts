@@ -1,3 +1,5 @@
+import {Privacy} from './privacy';
+
 export interface Image {
     id: string;
     name: string;
@@ -7,4 +9,6 @@ export interface Image {
     uploaded: Date;
     imgB64: string;
     properties: Object;
+    ownerId: string;
+    privacy: Privacy;
 }

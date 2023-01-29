@@ -62,8 +62,7 @@ export class ImageListComponent implements OnInit {
         private imageUtilService: ImageUtilService,
         private tagService: TagService,
     ) {
-        // @ts-ignore
-        this.batchImageRequest = this.imageUtilService.getBatchImageRequest();
+        this.batchImageRequest = this.imageUtilService.defaultBatchImageRequest;
         if (this.batchImageRequest == null) {
             this.batchImageRequest = this.imageUtilService.defaultBatchImageRequest;
         }

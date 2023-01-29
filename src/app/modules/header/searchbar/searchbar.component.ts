@@ -132,11 +132,12 @@ export class SearchbarComponent implements OnInit {
                 tags: [],
                 batchSize: -1,
                 pageCount: 0,
-                requestFilter: {nameFilterString: this.searchbarValue, maxCount: 10},
+                requestFilter: {nameFilterString: this.searchbarValue, maxCount: 10, ownerId: null},
                 requestOrderByType: RequestOrderByType.ALPHABETICAL,
                 requestOrderType: RequestOrderType.ASC,
                 requestTagType: RequestTagType.OR,
                 collectionId: null,
+                requestUserId: this.authService.getCurrentUser().id,
             }).pipe(tap(() => this.imageSuggestionsLoaded = true));
             this.collectionSuggestions = this.collectionService.getAllCollections().pipe(map(allCollections => allCollections.filter(collection => {
                 if ((collection.privacy == Privacy.PUBLIC) || (collection.privacy == Privacy.PRIVATE && collection.userId == this.authService.getCurrentUser().id)) {
@@ -165,7 +166,8 @@ export class SearchbarComponent implements OnInit {
             requestOrderByType: RequestOrderByType.ALPHABETICAL,
             requestOrderType: RequestOrderType.ASC,
             requestTagType: RequestTagType.OR,
-            collectionId: null
+            collectionId: null,
+            requestUserId: this.authService.getCurrentUser().id,
         }).subscribe(value => instance.images = value);
         this.onSearchBlur();
     }

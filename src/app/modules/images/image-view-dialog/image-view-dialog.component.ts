@@ -10,6 +10,9 @@ import {
 import {Collection} from '../../../models/collection';
 import {CollectionService} from '../../../services/collection/collection.service';
 import {AuthService} from '../../../services/auth/auth.service';
+import {Privacy} from '../../../models/privacy';
+import {User} from '../../../models/user.model';
+import {Observable} from 'rxjs';
 
 @Component({
     selector: 'app-image-view-dialog',
@@ -24,7 +27,7 @@ export class ImageViewDialogComponent implements OnInit {
         private imageService: ImageService,
         private dialog: Dialog,
         private collectionService: CollectionService,
-        private authService: AuthService
+        public authService: AuthService
     ) {
         this.dialogRef.updateSize('80%', '80%');
         this.imageService.getSimilarImages(this.image.tags).subscribe(value => {
@@ -56,6 +59,8 @@ export class ImageViewDialogComponent implements OnInit {
     similarImageList!: NgxMasonryComponent;
 
     userCollections: Collection[] = [];
+
+    owner: Observable<User> = this.authService.getUserById(this.image.ownerId);
 
     ngOnInit(): void {
     }
@@ -161,5 +166,17 @@ export class ImageViewDialogComponent implements OnInit {
         });
     }
 
+    privacyChanged() {
+        if (this.image.privacy == Privacy.PRIVATE) {
+            this.image.privacy = Privacy.PUBLIC;
+        } else if (this.image.privacy == Privacy.PUBLIC) {
+            this.image.privacy = Privacy.PRIVATE;
+        }
+        if (this.image) {
+            this.imageService.updateImage(this.image).subscribe(value => {
+                this.image = value;
+            });
+        }
+    }
 
 }

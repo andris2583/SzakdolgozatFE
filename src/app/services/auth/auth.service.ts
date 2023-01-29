@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {User} from '../../models/user.model';
 import {HttpClient, HttpHeaders,} from '@angular/common/http';
 import {Router} from '@angular/router';
+import {Subject} from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -10,6 +11,7 @@ export class AuthService {
     private readonly baseUrl = 'http://localhost:8080/auth';
     headers = new HttpHeaders().set('Content-Type', 'application/json');
     private currentUser: User | null = null;
+    loginUserId: Subject<string> = new Subject<string>();
 
     constructor(private http: HttpClient, public router: Router) {
         let userString = localStorage.getItem('user');
@@ -34,11 +36,16 @@ export class AuthService {
             if (value != null) {
                 localStorage.setItem('user', JSON.stringify(value));
                 this.currentUser = value;
+                this.loginUserId.next(this.currentUser.id);
                 this.router.navigate(['dashboard']);
             } else {
                 this.router.navigate(['login']);
             }
         });
+    }
+
+    getUserById(userId: string) {
+        return this.http.put<User>(this.baseUrl + '/get', userId);
     }
 
     getToken() {

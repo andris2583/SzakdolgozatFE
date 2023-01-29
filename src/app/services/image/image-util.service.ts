@@ -3,6 +3,7 @@ import {BatchImageRequest} from '../../models/request/batch-image-request.model'
 import {RequestOrderByType} from '../../models/request/request-order-by-type';
 import {RequestOrderType} from '../../models/request/request-order-type';
 import {RequestTagType} from '../../models/request/request-tag-type';
+import {AuthService} from '../auth/auth.service';
 
 @Injectable({
     providedIn: 'root'
@@ -18,24 +19,14 @@ export class ImageUtilService {
         requestOrderType: RequestOrderType.ASC,
         requestTagType: RequestTagType.OR,
         collectionId: null,
+        requestUserId: this.authService.getCurrentUser().id,
     };
 
-    private batchImageRequest: BatchImageRequest | null = null;
-
-    constructor() {
+    constructor(private authService: AuthService) {
+        this.authService.loginUserId.subscribe(value => {
+            this.defaultBatchImageRequest.requestUserId = value;
+        });
     }
-
-    setBatchImageRequest(batchImageRequest1: BatchImageRequest) {
-        this.batchImageRequest = structuredClone(batchImageRequest1);
-    }
-
-    getBatchImageRequest() {
-        let tempBatchImageRequest = structuredClone(this.batchImageRequest);
-        this.batchImageRequest = null;
-        return tempBatchImageRequest;
-
-    }
-
 
     get defaultBatchImageRequest(): BatchImageRequest {
         return structuredClone(this._defaultBatchImageRequest);

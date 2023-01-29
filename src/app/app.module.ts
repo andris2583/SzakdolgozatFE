@@ -21,6 +21,7 @@ import {PipeModule} from './modules/pipe/pipe/pipe.module';
 import {MatIconModule} from '@angular/material/icon';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import {SharedModule} from './modules/shared/shared.module';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import {MatInputModule} from '@angular/material/input';
         MatIconModule,
         MatFormFieldModule,
         MatInputModule,
+        SharedModule,
     ],
     providers: [
         // {

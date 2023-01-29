@@ -70,6 +70,7 @@
 - Show tags no currently in use
 - randomize tag component images so not always the same
 - seasonal dashboard image
+- components not getting destroyed after logout
 
 - ~~Every user has default liked photos collection~~
 - ~~Can create collection~~
@@ -88,10 +89,13 @@
 Image
 
 - Owner ID
-- Views count
 - Privacy
--
+- Props object -> map str str
+
+- View count Collection id -> count
 
 User
+
+- UserType
 
 

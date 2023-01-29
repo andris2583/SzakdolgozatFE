@@ -4,6 +4,8 @@ import {ImageService} from '../../../services/image/image.service';
 import {Image} from '../../../models/image.model';
 import exifr from 'exifr';
 import {FileHandle} from '../../../directives/drag-drop/drag-drop.directive';
+import {Privacy} from '../../../models/privacy';
+import {AuthService} from '../../../services/auth/auth.service';
 
 @Component({
     selector: 'app-image-upload-dialog',
@@ -16,6 +18,7 @@ export class ImageUploadDialogComponent implements OnInit {
         // @Inject(MAT_DIALOG_DATA) public image: Image,
         public dialogRef: MatDialogRef<any>,
         private imageService: ImageService,
+        private authService: AuthService,
     ) {
     }
 
@@ -66,6 +69,8 @@ export class ImageUploadDialogComponent implements OnInit {
                     image.tags = value;
                     image.imgB64 = (reader.result as string);
                     image.name = files[i].name;
+                    image.privacy = Privacy.PRIVATE;
+                    image.ownerId = this.authService.getCurrentUser().id;
                 });
             };
             this.images.push(image);

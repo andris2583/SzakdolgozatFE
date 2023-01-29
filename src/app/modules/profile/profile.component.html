@@ -63,7 +63,9 @@
 
 <div>
     <div *ngIf="activeTab == tabs.IMAGES">
-        IMPLEMENT PRIVATE IMAGES
+        <div class="tab-title" style="margin-bottom: 1vw">Your private images</div>
+        <app-image-masonry-list (loadImageData)="loadImageData()" [images]="images"
+                                [userCollections]="collectionsValue"></app-image-masonry-list>
     </div>
     <div *ngIf="activeTab == tabs.COLLECTIONS">
         <div class="tab-title">Your private collections</div>

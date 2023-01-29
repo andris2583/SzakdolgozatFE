@@ -4,6 +4,7 @@ import {Image} from '../../../models/image.model';
 import {RequestOrderByType} from '../../../models/request/request-order-by-type';
 import {RequestOrderType} from '../../../models/request/request-order-type';
 import {RequestTagType} from '../../../models/request/request-tag-type';
+import {AuthService} from '../../../services/auth/auth.service';
 
 @Component({
     selector: 'app-tag',
@@ -22,7 +23,7 @@ export class TagComponent implements OnInit {
 
     imageCount: number = 0;
 
-    constructor(private imageService: ImageService) {
+    constructor(private imageService: ImageService, private authService: AuthService) {
     }
 
     ngOnInit(): void {
@@ -34,7 +35,8 @@ export class TagComponent implements OnInit {
             requestOrderByType: RequestOrderByType.RANDOM,
             requestOrderType: RequestOrderType.ASC,
             requestTagType: RequestTagType.OR,
-            collectionId: null
+            collectionId: null,
+            requestUserId: this.authService.getCurrentUser().id,
         }).subscribe(value => {
             this.previewImages = value;
         });

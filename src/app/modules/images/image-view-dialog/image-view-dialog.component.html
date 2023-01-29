@@ -1,9 +1,20 @@
 <div class="content" [class.hide]="loading">
     <div class="dialog-header">
-        <span class="dialog-header-left">Author: Jhonh Smith</span>
+        <span class="dialog-header-left">Author: {{(owner | async)?.username}}</span>
         <span class="dialog-header-right">
             <!--TODO dialog not showing inside other dialog-->
             <!--      <button class="dialog-header-button" (click)="onAddToCollectionClickEvent($event)" mat-stroked-button>Save to collection</button>-->
+            <span>
+                    <div class="slider-container" *ngIf="authService.getCurrentUser().id == image.ownerId">
+                        {{image.privacy}}
+                        <mat-slide-toggle
+                            style="margin-left: 1vw"
+                            class="example-margin"
+                            [checked]='image.privacy == "PUBLIC"'
+                            (change)="privacyChanged()">
+        </mat-slide-toggle>
+    </div>
+            </span>
       <button class="dialog-header-button" mat-stroked-button
               (click)="downloadButtonClick()">Download</button>
       <button class="dialog-header-button" mat-stroked-button
