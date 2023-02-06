@@ -52,3 +52,23 @@
 .dashboard-logo {
     filter: invert(1)
 }
+
+.profile-dropdown {
+    position: absolute;
+    width: 100%;
+    transform: translateX(-16px);
+    background-color: #ffffff;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border: 0.5px solid #c8c8c8;
+    overflow: auto;
+}
+
+.profile-dropdown-element {
+    width: 100%;
+    color: black !important;
+    //text-align: left;
+    //padding-left: 5px;
+}

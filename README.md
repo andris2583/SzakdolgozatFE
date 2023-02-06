@@ -60,14 +60,14 @@
 - ~~Képekre Views, Downloads, Likes~~
 - ~~Replace redundant endpoints with rest save~~
 - ~~When deleting images remove from collections~~
-- private/public collection, image accessibility
+- ~~private/public collection, image accessibility~~
 - edit collections,images
 - Navigate to specific page of user with dropdown menu
 - appTag width from px to vw
 - Routing scrolltop not fucking working
 - Weird af zindex bug on dashboard header-tag component
 - leaflet
-- Show tags no currently in use
+- Show tags no currently in use, but mark them so user knows they are empty
 - randomize tag component images so not always the same
 - seasonal dashboard image
 - components not getting destroyed after logout

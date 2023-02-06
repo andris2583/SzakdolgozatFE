@@ -50,6 +50,7 @@
     margin: 0 10px 0 10px;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     width: 7vw;
+    overflow: auto;
 }
 
 #filter-tab {
@@ -63,11 +64,13 @@
     border-bottom-right-radius: 5px;
     border-top-left-radius: 5px;
     border: 0.5px solid #c8c8c8;
+    overflow: auto;
 }
 
 .filter-button {
     padding: 0 10px 0 10px;
     width: fit-content;
+    overflow: auto;
 }
 
 #sort-tab {
@@ -80,6 +83,7 @@
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     border: 0.5px solid #c8c8c8;
+    overflow: auto;
 
 }
 

@@ -1,8 +1,9 @@
-import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {AuthService} from '../../services/auth/auth.service';
 import {Page} from '../../models/page.model';
 import {Router} from '@angular/router';
 import {Pages} from '../../models/constants/pages';
+import {ProfileTabs} from '../../models/constants/profile-tabs';
 
 @Component({
     selector: 'app-header',
@@ -13,11 +14,26 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     @Input()
     public dashboardHeader: boolean = false;
 
+    public profileDropdownOpen: boolean = false;
+
     public pages = new Pages().pages;
+
+    public profileTabs = ProfileTabs;
 
     public profilePage: Page = {route: '/profile', name: 'Profile', protected: true};
 
-    constructor(private authService: AuthService, public router: Router) {
+    @ViewChild('profileDropdownTab') profileDropdownTab: ElementRef | undefined;
+    @ViewChild('profileDropdownButton') profileDropdownButton: ElementRef | undefined;
+
+    constructor(private authService: AuthService, public router: Router, private renderer: Renderer2) {
+        this.renderer.listen('window', 'click', (event) => {
+            if (this.profileDropdownTab != undefined && this.profileDropdownButton != undefined) {
+                // @ts-ignore
+                if (event.target != this.profileDropdownTab.nativeElement && !this.profileDropdownButton._elementRef.nativeElement.contains(event.target)) {
+                    this.profileDropdownOpen = false;
+                }
+            }
+        });
     }
 
     ngOnInit(): void {
@@ -37,5 +53,20 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
     shouldHeaderBeShown() {
         return !this.router.url.startsWith('/dashboard');
+    }
+
+    profileDropdownClick(e: MouseEvent) {
+        this.profileDropdownOpen = !this.profileDropdownOpen;
+        if (e.stopPropagation) e.stopPropagation();
+    }
+
+    goToProfile(e: MouseEvent, subPage?: ProfileTabs) {
+        if (subPage) {
+            this.router.navigate([this.profilePage.route + '/' + subPage]);
+        } else {
+            this.router.navigate([this.profilePage.route + '/ ']);
+        }
+        if (e.stopPropagation) e.stopPropagation();
+        this.profileDropdownOpen = false;
     }
 }

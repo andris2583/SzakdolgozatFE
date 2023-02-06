@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {AuthService} from '../../services/auth/auth.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {User} from '../../models/user.model';
 import {ProfileTabs} from '../../models/constants/profile-tabs';
 import {Observable} from 'rxjs';
@@ -16,7 +16,7 @@ import {BatchImageRequest} from '../../models/request/batch-image-request.model'
     templateUrl: './profile.component.html',
     styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, AfterViewInit {
 
     public user: User | null = null;
     public tabs = ProfileTabs;
@@ -25,12 +25,15 @@ export class ProfileComponent implements OnInit {
     public collectionsValue: Collection[] = [];
     public images: Image[] = [];
     public batchImageRequest: BatchImageRequest;
+    @ViewChild('profileTabSelector') profileTabSelector: ElementRef | undefined;
 
     constructor(private authService: AuthService,
                 private router: Router,
                 private collectionService: CollectionService,
                 private imageService: ImageService,
-                public imageUtilService: ImageUtilService) {
+                public imageUtilService: ImageUtilService,
+                private activatedRoute: ActivatedRoute,
+    ) {
         this.batchImageRequest = this.imageUtilService.defaultBatchImageRequest;
         this.batchImageRequest.requestFilter = {
             ownerId: this.authService.getCurrentUser().id,
@@ -56,6 +59,25 @@ export class ProfileComponent implements OnInit {
             });
         }
         this.loadImageData();
+        switch (this.activatedRoute.snapshot.paramMap.get('subPage')!.trim()) {
+            case this.tabs.IMAGES:
+                this.activeTab = ProfileTabs.IMAGES;
+                break;
+            case this.tabs.COLLECTIONS:
+                this.activeTab = ProfileTabs.COLLECTIONS;
+                break;
+            case this.tabs.STATISTICS:
+                this.activeTab = ProfileTabs.STATISTICS;
+                break;
+        }
+    }
+
+    ngAfterViewInit() {
+        if (this.activatedRoute.snapshot.paramMap.get('subPage')!.trim() != '') {
+            if (this.profileTabSelector) {
+                this.profileTabSelector.nativeElement.scrollIntoView();
+            }
+        }
     }
 
     logOut() {

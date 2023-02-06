@@ -21,6 +21,24 @@
         <a class="header-element header-link" [class.dashboard-header-element]="dashboardHeader"
            style="margin-left: auto" *ngIf="shouldPageBeShown(profilePage)"
            mat-stroked-button
-           [routerLink]="profilePage.route">Profile</a>
+           (click)="goToProfile($event)">
+            Profile
+            <mat-icon #profileDropdownButton (click)="profileDropdownClick($event)">keyboard_arrow_down</mat-icon>
+            <div #profileDropdownTab class="profile-dropdown" *ngIf="profileDropdownOpen">
+                <button mat-button class="profile-dropdown-element" (click)="goToProfile($event,profileTabs.IMAGES)">
+                    Images
+                </button>
+                <br>
+                <button mat-button class="profile-dropdown-element"
+                        (click)="goToProfile($event,profileTabs.COLLECTIONS)">
+                    Collections
+                </button>
+                <br>
+                <button mat-button class="profile-dropdown-element"
+                        (click)="goToProfile($event,profileTabs.STATISTICS)">
+                    Statistics
+                </button>
+            </div>
+        </a>
     </mat-toolbar-row>
 </mat-toolbar>

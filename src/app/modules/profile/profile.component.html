@@ -41,7 +41,7 @@
 
 <div style="height: 10vh;"></div>
 
-<div style="display: flex;justify-content: center;align-items: center;width: fit-content">
+<div style="display: flex;justify-content: center;align-items: center;width: fit-content" #profileTabSelector>
     <div>
         <button mat-flat-button (click)="tabButtonClick(tabs.IMAGES)">Images</button>
         <div [ngStyle]="activeTab == tabs.IMAGES?{'background-color':'#575756'} : {'background-color': '#eaeaea'}"
@@ -93,3 +93,4 @@
         IMPLEMENT PROFILE STATISTICS
     </div>
 </div>
+<div style="height: 80vh"></div>

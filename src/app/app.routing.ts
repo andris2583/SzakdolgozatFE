@@ -30,7 +30,7 @@ const routes: Routes = [
         loadChildren: () => import('./modules/collection/collection.module').then(m => m.CollectionModule)
     },
     {
-        path: 'profile',
+        path: 'profile/:subPage',
         canActivate: [AuthGuard],
         loadChildren: () => import('./modules/profile/profile.module').then(m => m.ProfileModule)
     },
