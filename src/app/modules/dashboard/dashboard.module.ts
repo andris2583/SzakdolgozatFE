@@ -7,6 +7,7 @@ import {HeaderModule} from '../header/header.module';
 import {MatButtonModule} from '@angular/material/button';
 import {NgxMasonryModule} from 'ngx-masonry';
 import {SharedModule} from '../shared/shared.module';
+import {PipeModule} from '../pipe/pipe/pipe.module';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import {SharedModule} from '../shared/shared.module';
         MatButtonModule,
         NgxMasonryModule,
         SharedModule,
+        PipeModule,
     ],
 })
 export class DashboardModule {

@@ -1,7 +1,7 @@
 <img id="dashboard-image" #dashboardImage [src]="headerImageURL"
      alt="">
 <div>
-    <div style="height: 100%;z-index: -1">
+    <div style="height: 100%">
         <app-header *ngIf="stickyHeader" class="dashboard-header"></app-header>
         <div class="dashboard-image-spacer"></div>
         <div style="display: flex;justify-content: center;align-items: center;">
@@ -18,7 +18,7 @@
         </div>
         <div class="dashboard-container-spacer"></div>
         <!--        TODO tags from user favourites-->
-        <h1>Categories you may like...</h1>
+        <h1>Categories you may like</h1>
         <div
             class="dashboard-content-container">
             <app-tag *ngFor="let tag of favouriteTags"
@@ -26,10 +26,17 @@
         </div>
         <div class="dashboard-container-spacer"></div>
         <!--        TODO collections from users images?-->
-        <h1>Like your images...</h1>
+        <h1>Similar to your images</h1>
         <div
-            class="dashboard-content-container"></div>
-        <div class="dashboard-container-spacer"></div>
+            class="dashboard-content-container">
+            <div *ngFor="let similarToUsersImage of similarToUsersImages" class="similar-user-image">
+                <img [src]="similarToUsersImage.imgB64 | sanitizeImage"
+                     style="object-fit: cover;width: 250px;height: 250px;border-radius: 10px;margin-left: 2vw" alt="">
+            </div>
+        </div>
+        <div style="height: 10vh;width: 100%"></div>
     </div>
+    <app-image-masonry-list (loadImageData)="loadImageData()" [images]="images"
+                            [userCollections]="userCollections"></app-image-masonry-list>
 </div>
 

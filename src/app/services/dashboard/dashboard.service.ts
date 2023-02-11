@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {User} from '../../models/user.model';
+import {Image} from '../../models/image.model';
 
 @Injectable({
     providedIn: 'root'
@@ -21,4 +22,7 @@ export class DashboardService {
         return this.httpClient.put<string[]>(this.baseUrl + '/getFavouriteTags/', user);
     }
 
+    getSimilarToUserImages(user: User): Observable<Image[]> {
+        return this.httpClient.put<Image[]>(this.baseUrl + '/getSimilarToUserImages', user);
+    }
 }

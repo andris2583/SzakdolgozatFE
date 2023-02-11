@@ -47,24 +47,25 @@
     position: absolute;
     top: -2vh;
     left: -10vw;
-    z-index: -1;
     filter: brightness(0.5);
 }
 
 .dashboard-header {
     position: fixed;
+    z-index: 10;
     top: 0;
 }
 
 .dashboard-content-container {
     border-radius: 10px;
-    width: 100%;
+    width: 80vw;
     min-height: 40vh;
     height: fit-content;
     background-color: #F5F5F5;
     box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
     display: flex;
-    justify-content: center;
+    padding: 0 2vw 0 2vw;
+    justify-content: space-between;
     align-items: center;
     overflow: auto;
 
@@ -80,4 +81,12 @@
     width: 100%;
     height: 15vh;
     //background-color: rgba(221, 255, 136, 0.5)
+}
+
+.similar-user-image:hover {
+    filter: brightness(0.7);
+}
+
+.similar-user-image {
+    transition: 0.3s;
 }

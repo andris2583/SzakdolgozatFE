@@ -19,9 +19,9 @@
     - [X] Cloud storage
     - [X] Adatbázis
 - [] Felhasználó kezelés
-    - [] Privát képek, albumok
+    - [X] Privát képek, albumok
     - [] Képek megosztása felhasználók között
-    - [] Nyilvánosan megtekinthető képek (bejelentkezés nélkül)
+    - [X] Nyilvánosan megtekinthető képek (bejelentkezés nélkül)
 - [X] Indexkép generálás
 - [X] Képnézegető
 
@@ -46,13 +46,13 @@
 - ~~similar images based on tag, maybe 2-3 tags the match~~
 - ~~searchbar to header, suggest tags, can search for image names~~
 - ~~Batchimagerequest tag to tags, exclusive or inclusive search, crossection or union~~
-- Dashboard with popular categories, themes, maybe season specific tags
+- ~~Dashboard with popular categories, themes, maybe season specific tags~~
 - ~~categories most popular, few preview images in category card~~
 - save img w,h to image entity, so loading ghost w,h is good
 - ~~like,dislike, comment~~ star/favourite instead
 - ~~order by likes/dislikes/comments/upload,date/~~
 - ~~filter by date~~
-- create album automatically
+- ~~create album automatically~~
 - ~~add to collection, like, download on image hover~~
 - admin felület, szabályozni dolgokat felbontás,tárhely | free/prémium
 - admin usernek végtelen space
@@ -62,15 +62,17 @@
 - ~~When deleting images remove from collections~~
 - ~~private/public collection, image accessibility~~
 - edit collections,images
-- Navigate to specific page of user with dropdown menu
+- ~~Navigate to specific page of user with dropdown menu~~
 - appTag width from px to vw
 - Routing scrolltop not fucking working
 - Weird af zindex bug on dashboard header-tag component
 - leaflet
 - Show tags no currently in use, but mark them so user knows they are empty
-- randomize tag component images so not always the same
-- seasonal dashboard image
+- ~~randomize tag component images so not always the same~~
+- ~~seasonal dashboard image~~
 - components not getting destroyed after logout
+- megosztás user, link stb
+
 
 - ~~Every user has default liked photos collection~~
 - ~~Can create collection~~
@@ -86,10 +88,10 @@
     - ~~Enum:Private/Public~~
     - ~~Enum: Favourites/Created~~
 
-Image
+~~Image~~
 
-- Owner ID
-- Privacy
+- ~~Owner ID~~
+- ~~Privacy~~
 - Props object -> map str str
 
 - View count Collection id -> count
@@ -97,5 +99,6 @@ Image
 User
 
 - UserType
+- Profile picture based on id save to folder
 
 
