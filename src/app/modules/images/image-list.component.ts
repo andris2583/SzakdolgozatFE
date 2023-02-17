@@ -3,7 +3,6 @@ import {Image} from '../../models/image.model';
 import {ImageService} from '../../services/image/image.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgxMasonryOptions} from 'ngx-masonry';
-import {ImageUploadDialogComponent} from './image-upload-dialog/image-upload-dialog.component';
 import {BatchImageRequest} from '../../models/request/batch-image-request.model';
 import {MatDialog} from '@angular/material/dialog';
 import {RequestOrderByType} from '../../models/request/request-order-by-type';
@@ -113,17 +112,6 @@ export class ImageListComponent implements OnInit {
         });
 
         this.batchImageRequest.pageCount++;
-    }
-
-    openImageUploadDialog() {
-        let dialogRef = this.dialog.open(ImageUploadDialogComponent, {
-            panelClass: 'panel-class',
-            autoFocus: false,
-        });
-        let instance = dialogRef.componentInstance;
-        instance.uploadImage.subscribe((uploadedImage: Image) => {
-            this.images.push(uploadedImage);
-        });
     }
 
     generateRandomHeights() {

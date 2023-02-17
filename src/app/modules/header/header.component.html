@@ -4,41 +4,55 @@
         <!--        <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">-->
         <!--            <mat-icon>menu</mat-icon>-->
         <!--        </button>-->
-        <img src="/assets/logo2.png" width="64" height="64" alt="x" [class.dashboard-logo]="dashboardHeader"
-             class="header-element"
-             [class.dashboard-header-element]="dashboardHeader">
-        <a class="header-element header-link" [class.dashboard-header-element]="dashboardHeader"
-           *ngFor="let page of pages" mat-stroked-button
-           [class.hidden]="!shouldPageBeShown(page)"
-           [routerLink]="page.route">
-            <ng-container *ngIf="shouldPageBeShown(page)">
-                {{page.name}}
-            </ng-container>
-        </a>
-        <div class="searchbar-container">
-            <app-searchbar *ngIf="!dashboardHeader"></app-searchbar>
-        </div>
-        <a class="header-element header-link" [class.dashboard-header-element]="dashboardHeader"
-           style="margin-left: auto" *ngIf="shouldPageBeShown(profilePage)"
-           mat-stroked-button
-           (click)="goToProfile($event)">
-            Profile
-            <mat-icon #profileDropdownButton (click)="profileDropdownClick($event)">keyboard_arrow_down</mat-icon>
-            <div #profileDropdownTab class="profile-dropdown" *ngIf="profileDropdownOpen">
-                <button mat-button class="profile-dropdown-element" (click)="goToProfile($event,profileTabs.IMAGES)">
-                    Images
-                </button>
-                <br>
-                <button mat-button class="profile-dropdown-element"
-                        (click)="goToProfile($event,profileTabs.COLLECTIONS)">
-                    Collections
-                </button>
-                <br>
-                <button mat-button class="profile-dropdown-element"
-                        (click)="goToProfile($event,profileTabs.STATISTICS)">
-                    Statistics
-                </button>
+        <span id="flex-group-one">
+            <img src="/assets/logo2.png" width="64" height="64" alt="x" [class.dashboard-logo]="dashboardHeader"
+                 class="header-element"
+                 [class.dashboard-header-element]="dashboardHeader">
+            <a class="header-element header-link" [class.dashboard-header-element]="dashboardHeader"
+               *ngFor="let page of pages" mat-stroked-button
+               [class.hidden]="!shouldPageBeShown(page)"
+               [routerLink]="page.route">
+                <ng-container *ngIf="shouldPageBeShown(page)">
+                    {{page.name}}
+                </ng-container>
+            </a>
+        </span>
+        <span id="flex-group-two">
+            <div class="searchbar-container">
+                <app-searchbar *ngIf="!dashboardHeader"></app-searchbar>
             </div>
-        </a>
+        </span>
+        <span id="flex-group-three">
+            <a class="header-element header-link" [class.dashboard-header-element]="dashboardHeader"
+               mat-stroked-button (click)="openImageUploadDialog()"
+               [class.hidden]="!authService.isLoggedIn">
+                <ng-container *ngIf="authService.isLoggedIn">
+                    Upload
+                </ng-container>
+            </a>
+            <a class="header-element header-link" [class.dashboard-header-element]="dashboardHeader"
+               *ngIf="shouldPageBeShown(profilePage)"
+               mat-stroked-button
+               (click)="goToProfile($event)">
+                Profile
+                <mat-icon #profileDropdownButton (click)="profileDropdownClick($event)">keyboard_arrow_down</mat-icon>
+                <div #profileDropdownTab class="profile-dropdown" *ngIf="profileDropdownOpen">
+                    <button mat-button class="profile-dropdown-element"
+                            (click)="goToProfile($event,profileTabs.IMAGES)">
+                        Images
+                    </button>
+                    <br>
+                    <button mat-button class="profile-dropdown-element"
+                            (click)="goToProfile($event,profileTabs.COLLECTIONS)">
+                        Collections
+                    </button>
+                    <br>
+                    <button mat-button class="profile-dropdown-element"
+                            (click)="goToProfile($event,profileTabs.STATISTICS)">
+                        Statistics
+                    </button>
+                </div>
+            </a>
+        </span>
     </mat-toolbar-row>
 </mat-toolbar>

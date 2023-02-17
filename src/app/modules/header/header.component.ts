@@ -4,6 +4,8 @@ import {Page} from '../../models/page.model';
 import {Router} from '@angular/router';
 import {Pages} from '../../models/constants/pages';
 import {ProfileTabs} from '../../models/constants/profile-tabs';
+import {ImageUploadDialogComponent} from '../images/image-upload-dialog/image-upload-dialog.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
     selector: 'app-header',
@@ -25,7 +27,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     @ViewChild('profileDropdownTab') profileDropdownTab: ElementRef | undefined;
     @ViewChild('profileDropdownButton') profileDropdownButton: ElementRef | undefined;
 
-    constructor(private authService: AuthService, public router: Router, private renderer: Renderer2) {
+    constructor(public authService: AuthService, public router: Router, private renderer: Renderer2, private dialog: MatDialog) {
         this.renderer.listen('window', 'click', (event) => {
             if (this.profileDropdownTab != undefined && this.profileDropdownButton != undefined) {
                 // @ts-ignore
@@ -68,5 +70,17 @@ export class HeaderComponent implements OnInit, AfterViewInit {
         }
         if (e.stopPropagation) e.stopPropagation();
         this.profileDropdownOpen = false;
+    }
+
+
+    openImageUploadDialog() {
+        let dialogRef = this.dialog.open(ImageUploadDialogComponent, {
+            panelClass: 'panel-class',
+            autoFocus: false,
+        });
+        let instance = dialogRef.componentInstance;
+        // instance.uploadImage.subscribe((uploadedImage: Image) => {
+        //     this.images.push(uploadedImage);
+        // });
     }
 }
