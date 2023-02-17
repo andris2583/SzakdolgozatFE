@@ -29,7 +29,7 @@
     left: 50%;
     position: absolute;
     transform: translateX(-50%) translateY(-50%);
-    
+
 }
 
 .collection-grid-tile {
@@ -93,4 +93,36 @@
 .profile-divider {
     background-color: #c8c8c8;
     border-radius: 1px;
+}
+
+.area {
+    width: 200px;
+    height: 200px;
+    background-image: url("https://raw.githubusercontent.com/material-icons/material-icons/af0ed9c0e1276bad43c4d6ca8e8aaa283e425195/svg/account_circle/baseline.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 200px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    filter: alpha(opacity=100);
+    -khtml-opacity: 1;
+    -moz-opacity: 1;
+    opacity: 1;
+    text-align: center;
+    margin: 20px;
+    background-color: #f0f0f0;
+    vertical-align: middle;
+    font-size: 12vw;
+    object-fit: cover;
+    border-radius: 100%;
+}
+
+.area:hover,
+.area.dragging,
+.area.uploading {
+    filter: alpha(opacity=50);
+    -khtml-opacity: 0.5;
+    -moz-opacity: 0.5;
+    opacity: 0.5;
 }

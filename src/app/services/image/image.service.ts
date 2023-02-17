@@ -53,4 +53,12 @@ export class ImageService {
     getImageCountWithTag(tag: string): Observable<number> {
         return this.httpClient.put<number>(this.baseUrl + '/getImageCountWithTag/', tag);
     }
+
+    getCountByUser(id: string): Observable<number> {
+        return this.httpClient.get<number>(this.baseUrl + '/getCountByUser/' + id);
+    }
+
+    getLikesByUser(id: string): Observable<number> {
+        return this.httpClient.get<number>(this.baseUrl + '/getLikesByUser/' + id);
+    }
 }

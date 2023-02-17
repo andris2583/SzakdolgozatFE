@@ -44,6 +44,15 @@ export class AuthService {
         });
     }
 
+    uploadProfilePicture(data: string) {
+        let array = [];
+        array[0] = data;
+        array[1] = this.currentUser?.id;
+        this.http.put<boolean>(this.baseUrl + '/uploadProfilePicture', array).subscribe(value => {
+            console.log(value);
+        });
+    }
+
     getUserById(userId: string) {
         return this.http.put<User>(this.baseUrl + '/get', userId);
     }

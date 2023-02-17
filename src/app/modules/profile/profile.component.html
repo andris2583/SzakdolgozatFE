@@ -1,9 +1,9 @@
 <div style="display: flex;justify-content: center;align-items: center">
     <div style="display: flex;justify-content: center;align-items: center;flex-direction: column ">
-        <mat-icon
-            style="color: greenyellow;vertical-align: middle;font-size: 12vw;width: fit-content;height: fit-content;">
-            account_circle
-        </mat-icon>
+        <input type="file" id="upload" style="display: none" (change)="filesUploaded($event)" alt=""/>
+        <label for="upload" class="area" appDragDrop
+               [style.background-image]="'url('+'http://localhost:8080/auth/getProfileData/'+authService.getCurrentUser().id+')'"
+               (files)="filesDropped($event)"></label>
         <div
             style="display: flex;justify-content: center;align-items: center;font-size: 28px;position: relative">{{user?.username}}
             <a style="position: absolute;left: 150%" mat-stroked-button>Edit profile</a>
@@ -22,7 +22,7 @@
                 Likes
             </div>
             <div style="font-size: 20px;text-align: center">
-                23
+                {{imageCount | async}}
             </div>
             <div class="profile-divider"></div>
             <div style="font-size: 20px;text-align: center">
@@ -30,7 +30,7 @@
             </div>
             <div class="profile-divider"></div>
             <div style="font-size: 20px;text-align: center">
-                328
+                {{likeCount | async}}
             </div>
         </div>
         <div>

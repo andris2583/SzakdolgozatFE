@@ -49,6 +49,7 @@ export class ImageListComponent implements OnInit {
     allTags: Tag[] = [];
     filteredSuggestions: Observable<string[]> = new Observable<string[]>();
 
+    selection: boolean = false;
 
     constructor(
         private imageService: ImageService,
@@ -192,5 +193,9 @@ export class ImageListComponent implements OnInit {
             this.batchImageRequest.pageCount = 0;
             this.loadImageData();
         }
+    }
+
+    startSelection() {
+        this.selection = !this.selection;
     }
 }

@@ -10,6 +10,7 @@ import {ImageService} from '../../services/image/image.service';
 import {Image} from '../../models/image.model';
 import {ImageUtilService} from '../../services/image/image-util.service';
 import {BatchImageRequest} from '../../models/request/batch-image-request.model';
+import {FileHandle} from '../../directives/drag-drop/drag-drop.directive';
 
 @Component({
     selector: 'app-profile',
@@ -26,11 +27,13 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     public images: Image[] = [];
     public batchImageRequest: BatchImageRequest;
     @ViewChild('profileTabSelector') profileTabSelector: ElementRef | undefined;
+    imageCount: Observable<number> = this.imageService.getCountByUser(this.authService.getCurrentUser().id);
+    likeCount: Observable<number> = this.imageService.getLikesByUser(this.authService.getCurrentUser().id);
 
-    constructor(private authService: AuthService,
-                private router: Router,
-                private collectionService: CollectionService,
-                private imageService: ImageService,
+    constructor(public authService: AuthService,
+                public router: Router,
+                public collectionService: CollectionService,
+                public imageService: ImageService,
                 public imageUtilService: ImageUtilService,
                 private activatedRoute: ActivatedRoute,
     ) {
@@ -94,6 +97,33 @@ export class ProfileComponent implements OnInit, AfterViewInit {
         });
 
         this.batchImageRequest.pageCount++;
+    }
+
+    filesUploaded(event: Event) {
+        let files: File[] = [];
+        // @ts-ignore
+        for (let file of event.target.files) {
+            files.push(file);
+        }
+        this.handleFiles(files);
+    }
+
+    filesDropped(event: FileHandle[]) {
+        let files: File[] = [];
+        for (let file of event) {
+            files.push(file.file);
+        }
+        this.handleFiles(files);
+    }
+
+    handleFiles(files: File[]) {
+        let file = files[0];
+        console.log(file);
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+            this.authService.uploadProfilePicture(reader.result as string);
+        };
     }
 
 }

@@ -59,6 +59,9 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
         SharedModule,
         MatSlideToggleModule,
     ],
+    exports: [
+        DragDropDirective
+    ]
 })
 export class ImageListModule {
 }

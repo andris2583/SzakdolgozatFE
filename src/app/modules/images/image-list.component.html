@@ -31,8 +31,10 @@
             </button>
         </mat-chip>
     </mat-chip-list>
-
     <div id="filter-sort-container">
+        <!--        <div>-->
+        <!--            <img src="assets/selection.png" class="start-selection-icon" (click)="startSelection()" alt="x">-->
+        <!--        </div>-->
         <button #filterTabButton class="filter-sort-button" (click)="filterButtonClicked()" mat-raised-button>
             Filter
             <mat-icon>{{filterTabOpen ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</mat-icon>
