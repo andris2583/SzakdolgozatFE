@@ -29,7 +29,8 @@
         <h1>Similar to your images</h1>
         <div
             class="dashboard-content-container">
-            <div *ngFor="let similarToUsersImage of similarToUsersImages" class="similar-user-image">
+            <div *ngFor="let similarToUsersImage of similarToUsersImages" class="similar-user-image"
+                 (click)="openImageViewDialog(similarToUsersImage)">
                 <img [src]="similarToUsersImage.imgB64 | sanitizeImage"
                      style="object-fit: cover;width: 250px;height: 250px;border-radius: 10px;margin-left: 2vw" alt="">
             </div>

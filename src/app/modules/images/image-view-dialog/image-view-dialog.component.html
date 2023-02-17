@@ -1,6 +1,6 @@
 <div class="content" [class.hide]="loading">
     <div class="dialog-header">
-        <span class="dialog-header-left">Author: {{(owner | async)?.username}}</span>
+        <span class="dialog-header-left">{{image.name}} by {{(owner | async)?.username}}</span>
         <span class="dialog-header-right">
             <!--TODO dialog not showing inside other dialog-->
             <!--      <button class="dialog-header-button" (click)="onAddToCollectionClickEvent($event)" mat-stroked-button>Save to collection</button>-->

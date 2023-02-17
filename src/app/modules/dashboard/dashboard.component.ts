@@ -8,7 +8,10 @@ import {ImageUtilService} from '../../services/image/image-util.service';
 import {Collection} from '../../models/collection';
 import {CollectionService} from '../../services/collection/collection.service';
 import {ImageViewDialogComponent} from '../images/image-view-dialog/image-view-dialog.component';
-import {Dialog} from '@angular/cdk/dialog';
+import {RequestOrderByType} from '../../models/request/request-order-by-type';
+import {RequestOrderType} from '../../models/request/request-order-type';
+import {RequestTagType} from '../../models/request/request-tag-type';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
     selector: 'app-dashboard',
@@ -34,7 +37,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
                 private imageService: ImageService,
                 private imageUtilService: ImageUtilService,
                 private collectionService: CollectionService,
-                private dialog: Dialog) {
+                private dialog: MatDialog) {
         this.collectionService.getCollectionsByUserId(this.authService.getCurrentUser().id).subscribe(value => {
             this.userCollections = value;
         });
@@ -74,11 +77,27 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
 
     openImageViewDialog(image: Image) {
+        console.log(image);
         let dialogRef = this.dialog.open(ImageViewDialogComponent, {
             data: image,
             panelClass: 'panel-class',
             autoFocus: false,
         });
+        let instance = dialogRef.componentInstance;
+        instance!.deletedImageEvent.subscribe((deletedImage: Image) => {
+            //TODO delete image from frontend list
+        });
+        this.imageService.getImages({
+            tags: [],
+            batchSize: -1,
+            pageCount: 0,
+            requestFilter: null,
+            requestOrderByType: RequestOrderByType.ALPHABETICAL,
+            requestOrderType: RequestOrderType.ASC,
+            requestTagType: RequestTagType.OR,
+            collectionId: null,
+            requestUserId: this.authService.getCurrentUser().id,
+        }).subscribe(value => instance!.images = value);
     }
 
 }
