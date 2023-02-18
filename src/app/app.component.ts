@@ -12,6 +12,7 @@ export class AppComponent {
 
 
     constructor(private router: Router) {
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
         this.router.events.subscribe(value => {
             if (value instanceof NavigationEnd) {
                 if (value.url == '/dashboard') {

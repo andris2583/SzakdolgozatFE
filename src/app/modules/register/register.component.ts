@@ -16,6 +16,7 @@ export class RegisterComponent implements OnInit {
         public authService: AuthService,
         public router: Router
     ) {
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
         this.registerForm = this.fb.group({
             username: [''],
             password: [''],

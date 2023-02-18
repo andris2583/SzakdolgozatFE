@@ -80,6 +80,7 @@ export class SearchbarComponent implements OnInit {
                 public utilService: UtilService,
                 private router: Router
     ) {
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
         this.renderer.listen('window', 'click', (event) => {
             if (this.searchbarContainer != undefined) {
                 if (event.target != this.searchbarContainer.nativeElement && !this.searchbarContainer.nativeElement.contains(event.target)) {

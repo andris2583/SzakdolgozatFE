@@ -39,6 +39,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
                 public imageUtilService: ImageUtilService,
                 private activatedRoute: ActivatedRoute,
     ) {
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     }
 
     ngOnInit(): void {

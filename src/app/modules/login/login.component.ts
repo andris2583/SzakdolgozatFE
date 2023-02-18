@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
         public authService: AuthService,
         public router: Router
     ) {
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
         this.loginForm = this.fb.group({
             username: [''],
             password: [''],

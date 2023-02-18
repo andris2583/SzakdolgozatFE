@@ -32,6 +32,7 @@ export class CollectionComponent implements OnInit {
                 private imageService: ImageService,
                 public authService: AuthService,
                 private router: Router) {
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
         // @ts-ignore
         this.collectionId = this.activatedRoute.snapshot.paramMap.get('id');
         this.collectionService.getCollectionsById(this.collectionId).subscribe(value => {

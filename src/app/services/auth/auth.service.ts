@@ -14,6 +14,7 @@ export class AuthService {
     loginUserId: Subject<string> = new Subject<string>();
 
     constructor(private http: HttpClient, public router: Router) {
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
         let userString = localStorage.getItem('user');
         if (userString != null) {
             this.currentUser = JSON.parse(userString);

@@ -40,7 +40,9 @@ export class ImageMasonryListComponent implements OnInit {
                 private renderer: Renderer2,
                 public authService: AuthService,
                 private collectionService: CollectionService,
-                private imageUtilService: ImageUtilService,) {
+                private imageUtilService: ImageUtilService,
+    ) {
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     }
 
     ngOnInit(): void {

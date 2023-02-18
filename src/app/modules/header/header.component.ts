@@ -28,6 +28,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     @ViewChild('profileDropdownButton') profileDropdownButton: ElementRef | undefined;
 
     constructor(public authService: AuthService, public router: Router, private renderer: Renderer2, private dialog: MatDialog) {
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
         this.renderer.listen('window', 'click', (event) => {
             if (this.profileDropdownTab != undefined && this.profileDropdownButton != undefined) {
                 // @ts-ignore
