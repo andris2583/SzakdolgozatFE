@@ -72,7 +72,8 @@
 - ~~seasonal dashboard image~~
 - components not getting destroyed after logout
 - megosztás user, link stb
-- see other peoples profiles
+- ~~see other peoples profiles~~
+- search for others profiles by username
 
 
 - ~~Every user has default liked photos collection~~

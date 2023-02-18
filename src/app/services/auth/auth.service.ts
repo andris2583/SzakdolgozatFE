@@ -53,6 +53,10 @@ export class AuthService {
         });
     }
 
+    getAllUsers() {
+        return this.http.get<User[]>(this.baseUrl + '/getAll');
+    }
+
     getUserById(userId: string) {
         return this.http.put<User>(this.baseUrl + '/get', userId);
     }

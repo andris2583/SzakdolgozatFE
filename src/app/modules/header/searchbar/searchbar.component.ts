@@ -15,6 +15,9 @@ import {Collection} from '../../../models/collection';
 import {CollectionService} from '../../../services/collection/collection.service';
 import {Privacy} from '../../../models/privacy';
 import {UtilService} from '../../../services/util/util.service';
+import {User} from '../../../models/user.model';
+import {Page} from '../../../models/page.model';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-searchbar',
@@ -55,10 +58,13 @@ export class SearchbarComponent implements OnInit {
     allTags: Observable<Tag[]> = this.tagService.getAllTags();
     tagSuggestions: Observable<Tag[]> = new Observable<Tag[]>();
     imageSuggestions: Observable<Image[]> = new Observable<Image[]>();
-    collectionSuggestions: Observable<Collection[]> = new Observable();
+    collectionSuggestions: Observable<Collection[]> = new Observable<Collection[]>();
+    userSuggestions: Observable<User[]> = new Observable<User[]>();
     imageSuggestionsLoaded: boolean | undefined = undefined;
     tagSuggestionsLoaded: boolean | undefined = undefined;
     collectionSuggestionsLoaded: boolean | undefined = undefined;
+    userSuggestionsLoaded: boolean | undefined = undefined;
+    public profilePage: Page = {route: '/profile', name: 'Profile', protected: true};
 
     searchbarInFocus: boolean = false;
 
@@ -72,6 +78,7 @@ export class SearchbarComponent implements OnInit {
                 private authService: AuthService,
                 private collectionService: CollectionService,
                 public utilService: UtilService,
+                private router: Router
     ) {
         this.renderer.listen('window', 'click', (event) => {
             if (this.searchbarContainer != undefined) {
@@ -101,6 +108,7 @@ export class SearchbarComponent implements OnInit {
         this.tagSuggestions = new Observable<Tag[]>();
         this.imageSuggestions = new Observable<Image[]>();
         this.collectionSuggestions = new Observable<Collection[]>();
+        this.userSuggestions = new Observable<User[]>();
     }
 
     onEscape() {
@@ -111,6 +119,7 @@ export class SearchbarComponent implements OnInit {
         this.tagSuggestions = new Observable<Tag[]>();
         this.imageSuggestions = new Observable<Image[]>();
         this.collectionSuggestions = new Observable<Collection[]>();
+        this.userSuggestions = new Observable<User[]>();
     }
 
     onInput() {
@@ -118,13 +127,16 @@ export class SearchbarComponent implements OnInit {
             this.tagSuggestions = new Observable<Tag[]>();
             this.imageSuggestions = new Observable<Image[]>();
             this.collectionSuggestions = new Observable<Collection[]>();
+            this.userSuggestions = new Observable<User[]>();
             this.imageSuggestionsLoaded = undefined;
             this.tagSuggestionsLoaded = undefined;
             this.collectionSuggestionsLoaded = undefined;
+            this.userSuggestionsLoaded = undefined;
         } else {
             this.imageSuggestionsLoaded = false;
             this.tagSuggestionsLoaded = false;
             this.collectionSuggestionsLoaded = false;
+            this.userSuggestionsLoaded = false;
             this.tagSuggestions = this.allTags.pipe(
                 map(tempTags => tempTags.filter(tempTag => tempTag.name.toLowerCase().startsWith(this.searchbarValue.toLowerCase())).slice(0, 10)),
                 tap(() => this.tagSuggestionsLoaded = true));
@@ -145,6 +157,9 @@ export class SearchbarComponent implements OnInit {
                 }
                 return false;
             })), tap(() => this.collectionSuggestionsLoaded = true));
+            this.userSuggestions = this.authService.getAllUsers()
+                .pipe(map(users => users.filter(user => user.username.toLowerCase().includes(this.searchbarValue.toLowerCase()))),
+                    tap(() => this.userSuggestionsLoaded = true));
         }
     }
 
@@ -170,5 +185,10 @@ export class SearchbarComponent implements OnInit {
             requestUserId: this.authService.getCurrentUser().id,
         }).subscribe(value => instance.images = value);
         this.onSearchBlur();
+    }
+
+    goToProfile(e: MouseEvent, userId: string) {
+        this.router.navigate([this.profilePage.route + '/' + userId + '/ ']);
+        if (e.stopPropagation) e.stopPropagation();
     }
 }

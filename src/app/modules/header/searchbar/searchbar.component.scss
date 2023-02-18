@@ -97,3 +97,26 @@
 .dropdown-carousel-image {
     transition: 0.3s;
 }
+
+.user-image {
+    width: 100px;
+    height: 100px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    text-align: center;
+    margin: 20px;
+    background-color: #e6e6e6;
+    vertical-align: middle;
+    font-size: 12vw;
+    object-fit: cover;
+    border-radius: 100%;
+    transition: 0.3s;
+}
+
+.user-image:hover {
+    filter: brightness(0.7);
+}
