@@ -1,12 +1,14 @@
 <div style="display: flex;justify-content: center;align-items: center">
     <div style="display: flex;justify-content: center;align-items: center;flex-direction: column ">
-        <input type="file" id="upload" style="display: none" (change)="filesUploaded($event)" alt=""/>
-        <label for="upload" class="area" appDragDrop
-               [style.background-image]="'url('+'http://localhost:8080/auth/getProfileData/'+authService.getCurrentUser().id+')'"
+        <input *ngIf="isOwner" type="file" id="upload" style="display: none" (change)="filesUploaded($event)" alt=""/>
+        <label for="upload" class="area area-hover" appDragDrop *ngIf="user && isOwner"
+               [style.background-image]="'url('+'http://localhost:8080/auth/getProfileData/'+user.id+')'"
                (files)="filesDropped($event)"></label>
+        <div class="area" *ngIf="!isOwner && user"
+             [style.background-image]="'url('+'http://localhost:8080/auth/getProfileData/'+user.id+')'"></div>
         <div
             style="display: flex;justify-content: center;align-items: center;font-size: 28px;position: relative">{{user?.username}}
-            <a style="position: absolute;left: 150%" mat-stroked-button>Edit profile</a>
+            <a *ngIf="isOwner" style="position: absolute;left: 150%" mat-stroked-button>Edit profile</a>
         </div>
         <div
             style="display: grid;column-gap: 1vw;row-gap: 1vw;margin-top: 2vw;margin-bottom: 2vw;grid-template-columns: 4vw 0.1vw 4vw 0.1vw 4vw;">
@@ -34,7 +36,7 @@
             </div>
         </div>
         <div>
-            <a mat-stroked-button (click)="logOut()">Logout</a>
+            <a *ngIf="isOwner" mat-stroked-button (click)="logOut()">Logout</a>
         </div>
     </div>
 </div>
@@ -54,7 +56,7 @@
 
     </div>
     <div>
-        <button mat-flat-button (click)="tabButtonClick(tabs.STATISTICS)">Statistics</button>
+        <button mat-flat-button (click)="tabButtonClick(tabs.STATISTICS)" *ngIf="isOwner">Statistics</button>
         <div [ngStyle]="activeTab == tabs.STATISTICS?{'background-color':'#575756'} : {'background-color': '#eaeaea'}"
              class="tab-underline"></div>
 
@@ -62,13 +64,13 @@
 </div>
 
 <div>
-    <div *ngIf="activeTab == tabs.IMAGES">
-        <div class="tab-title">Your images</div>
+    <div *ngIf="activeTab == tabs.IMAGES" style="margin-top: 1vw;">
+        <div class="tab-title" *ngIf="isOwner">Your images</div>
         <app-image-masonry-list (loadImageData)="loadImageData()" [images]="images"
                                 [userCollections]="collectionsValue"></app-image-masonry-list>
     </div>
     <div *ngIf="activeTab == tabs.COLLECTIONS">
-        <div class="tab-title">Your collections</div>
+        <div class="tab-title" *ngIf="isOwner">Your collections</div>
         <!--        <div *ngFor="let collection of (collections | async)">-->
         <!--            <div>{{collection.name}}</div>-->
         <!--            <div *ngFor="let imageId of collection.imageIds">&nbsp;&nbsp;&nbsp;&nbsp;{{imageId}}</div>-->
@@ -89,7 +91,7 @@
 
 
     </div>
-    <div *ngIf="activeTab == tabs.STATISTICS">
+    <div *ngIf="activeTab == tabs.STATISTICS && isOwner">
         IMPLEMENT PROFILE STATISTICS
     </div>
 </div>

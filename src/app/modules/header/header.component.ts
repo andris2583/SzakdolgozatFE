@@ -64,9 +64,9 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
     goToProfile(e: MouseEvent, subPage?: ProfileTabs) {
         if (subPage) {
-            this.router.navigate([this.profilePage.route + '/' + subPage]);
+            this.router.navigate([this.profilePage.route + '/' + this.authService.getCurrentUser().id + '/' + subPage]);
         } else {
-            this.router.navigate([this.profilePage.route + '/ ']);
+            this.router.navigate([this.profilePage.route + '/' + this.authService.getCurrentUser().id + '/ ']);
         }
         if (e.stopPropagation) e.stopPropagation();
         this.profileDropdownOpen = false;

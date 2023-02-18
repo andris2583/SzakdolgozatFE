@@ -7,40 +7,48 @@ const routes: Routes = [
     {
         path: '',
         redirectTo: '/dashboard',
-        pathMatch: 'full'
+        pathMatch: 'full',
+        runGuardsAndResolvers: 'always',
     },
     {
         path: 'dashboard',
         canActivate: [AuthGuard],
-        loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule)
+        loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule),
+        runGuardsAndResolvers: 'always',
     },
     {
         path: 'images/:tag',
         canActivate: [AuthGuard],
-        loadChildren: () => import('./modules/images/image-list.module').then(m => m.ImageListModule)
+        loadChildren: () => import('./modules/images/image-list.module').then(m => m.ImageListModule),
+        runGuardsAndResolvers: 'always',
     },
     {
         path: 'categories',
         canActivate: [AuthGuard],
-        loadChildren: () => import('./modules/tags/tag-list.module').then(m => m.TagListModule)
+        loadChildren: () => import('./modules/tags/tag-list.module').then(m => m.TagListModule),
+        runGuardsAndResolvers: 'always',
     },
     {
         path: 'collection/:id',
         canActivate: [AuthGuard],
-        loadChildren: () => import('./modules/collection/collection.module').then(m => m.CollectionModule)
+        loadChildren: () => import('./modules/collection/collection.module').then(m => m.CollectionModule),
+        runGuardsAndResolvers: 'always',
     },
     {
-        path: 'profile/:subPage',
+        path: 'profile/:userId/:subPage',
         canActivate: [AuthGuard],
-        loadChildren: () => import('./modules/profile/profile.module').then(m => m.ProfileModule)
+        loadChildren: () => import('./modules/profile/profile.module').then(m => m.ProfileModule),
+        runGuardsAndResolvers: 'always',
     },
     {
         path: 'login',
-        loadChildren: () => import('./modules/login/login.module').then(m => m.LoginModule)
+        loadChildren: () => import('./modules/login/login.module').then(m => m.LoginModule),
+        runGuardsAndResolvers: 'always',
     },
     {
         path: 'register',
-        loadChildren: () => import('./modules/register/register.module').then(m => m.RegisterModule)
+        loadChildren: () => import('./modules/register/register.module').then(m => m.RegisterModule),
+        runGuardsAndResolvers: 'always',
     },
 
 ];

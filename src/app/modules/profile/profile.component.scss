@@ -117,9 +117,9 @@
     border-radius: 100%;
 }
 
-.area:hover,
-.area.dragging,
-.area.uploading {
+.area-hover:hover,
+.area-hover.dragging,
+.area-hover.uploading {
     filter: alpha(opacity=50);
     -khtml-opacity: 0.5;
     -moz-opacity: 0.5;

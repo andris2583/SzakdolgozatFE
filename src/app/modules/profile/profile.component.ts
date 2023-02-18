@@ -3,7 +3,7 @@ import {AuthService} from '../../services/auth/auth.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {User} from '../../models/user.model';
 import {ProfileTabs} from '../../models/constants/profile-tabs';
-import {Observable} from 'rxjs';
+import {map, Observable} from 'rxjs';
 import {Collection} from '../../models/collection';
 import {CollectionService} from '../../services/collection/collection.service';
 import {ImageService} from '../../services/image/image.service';
@@ -11,6 +11,7 @@ import {Image} from '../../models/image.model';
 import {ImageUtilService} from '../../services/image/image-util.service';
 import {BatchImageRequest} from '../../models/request/batch-image-request.model';
 import {FileHandle} from '../../directives/drag-drop/drag-drop.directive';
+import {Privacy} from '../../models/privacy';
 
 @Component({
     selector: 'app-profile',
@@ -25,10 +26,11 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     public collections: Observable<Collection[]> = new Observable<Collection[]>();
     public collectionsValue: Collection[] = [];
     public images: Image[] = [];
-    public batchImageRequest: BatchImageRequest;
+    public batchImageRequest: BatchImageRequest = {} as BatchImageRequest;
+    public isOwner: boolean = false;
     @ViewChild('profileTabSelector') profileTabSelector: ElementRef | undefined;
-    imageCount: Observable<number> = this.imageService.getCountByUser(this.authService.getCurrentUser().id);
-    likeCount: Observable<number> = this.imageService.getLikesByUser(this.authService.getCurrentUser().id);
+    imageCount: Observable<number> = new Observable<number>();
+    likeCount: Observable<number> = new Observable<number>();
 
     constructor(public authService: AuthService,
                 public router: Router,
@@ -37,42 +39,53 @@ export class ProfileComponent implements OnInit, AfterViewInit {
                 public imageUtilService: ImageUtilService,
                 private activatedRoute: ActivatedRoute,
     ) {
-        this.batchImageRequest = this.imageUtilService.defaultBatchImageRequest;
-        this.batchImageRequest.requestFilter = {
-            ownerId: this.authService.getCurrentUser().id,
-            nameFilterString: null,
-            maxCount: null
-        };
     }
 
     ngOnInit(): void {
-        if (this.authService.getCurrentUser() != null) {
-            this.user = this.authService.getCurrentUser();
-            this.collections = this.collectionService.getCollectionsByUserId(this.user!.id);
-            this.collections.subscribe(collections => {
-                let collectionThumbnailIdMap = new Map<string, string | null>();
-                this.collectionsValue = collections;
-                collections.forEach(collection => {
-                    if (collection.imageIds.length != null) {
-                        collectionThumbnailIdMap.set(collection.id, collection.imageIds[0]);
+        this.authService.getUserById(this.activatedRoute.snapshot.paramMap.get('userId')!.trim()).subscribe(value => {
+            if (value != null) {
+                this.user = value;
+                this.isOwner = this.user.id == this.authService.getCurrentUser().id;
+                this.batchImageRequest = this.imageUtilService.defaultBatchImageRequest;
+                this.batchImageRequest.requestFilter = {
+                    ownerId: value.id,
+                    nameFilterString: null,
+                    maxCount: null,
+                };
+                this.imageCount = this.imageService.getCountByUser(this.user.id);
+                this.likeCount = this.imageService.getLikesByUser(this.user.id);
+                this.collections = this.collectionService.getCollectionsByUserId(this.user!.id).pipe(map(collections => {
+                    if (this.isOwner) {
+                        return collections;
                     } else {
-                        collectionThumbnailIdMap.set(collection.id, null);
+                        return collections.filter(collection => collection.privacy == Privacy.PUBLIC);
                     }
+                }));
+                this.collectionService.getCollectionsByUserId(this.authService.getCurrentUser().id).subscribe(collections => {
+                    let collectionThumbnailIdMap = new Map<string, string | null>();
+                    this.collectionsValue = collections;
+                    collections.forEach(collection => {
+                        if (collection.imageIds.length != null) {
+                            collectionThumbnailIdMap.set(collection.id, collection.imageIds[0]);
+                        } else {
+                            collectionThumbnailIdMap.set(collection.id, null);
+                        }
+                    });
                 });
-            });
-        }
-        this.loadImageData();
-        switch (this.activatedRoute.snapshot.paramMap.get('subPage')!.trim()) {
-            case this.tabs.IMAGES:
-                this.activeTab = ProfileTabs.IMAGES;
-                break;
-            case this.tabs.COLLECTIONS:
-                this.activeTab = ProfileTabs.COLLECTIONS;
-                break;
-            case this.tabs.STATISTICS:
-                this.activeTab = ProfileTabs.STATISTICS;
-                break;
-        }
+            }
+            this.loadImageData();
+            switch (this.activatedRoute.snapshot.paramMap.get('subPage')!.trim()) {
+                case this.tabs.IMAGES:
+                    this.activeTab = ProfileTabs.IMAGES;
+                    break;
+                case this.tabs.COLLECTIONS:
+                    this.activeTab = ProfileTabs.COLLECTIONS;
+                    break;
+                case this.tabs.STATISTICS:
+                    this.activeTab = ProfileTabs.STATISTICS;
+                    break;
+            }
+        });
     }
 
     ngAfterViewInit() {
@@ -100,20 +113,24 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     }
 
     filesUploaded(event: Event) {
-        let files: File[] = [];
-        // @ts-ignore
-        for (let file of event.target.files) {
-            files.push(file);
+        if (this.isOwner) {
+            let files: File[] = [];
+            // @ts-ignore
+            for (let file of event.target.files) {
+                files.push(file);
+            }
+            this.handleFiles(files);
         }
-        this.handleFiles(files);
     }
 
     filesDropped(event: FileHandle[]) {
-        let files: File[] = [];
-        for (let file of event) {
-            files.push(file.file);
+        if (this.isOwner) {
+            let files: File[] = [];
+            for (let file of event) {
+                files.push(file.file);
+            }
+            this.handleFiles(files);
         }
-        this.handleFiles(files);
     }
 
     handleFiles(files: File[]) {

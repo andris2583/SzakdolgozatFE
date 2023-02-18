@@ -11,6 +11,7 @@ import {CollectionService} from '../../../services/collection/collection.service
 import {ImageUtilService} from '../../../services/image/image-util.service';
 import {ImageViewDialogComponent} from '../../images/image-view-dialog/image-view-dialog.component';
 import {NgxMasonryOptions} from 'ngx-masonry';
+import {Page} from '../../../models/page.model';
 
 @Component({
     selector: 'app-image-masonry-list',
@@ -30,6 +31,7 @@ export class ImageMasonryListComponent implements OnInit {
     loadImageData = new EventEmitter<null>();
     @Output()
     collectionChanged = new EventEmitter<Collection[]>();
+    public profilePage: Page = {route: '/profile', name: 'Profile', protected: true};
 
     constructor(private imageService: ImageService,
                 public dialog: MatDialog,
@@ -64,7 +66,8 @@ export class ImageMasonryListComponent implements OnInit {
         if (event.stopPropagation) event.stopPropagation();
     }
 
-    onUserClickEvent(event: MouseEvent) {
+    onUserClickEvent(event: MouseEvent, userId: string) {
+        this.router.navigate([this.profilePage.route + '/' + userId + '/ ']);
         if (event.stopPropagation) event.stopPropagation();
     }
 

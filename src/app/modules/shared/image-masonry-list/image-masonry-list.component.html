@@ -14,7 +14,7 @@
             <div class="image-hover-data">
                 <div
                     style="position: absolute;bottom: 5px;left: 10px;color: white;z-index: 10;display: flex;justify-content: center;align-items: center"
-                    (click)="onUserClickEvent($event)">
+                    (click)="onUserClickEvent($event,image.ownerId)">
                     <div class="profile-picture"
                          [style.background-image]="'url('+'http://localhost:8080/auth/getProfileData/'+image.ownerId+')'"></div>
                     <div style="vertical-align: middle;">{{image.name | getNoExtensionName}}</div>
