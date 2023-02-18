@@ -36,7 +36,7 @@ export class ImageMasonryListComponent implements OnInit {
                 private activatedRoute: ActivatedRoute,
                 private router: Router,
                 private renderer: Renderer2,
-                private authService: AuthService,
+                public authService: AuthService,
                 private collectionService: CollectionService,
                 private imageUtilService: ImageUtilService,) {
     }

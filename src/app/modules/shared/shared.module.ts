@@ -13,6 +13,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {ImageMasonryListComponent} from './image-masonry-list/image-masonry-list.component';
 import {NgxMasonryModule} from 'ngx-masonry';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import {InfiniteScrollModule} from 'ngx-infinite-scroll';
         ReactiveFormsModule,
         MatButtonModule,
         NgxMasonryModule,
-        InfiniteScrollModule
+        InfiniteScrollModule,
+        MatTooltipModule
     ],
     exports: [
         TagComponent,

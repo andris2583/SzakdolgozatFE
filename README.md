@@ -72,6 +72,7 @@
 - ~~seasonal dashboard image~~
 - components not getting destroyed after logout
 - megosztás user, link stb
+- see other peoples profiles
 
 
 - ~~Every user has default liked photos collection~~
@@ -99,6 +100,5 @@
 User
 
 - UserType
-- Profile picture based on id save to folder
-
-
+- ~~Profile picture based on id save to folder~~
+- ~~Profile picture alt when no pf~~

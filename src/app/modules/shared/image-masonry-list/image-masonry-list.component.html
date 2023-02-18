@@ -12,21 +12,21 @@
             <img class="masonry-item-width" style="margin-bottom: -6px;"
                  [src]="image.imgB64 | sanitizeImage" alt="X">
             <div class="image-hover-data">
-                <div style="position: absolute;bottom: 5px;left: 10px;color: white;z-index: 10;"
-                     (click)="onUserClickEvent($event)">
-                    <mat-icon
-                        style="color: greenyellow;vertical-align: middle;font-size: 40px;width: fit-content;height: fit-content;margin-right: 8px">
-                        account_circle
-                    </mat-icon>
-                    <span style="vertical-align: middle;">{{image.name | getNoExtensionName}}</span>
+                <div
+                    style="position: absolute;bottom: 5px;left: 10px;color: white;z-index: 10;display: flex;justify-content: center;align-items: center"
+                    (click)="onUserClickEvent($event)">
+                    <div class="profile-picture"
+                         [style.background-image]="'url('+'http://localhost:8080/auth/getProfileData/'+image.ownerId+')'"></div>
+                    <div style="vertical-align: middle;">{{image.name | getNoExtensionName}}</div>
                 </div>
                 <div style="bottom: 5px;right: 5px" class="image-container-icon-button">
-                    <button mat-icon-button (click)="onDownloadButtonClick($event,image)">
+                    <button mat-icon-button (click)="onDownloadButtonClick($event,image)" matTooltip="Download">
                         <mat-icon>download</mat-icon>
                     </button>
                 </div>
                 <div style="top: 5px;right: 5px;" class="image-container-icon-button">
-                    <button mat-icon-button (click)="onFavouriteClickEvent($event,image)">
+                    <button mat-icon-button (click)="onFavouriteClickEvent($event,image)"
+                            matTooltip="Add to favourites">
                         <!--                        TODO should replace [0] with something better-->
                         <mat-icon
                             *ngIf="!userCollections[0].imageIds.includes(image.id)">
@@ -38,7 +38,8 @@
                     </button>
                 </div>
                 <div style="top: 5px;right: 45px;" class="image-container-icon-button">
-                    <button mat-icon-button (click)="onAddToCollectionClickEvent($event,image)">
+                    <button mat-icon-button (click)="onAddToCollectionClickEvent($event,image)"
+                            matTooltip="Save to collection">
                         <mat-icon>add_to_photos</mat-icon>
                     </button>
                 </div>
