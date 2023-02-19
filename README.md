@@ -71,12 +71,15 @@
 - ~~randomize tag component images so not always the same~~
 - ~~seasonal dashboard image~~
 - components not getting destroyed after logout
-- megosztás user, link stb
+- megosztás user, ~~link~~ stb
 - ~~see other peoples profiles~~
 - ~~search for others profiles by username~~
 - ~~like in imageViewDialog~~
 - ~~order by likes or views~~
-
+- Redesign image view dialog
+- ImageId -> Userid hasaccess map String -> String[]
+- update images list when imageuploaddialog emits
+- Maybe something is buggy with removing images when deleted from collections
 
 - ~~Every user has default liked photos collection~~
 - ~~Can create collection~~

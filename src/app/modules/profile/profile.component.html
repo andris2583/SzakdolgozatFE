@@ -67,6 +67,8 @@
     <div *ngIf="activeTab == tabs.IMAGES" style="margin-top: 1vw;">
         <div class="tab-title" *ngIf="isOwner">Your images</div>
         <app-image-masonry-list (loadImageData)="loadImageData()" [images]="images"
+                                (collectionChanged)="collectionsChanged()" (imageDeleted)="imageDeleted()"
+                                (imageOpened)="imageOpened()"
                                 [userCollections]="collectionsValue"></app-image-masonry-list>
     </div>
     <div *ngIf="activeTab == tabs.COLLECTIONS">

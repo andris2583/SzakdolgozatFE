@@ -25,7 +25,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {SharedModule} from '../shared/shared.module';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import { ImageViewPageComponent } from './image-view-page/image-view-page/image-view-page.component';
+import {ClipboardModule} from '@angular/cdk/clipboard';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -35,7 +36,6 @@ import { ImageViewPageComponent } from './image-view-page/image-view-page/image-
         ImageUploadDialogComponent,
         DragDropDirective,
         ImageTagListComponent,
-        ImageViewPageComponent,
     ],
     imports: [
         CommonModule,
@@ -60,6 +60,8 @@ import { ImageViewPageComponent } from './image-view-page/image-view-page/image-
         FormsModule,
         SharedModule,
         MatSlideToggleModule,
+        ClipboardModule,
+        MatSnackBarModule
     ],
     exports: [
         DragDropDirective

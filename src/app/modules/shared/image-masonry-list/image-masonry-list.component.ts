@@ -31,6 +31,10 @@ export class ImageMasonryListComponent implements OnInit {
     loadImageData = new EventEmitter<null>();
     @Output()
     collectionChanged = new EventEmitter<Collection[]>();
+    @Output()
+    imageDeleted = new EventEmitter<Image>();
+    @Output()
+    imageOpened = new EventEmitter<null>();
     public profilePage: Page = {route: '/profile', name: 'Profile', protected: true};
 
     constructor(private imageService: ImageService,
@@ -107,9 +111,11 @@ export class ImageMasonryListComponent implements OnInit {
             panelClass: 'panel-class',
             autoFocus: false,
         });
+        this.imageOpened.emit(null);
         let instance = dialogRef.componentInstance;
         instance.deletedImageEvent.subscribe((deletedImage: Image) => {
             this.images.splice(this.images.indexOf(deletedImage), 1);
+            this.imageDeleted.emit(deletedImage);
         });
         instance.collectionsChanged.subscribe((collections: Collection[]) => {
             this.userCollections = collections;

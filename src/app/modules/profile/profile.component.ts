@@ -12,6 +12,7 @@ import {ImageUtilService} from '../../services/image/image-util.service';
 import {BatchImageRequest} from '../../models/request/batch-image-request.model';
 import {FileHandle} from '../../directives/drag-drop/drag-drop.directive';
 import {Privacy} from '../../models/privacy';
+import {Page} from '../../models/page.model';
 
 @Component({
     selector: 'app-profile',
@@ -28,6 +29,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     public images: Image[] = [];
     public batchImageRequest: BatchImageRequest = {} as BatchImageRequest;
     public isOwner: boolean = false;
+    public profilePage: Page = {route: '/profile', name: 'Profile', protected: true};
     @ViewChild('profileTabSelector') profileTabSelector: ElementRef | undefined;
     imageCount: Observable<number> = new Observable<number>();
     likeCount: Observable<number> = new Observable<number>();
@@ -105,6 +107,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
 
     tabButtonClick(tab: ProfileTabs) {
         this.activeTab = tab;
+        // this.router.navigate([this.profilePage.route + '/' + this.authService.getCurrentUser().id + '/' + tab]);
     }
 
     loadImageData() {
@@ -146,4 +149,22 @@ export class ProfileComponent implements OnInit, AfterViewInit {
         };
     }
 
+    collectionsChanged() {
+        // @ts-ignore
+        this.likeCount = this.imageService.getLikesByUser(this.user.id);
+    }
+
+    imageDeleted() {
+        // @ts-ignore
+        this.imageCount = this.imageService.getCountByUser(this.user.id);
+        // @ts-ignore
+        this.likeCount = this.imageService.getLikesByUser(this.user.id);
+        // @ts-ignore
+        this.viewCount = this.imageService.getViewsByUser(this.user.id);
+    }
+
+    imageOpened() {
+        // @ts-ignore
+        this.viewCount = this.imageService.getViewsByUser(this.user.id);
+    }
 }

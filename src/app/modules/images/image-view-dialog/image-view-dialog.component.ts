@@ -14,6 +14,7 @@ import {User} from '../../../models/user.model';
 import {Observable} from 'rxjs';
 import {CollectionType} from '../../../models/collection-type';
 import {ActivatedRoute} from '@angular/router';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-image-view-dialog',
@@ -29,7 +30,8 @@ export class ImageViewDialogComponent implements OnInit {
         private dialog: MatDialog,
         private collectionService: CollectionService,
         public authService: AuthService,
-        private activatedRoute: ActivatedRoute
+        private activatedRoute: ActivatedRoute,
+        private snackBar: MatSnackBar,
     ) {
         let imageId = this.activatedRoute.snapshot.paramMap.get('imageId');
         if (imageId) {
@@ -131,9 +133,8 @@ export class ImageViewDialogComponent implements OnInit {
     }
 
     deleteImage() {
-        this.deletedImageEvent.emit(this.image);
         this.imageService.deleteImage(this.image).subscribe(() => {
-
+            this.deletedImageEvent.emit(this.image);
         });
         this.dialogRef.close();
     }
@@ -212,4 +213,7 @@ export class ImageViewDialogComponent implements OnInit {
         }
     }
 
+    shareWithUrl() {
+        this.snackBar.open('URL copied to clipboard!', '', {duration: 5000});
+    }
 }

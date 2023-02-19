@@ -32,6 +32,9 @@
               (click)="downloadButtonClick()">Download</button>
       <button class="dialog-header-button" mat-stroked-button *ngIf="authService.getCurrentUser()?.id == image.ownerId"
               (click)="deleteImage()">Delete</button>
+      <button class="dialog-header-button" mat-stroked-button *ngIf="authService.getCurrentUser()?.id == image.ownerId"
+              [cdkCopyToClipboard]="'http://localhost:4200/images/image/'+image.id"
+              (click)="shareWithUrl()">Share URL</button>
     </span>
     </div>
     <div class="image-view-main-content">
