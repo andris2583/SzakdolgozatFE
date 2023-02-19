@@ -96,7 +96,7 @@
 - ~~Privacy~~
 - Props object -> map str str
 
-- View count Collection id -> count
+- View count Collection id -> count: Map<imageId: String,viewCount: Integer>
 
 User
 

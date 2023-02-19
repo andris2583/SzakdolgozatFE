@@ -31,6 +31,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     @ViewChild('profileTabSelector') profileTabSelector: ElementRef | undefined;
     imageCount: Observable<number> = new Observable<number>();
     likeCount: Observable<number> = new Observable<number>();
+    viewCount: Observable<number> = new Observable<number>();
 
     constructor(public authService: AuthService,
                 public router: Router,
@@ -55,6 +56,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
                 };
                 this.imageCount = this.imageService.getCountByUser(this.user.id);
                 this.likeCount = this.imageService.getLikesByUser(this.user.id);
+                this.viewCount = this.imageService.getViewsByUser(this.user.id);
                 this.collections = this.collectionService.getCollectionsByUserId(this.user!.id).pipe(map(collections => {
                     if (this.isOwner) {
                         return collections;

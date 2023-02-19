@@ -17,12 +17,16 @@
             </span>
       <button class="dialog-header-button" mat-stroked-button
               (click)="downloadButtonClick()">Download</button>
-      <button class="dialog-header-button" mat-stroked-button
+      <button class="dialog-header-button" mat-stroked-button *ngIf="authService.getCurrentUser()?.id == image.ownerId"
               (click)="deleteImage()">Delete</button>
     </span>
     </div>
     <div class="image-view-main-content">
-        <div style="width: 200px;"></div>
+        <div
+            style="width: 200px;display: flex;justify-content: center;align-items: center;font-size: 24px;flex-flow: column">
+            <div style="width: 100%;margin-bottom: 1vw;">Views: {{imageViews | async}}</div>
+            <div style="width: 100%;margin-bottom: 1vw;">Likes: {{imageLikes | async}}</div>
+        </div>
         <div class="image-container">
             <img class="shared-image-box-shadow image" [src]="'http://localhost:8080/image/getImageData/'+image.id"
                  alt="Failed to load image..."

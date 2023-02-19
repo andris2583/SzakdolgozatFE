@@ -37,30 +37,26 @@ export class ImageViewDialogComponent implements OnInit {
         this.collectionService.getCollectionsByUserId(this.authService.getCurrentUser().id).subscribe(value => {
             this.userCollections = value;
         });
+        this.imageViews = this.imageService.addViewToImage(image.id);
+        this.imageLikes = this.imageService.getImageLikes(image.id);
     }
 
 
     images: Image[] = [];
-
     similarImages: Image[] = [];
-
     loading: boolean = true;
-
     similarImagesLoaded: boolean = false;
-
     @Output()
     deletedImageEvent = new EventEmitter<Image>();
-
     options: NgxMasonryOptions = {
         gutter: 20,
     };
-
     @ViewChildren('similarImageList')
     similarImageList!: NgxMasonryComponent;
-
     userCollections: Collection[] = [];
-
     owner: Observable<User> = this.authService.getUserById(this.image.ownerId);
+    imageViews: Observable<number> = new Observable<number>();
+    imageLikes: Observable<number> = new Observable<number>();
 
     ngOnInit(): void {
     }

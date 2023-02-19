@@ -159,7 +159,7 @@ export class SearchbarComponent implements OnInit {
                 return false;
             })), tap(() => this.collectionSuggestionsLoaded = true));
             this.userSuggestions = this.authService.getAllUsers()
-                .pipe(map(users => users.filter(user => user.username.toLowerCase().includes(this.searchbarValue.toLowerCase()))),
+                .pipe(map(users => users.filter(user => user.username.toLowerCase().includes(this.searchbarValue.toLowerCase())).slice(0, 10)),
                     tap(() => this.userSuggestionsLoaded = true));
         }
     }

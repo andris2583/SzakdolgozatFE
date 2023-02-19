@@ -61,4 +61,16 @@ export class ImageService {
     getLikesByUser(id: string): Observable<number> {
         return this.httpClient.get<number>(this.baseUrl + '/getLikesByUser/' + id);
     }
+
+    addViewToImage(id: string): Observable<number> {
+        return this.httpClient.get<number>(this.baseUrl + '/addViewToImage/' + id);
+    }
+
+    getViewsByUser(id: string): Observable<number> {
+        return this.httpClient.get<number>(this.baseUrl + '/getViewsByUser/' + id);
+    }
+
+    getImageLikes(id: string): Observable<number> {
+        return this.httpClient.get<number>(this.baseUrl + '/getImageLikes/' + id);
+    }
 }
