@@ -73,7 +73,9 @@
 - components not getting destroyed after logout
 - megosztás user, link stb
 - ~~see other peoples profiles~~
-- search for others profiles by username
+- ~~search for others profiles by username~~
+- like in imageViewDialog
+- order by likes or views
 
 
 - ~~Every user has default liked photos collection~~

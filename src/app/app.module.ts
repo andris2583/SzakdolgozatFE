@@ -22,6 +22,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {SharedModule} from './modules/shared/shared.module';
+import {MAT_TOOLTIP_DEFAULT_OPTIONS} from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -57,6 +58,15 @@ import {SharedModule} from './modules/shared/shared.module';
         //     useClass: TagOrderShufflerInterceptor,
         //     multi: true
         // },
+        {
+            provide: MAT_TOOLTIP_DEFAULT_OPTIONS,
+            useValue: {
+                showDelay: 0,
+                hideDelay: 0,
+                touchendHideDelay: 1500,
+                disableTooltipInteractivity: true
+            },
+        }
     ],
     bootstrap: [AppComponent]
 })

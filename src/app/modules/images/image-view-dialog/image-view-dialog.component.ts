@@ -2,8 +2,7 @@ import {Component, EventEmitter, HostListener, Inject, OnInit, Output, ViewChild
 import {Image} from '../../../models/image.model';
 import {ImageService} from '../../../services/image/image.service';
 import {NgxMasonryComponent, NgxMasonryOptions} from 'ngx-masonry';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {Dialog} from '@angular/cdk/dialog';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {
     CollectionManagerDialogComponent
 } from '../../shared/collection-manager-dialog/collection-manager-dialog.component';
@@ -13,6 +12,7 @@ import {AuthService} from '../../../services/auth/auth.service';
 import {Privacy} from '../../../models/privacy';
 import {User} from '../../../models/user.model';
 import {Observable} from 'rxjs';
+import {CollectionType} from '../../../models/collection-type';
 
 @Component({
     selector: 'app-image-view-dialog',
@@ -25,7 +25,7 @@ export class ImageViewDialogComponent implements OnInit {
         @Inject(MAT_DIALOG_DATA) public image: Image,
         public dialogRef: MatDialogRef<any>,
         private imageService: ImageService,
-        private dialog: Dialog,
+        private dialog: MatDialog,
         private collectionService: CollectionService,
         public authService: AuthService
     ) {
@@ -48,6 +48,8 @@ export class ImageViewDialogComponent implements OnInit {
     similarImagesLoaded: boolean = false;
     @Output()
     deletedImageEvent = new EventEmitter<Image>();
+    @Output()
+    collectionsChanged = new EventEmitter<Collection[]>;
     options: NgxMasonryOptions = {
         gutter: 20,
     };
@@ -143,6 +145,22 @@ export class ImageViewDialogComponent implements OnInit {
         instance.collectionsChanged.subscribe((collections: Collection[]) => {
             // @ts-ignore
             this.userCollections = collections;
+            this.imageLikes = this.imageService.getImageLikes(this.image.id);
+            this.collectionsChanged.emit(this.userCollections);
+        });
+        if (event.stopPropagation) event.stopPropagation();
+    }
+
+    onFavouriteClickEvent(event: MouseEvent) {
+        let favouriteCollection = this.userCollections.filter(tempCollection => tempCollection.type == CollectionType.FAVOURITE)[0];
+        if (favouriteCollection.imageIds.includes(this.image.id)) {
+            favouriteCollection.imageIds.splice(favouriteCollection.imageIds.indexOf(this.image.id), 1);
+        } else {
+            favouriteCollection.imageIds.push(this.image.id);
+        }
+        this.collectionService.saveCollection(favouriteCollection).subscribe(value => {
+            this.collectionsChanged.emit(this.userCollections);
+            this.imageLikes = this.imageService.getImageLikes(this.image.id);
         });
         if (event.stopPropagation) event.stopPropagation();
     }

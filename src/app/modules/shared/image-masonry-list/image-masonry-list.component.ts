@@ -111,6 +111,10 @@ export class ImageMasonryListComponent implements OnInit {
         instance.deletedImageEvent.subscribe((deletedImage: Image) => {
             this.images.splice(this.images.indexOf(deletedImage), 1);
         });
+        instance.collectionsChanged.subscribe((collections: Collection[]) => {
+            this.userCollections = collections;
+            this.collectionChanged.emit(collections);
+        });
         instance.images = this.images;
     }
 

@@ -58,10 +58,7 @@ export class CollectionComponent implements OnInit {
     }
 
     onCollectionChanged($event: Collection[]) {
-        let changedCurrentCollection = $event.filter(tempCollection => tempCollection.id == this.collectionId)[0];
-        if (changedCurrentCollection.imageIds.length != this.images.length) {
-            this.resetData();
-        }
+        this.resetData();
     }
 
     resetData() {
