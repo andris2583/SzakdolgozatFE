@@ -77,7 +77,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
 
     openImageViewDialog(image: Image) {
-        console.log(image);
         let dialogRef = this.dialog.open(ImageViewDialogComponent, {
             data: image,
             panelClass: 'panel-class',

@@ -17,7 +17,7 @@ const routes: Routes = [
         runGuardsAndResolvers: 'always',
     },
     {
-        path: 'images/:tag',
+        path: 'images',
         canActivate: [AuthGuard],
         loadChildren: () => import('./modules/images/image-list.module').then(m => m.ImageListModule),
         runGuardsAndResolvers: 'always',

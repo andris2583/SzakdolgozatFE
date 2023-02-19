@@ -1,4 +1,4 @@
-<div class="content" [class.hide]="loading">
+<div class="content" [class.hide]="loading" *ngIf="image">
     <div class="dialog-header">
         <span class="dialog-header-left">{{image.name}} by {{(owner | async)?.username}}</span>
         <span class="dialog-header-right">
@@ -15,7 +15,7 @@
         </mat-slide-toggle>
     </div>
             </span>
-      <button class="dialog-header-button" mat-stroked-button
+      <button class="dialog-header-button" mat-stroked-button *ngIf="userCollections[0]"
               (click)="onFavouriteClickEvent($event)">
           <mat-icon
               *ngIf="!userCollections[0].imageIds.includes(image.id)">
@@ -41,7 +41,8 @@
             <div style="margin-bottom: 1vw;">Likes: {{imageLikes | async}}</div>
         </div>
         <div class="image-container">
-            <img class="shared-image-box-shadow image" [src]="'http://localhost:8080/image/getImageData/'+image.id"
+            <img class="shared-image-box-shadow image" *ngIf="image.id"
+                 [src]="'http://localhost:8080/image/getImageData/'+image.id"
                  alt="Failed to load image..."
                  (load)="onLoad(true)">
             <!--            <div style="max-height: 70vh;max-width: 50vw;">-->

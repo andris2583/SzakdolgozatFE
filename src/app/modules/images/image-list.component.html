@@ -24,7 +24,7 @@
     </form>
     <mat-chip-list class="tag-list">
         <mat-chip class="tag-chip" *ngFor="let tag of batchImageRequest.tags">
-            <span routerLink="/images/{{tag}}" [mat-dialog-close]="true">{{tag}}</span>
+            <span routerLink="/images/list/{{tag}}" [mat-dialog-close]="true">{{tag}}</span>
             <!--        &nbsp;&nbsp;&nbsp;&nbsp;-->
             <button matChipRemove (click)="deleteTag(tag)">
                 <mat-icon>cancel</mat-icon>

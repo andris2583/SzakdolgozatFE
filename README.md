@@ -74,8 +74,8 @@
 - megosztás user, link stb
 - ~~see other peoples profiles~~
 - ~~search for others profiles by username~~
-- like in imageViewDialog
-- order by likes or views
+- ~~like in imageViewDialog~~
+- ~~order by likes or views~~
 
 
 - ~~Every user has default liked photos collection~~

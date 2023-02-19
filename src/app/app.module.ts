@@ -23,6 +23,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {SharedModule} from './modules/shared/shared.module';
 import {MAT_TOOLTIP_DEFAULT_OPTIONS} from '@angular/material/tooltip';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 
 @NgModule({
@@ -66,6 +67,12 @@ import {MAT_TOOLTIP_DEFAULT_OPTIONS} from '@angular/material/tooltip';
                 touchendHideDelay: 1500,
                 disableTooltipInteractivity: true
             },
+        }, {
+            provide: MatDialogRef,
+            useValue: {}
+        }, {
+            provide: MAT_DIALOG_DATA,
+            useValue: {}
         }
     ],
     bootstrap: [AppComponent]

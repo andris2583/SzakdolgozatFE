@@ -1,4 +1,4 @@
-<div class="tag-image-container" [style.width.px]="width" routerLink="/images/{{tagName}}">
+<div class="tag-image-container" [style.width.px]="width" routerLink="/images/list/{{tagName}}">
     <img *ngIf="previewImages.length != 0"
          [src]="getPreviewImage(0)!.imgB64 | sanitizeImage"
          class="image-top shared-image-box-shadow" [style.height.px]="(width*1.08*0.65)"/>

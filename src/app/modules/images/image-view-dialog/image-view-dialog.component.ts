@@ -1,4 +1,4 @@
-import {Component, EventEmitter, HostListener, Inject, OnInit, Output, ViewChildren} from '@angular/core';
+import {Component, EventEmitter, HostListener, Inject, OnInit, Optional, Output, ViewChildren} from '@angular/core';
 import {Image} from '../../../models/image.model';
 import {ImageService} from '../../../services/image/image.service';
 import {NgxMasonryComponent, NgxMasonryOptions} from 'ngx-masonry';
@@ -13,6 +13,7 @@ import {Privacy} from '../../../models/privacy';
 import {User} from '../../../models/user.model';
 import {Observable} from 'rxjs';
 import {CollectionType} from '../../../models/collection-type';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
     selector: 'app-image-view-dialog',
@@ -22,23 +23,24 @@ import {CollectionType} from '../../../models/collection-type';
 export class ImageViewDialogComponent implements OnInit {
 
     constructor(
-        @Inject(MAT_DIALOG_DATA) public image: Image,
+        @Optional() @Inject(MAT_DIALOG_DATA) public image: Image,
         public dialogRef: MatDialogRef<any>,
         private imageService: ImageService,
         private dialog: MatDialog,
         private collectionService: CollectionService,
-        public authService: AuthService
+        public authService: AuthService,
+        private activatedRoute: ActivatedRoute
     ) {
-        this.dialogRef.updateSize('80%', '80%');
-        this.imageService.getSimilarImages(this.image.tags).subscribe(value => {
-            this.similarImages = value.filter(image => image.id != this.image.id);
-            this.similarImagesLoaded = true;
-        });
-        this.collectionService.getCollectionsByUserId(this.authService.getCurrentUser().id).subscribe(value => {
-            this.userCollections = value;
-        });
-        this.imageViews = this.imageService.addViewToImage(image.id);
-        this.imageLikes = this.imageService.getImageLikes(image.id);
+        let imageId = this.activatedRoute.snapshot.paramMap.get('imageId');
+        if (imageId) {
+            this.imageService.getById(imageId).subscribe(value => {
+                this.image = value;
+                this.initData();
+            });
+        } else {
+            this.dialogRef.updateSize('80%', '80%');
+            this.initData();
+        }
     }
 
 
@@ -56,11 +58,24 @@ export class ImageViewDialogComponent implements OnInit {
     @ViewChildren('similarImageList')
     similarImageList!: NgxMasonryComponent;
     userCollections: Collection[] = [];
-    owner: Observable<User> = this.authService.getUserById(this.image.ownerId);
+    owner: Observable<User> = new Observable<User>();
     imageViews: Observable<number> = new Observable<number>();
     imageLikes: Observable<number> = new Observable<number>();
 
     ngOnInit(): void {
+    }
+
+    initData() {
+        this.owner = this.authService.getUserById(this.image.ownerId);
+        this.imageService.getSimilarImages(this.image.tags).subscribe(value => {
+            this.similarImages = value.filter(image => image.id != this.image.id);
+            this.similarImagesLoaded = true;
+        });
+        this.collectionService.getCollectionsByUserId(this.authService.getCurrentUser().id).subscribe(value => {
+            this.userCollections = value;
+        });
+        this.imageViews = this.imageService.addViewToImage(this.image.id);
+        this.imageLikes = this.imageService.getImageLikes(this.image.id);
     }
 
     downloadButtonClick() {
@@ -166,7 +181,11 @@ export class ImageViewDialogComponent implements OnInit {
     }
 
     getImagePropertyEntries(): [string, any][] {
-        return Object.entries(this.image.properties);
+        if (this.image && this.image.properties) {
+            return Object.entries(this.image.properties);
+        } else {
+            return [];
+        }
     }
 
     imageClicked(image: Image) {
