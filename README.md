@@ -80,6 +80,8 @@
 - ImageId -> Userid hasaccess map String -> String[]
 - update images list when imageuploaddialog emits
 - Maybe something is buggy with removing images when deleted from collections
+- Fullscreen image on click
+- Delete from no dialog view,redirect
 
 - ~~Every user has default liked photos collection~~
 - ~~Can create collection~~

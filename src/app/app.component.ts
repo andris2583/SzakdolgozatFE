@@ -15,7 +15,7 @@ export class AppComponent {
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
         this.router.events.subscribe(value => {
             if (value instanceof NavigationEnd) {
-                if (value.url == '/dashboard') {
+                if (value.url == '/dashboard' || value.url == '/' || value.url == '') {
                     this.dashboardHeader = true;
                 } else {
                     this.dashboardHeader = false;

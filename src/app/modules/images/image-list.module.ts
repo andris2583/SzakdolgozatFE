@@ -27,6 +27,7 @@ import {SharedModule} from '../shared/shared.module';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
         SharedModule,
         MatSlideToggleModule,
         ClipboardModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        LeafletModule
     ],
     exports: [
         DragDropDirective

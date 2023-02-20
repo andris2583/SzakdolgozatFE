@@ -56,9 +56,9 @@ export class ImageUploadDialogComponent implements OnInit {
                 .then((output: any) => {
                     image.properties = output;
                     for (let prop of Object.entries(image.properties)) {
-                        if (typeof prop[1] == 'object') {
+                        if (prop[1] instanceof Uint8Array && prop[1].length > 100) {
                             // @ts-ignore
-                            delete this.image.properties[prop[0]];
+                            delete image.properties[prop[0]];
                         }
                     }
                 });
@@ -88,6 +88,10 @@ export class ImageUploadDialogComponent implements OnInit {
 
 
     getImageTagsString(image: Image) {
-        return 'Tags: ' + image.tags.join(',');
+        if (image.tags) {
+            return 'Tags: ' + image.tags.join(',');
+        } else {
+            return '';
+        }
     }
 }

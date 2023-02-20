@@ -30,6 +30,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     public batchImageRequest: BatchImageRequest = {} as BatchImageRequest;
     public isOwner: boolean = false;
     public profilePage: Page = {route: '/profile', name: 'Profile', protected: true};
+    public profilePictureURL: string | null = null;
     @ViewChild('profileTabSelector') profileTabSelector: ElementRef | undefined;
     imageCount: Observable<number> = new Observable<number>();
     likeCount: Observable<number> = new Observable<number>();
@@ -49,6 +50,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
         this.authService.getUserById(this.activatedRoute.snapshot.paramMap.get('userId')!.trim()).subscribe(value => {
             if (value != null) {
                 this.user = value;
+                this.profilePictureURL = 'http://localhost:8080/auth/getProfileData/' + this.user.id;
                 this.isOwner = this.user.id == this.authService.getCurrentUser().id;
                 this.batchImageRequest = this.imageUtilService.defaultBatchImageRequest;
                 this.batchImageRequest.requestFilter = {
@@ -141,11 +143,12 @@ export class ProfileComponent implements OnInit, AfterViewInit {
 
     handleFiles(files: File[]) {
         let file = files[0];
-        console.log(file);
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = () => {
-            this.authService.uploadProfilePicture(reader.result as string);
+            this.authService.uploadProfilePicture(reader.result as string).subscribe(() => {
+                window.location.reload();
+            });
         };
     }
 

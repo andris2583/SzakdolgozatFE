@@ -39,9 +39,15 @@
     </div>
     <div class="image-view-main-content">
         <div
-            style="width: 200px;display: flex;justify-content: center;align-items: center;font-size: 24px;flex-flow: column">
-            <div style="margin-bottom: 1vw;">Views: {{imageViews | async}}</div>
-            <div style="margin-bottom: 1vw;">Likes: {{imageLikes | async}}</div>
+            style="width: 200px;display: flex;justify-content: center;align-items: flex-start;font-size: 24px;">
+            <div style="flex: 50%">
+            <div >{{imageViews | async}}</div>
+            <div style="margin-bottom: 1vw;font-size: 18px;">Views</div>
+            </div>
+            <div style="flex: 50%">
+            <div >{{imageLikes | async}}</div>
+            <div style="margin-bottom: 1vw;font-size: 18px;">Likes</div>
+            </div>
         </div>
         <div class="image-container">
             <img class="shared-image-box-shadow image" *ngIf="image.id"
@@ -65,30 +71,87 @@
         </div>
     </div>
     <div
-        style="font-size: 30px;display: flex;margin-bottom: 2vh;margin-top: 2vh">
-        Similar images
+        style="display: flex;justify-content: space-between;align-items: center;width: 60%;margin-bottom: 4vh;margin-top: 4vh">
+        <div
+            style="font-size: 30px;display: flex;">
+            Similar images
+        </div>
+        <div
+            style="font-size: 30px;display: flex;">
+            Properties
+        </div>
     </div>
-    <ngx-masonry #similarImageList style="width: 90%;margin-bottom: 2vh" [options]="options" [ordered]="true"
-                 *ngIf="!loading">
-        <ng-container>
-            <div ngxMasonryItem *ngFor="let image of similarImages"
-                 class="shared-image-box-shadow image-masonry-container masonry-item-width"
-                 (click)="imageClicked(image)">
-                <img class="masonry-item-width" style="margin-bottom: -6px;"
-                     [src]="image.imgB64 | sanitizeImage" alt="X">
-                <!--                <div class="image-hover-data"-->
-                <!--                     style="position: absolute;bottom: 5px;left: 10px;color: white;z-index: 10">{{image.name | getNoExtensionName}}</div>-->
+    <div style="display: flex;width: 100%;margin-left: calc(10% - 20px)">
+        <ngx-masonry #similarImageList style="margin-bottom: 2vh;width: 45%" [options]="masonryOptions" [ordered]="true"
+                     *ngIf="!loading">
+            <ng-container>
+                <div ngxMasonryItem *ngFor="let image of similarImages"
+                     class="shared-image-box-shadow image-masonry-container masonry-item-width"
+                     (click)="imageClicked(image)">
+                    <img class="masonry-item-width" style="margin-bottom: -6px;"
+                         [src]="image.imgB64 | sanitizeImage" alt="X">
+                    <!--                <div class="image-hover-data"-->
+                    <!--                     style="position: absolute;bottom: 5px;left: 10px;color: white;z-index: 10">{{image.name | getNoExtensionName}}</div>-->
+                </div>
+            </ng-container>
+        </ngx-masonry>
+        <mat-divider vertical="true"></mat-divider>
+        <div class="property-list-container">
+            <div class="property-container" >
+                <mat-icon matTooltip="Device model" class="property-icon">photo_camera</mat-icon>
+            <span *ngIf="imageProperties.get(exifFields.Make);">
+                {{imageProperties.get(exifFields.Make)?.toUpperCase()}}&nbsp;
+            </span>
+            <span *ngIf="imageProperties.get(exifFields.Model);else noPropertyFound">
+                {{imageProperties.get(exifFields.Model)}}
+            </span>
             </div>
-        </ng-container>
-    </ngx-masonry>
-    <mat-list>
-        <mat-list-item *ngFor="let prop of  getImagePropertyEntries()">{{prop[0]}}
-            : {{prop[1]}}</mat-list-item>
-    </mat-list>
-    <mat-icon class="move-icon" style="left: 6vw" (click)="goLeft()">keyboard_arrow_left</mat-icon>
-    <mat-icon class="move-icon" style="right: 6vw" (click)="goRight()">keyboard_arrow_right</mat-icon>
+            <div class="property-container" >
+                <mat-icon matTooltip="Aperture" class="property-icon">camera</mat-icon>
+            <span *ngIf="imageProperties.get(exifFields.FNumber);else noPropertyFound">
+                f/{{imageProperties.get(exifFields.FNumber)}}
+            </span>
+            </div>
+            <div class="property-container" >
+                <mat-icon matTooltip="Exposure time" class="property-icon">shutter_speed</mat-icon>
+            <span *ngIf="imageProperties.get(exifFields.ExposureTime);else noPropertyFound">
+                {{imageProperties.get(exifFields.ExposureTime)}} s
+            </span>
+            </div>
+            <div class="property-container" >
+                <mat-icon matTooltip="ISO" class="property-icon">iso</mat-icon>
+            <span *ngIf="imageProperties.get(exifFields.ISO);else noPropertyFound">
+                {{imageProperties.get(exifFields.ISO)}}
+            </span>
+            </div>
+            <div class="property-container" >
+                <mat-icon matTooltip="Camera flash" class="property-icon">bolt</mat-icon>
+            <span *ngIf="imageProperties.get(exifFields.Flash);else noPropertyFound">
+                {{imageProperties.get(exifFields.Flash)}}
+            </span>
+            </div>
+            <div class="property-container" >
+                <div matTooltip="Focal length" [style.background-image]="'url(assets/icon/angle-icon.svg)'" alt="" style="width: 30px;height: 30px;margin-right: 1.5vw;display: inline-block;background-repeat: no-repeat;"></div>
+            <span *ngIf="imageProperties.get(exifFields.FocalLength);else noPropertyFound">
+                {{imageProperties.get(exifFields.FocalLength)}} mm
+            </span>
+            </div>
+                <div class="map-container" leaflet
+                     [leafletOptions]="options"
+                     (leafletMapReady)="onMapReady($event)"
+                     (leafletClick)="onMapClick($event)"
+                ></div>
+        </div>
+        <ng-template #noPropertyFound>N/A</ng-template>
+<!--    <mat-list>-->
+<!--        <mat-list-item *ngFor="let prop of  getImagePropertyEntries()">{{prop[0]}}-->
+<!--            : {{prop[1]}}</mat-list-item>-->
+<!--    </mat-list>-->
+    <mat-icon class="move-icon" *ngIf="isDialog" [style.left]="isDialog ? '6vw' : '-5vw'" [style.color]="isDialog ? '#FFFFFF' : '#e6e6e6'" (click)="goLeft()">keyboard_arrow_left</mat-icon>
+    <mat-icon class="move-icon" *ngIf="isDialog" [style.right]="isDialog ? '6vw' : '-5vw'" [style.color]="isDialog ? '#FFFFFF' : '#e6e6e6'" (click)="goRight()">keyboard_arrow_right</mat-icon>
 
 </div>
+<div style="height: 20vw"></div>
 
 <div class="content" *ngIf="loading">
     <div class="dialog-header">

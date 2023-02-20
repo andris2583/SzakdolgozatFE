@@ -1,6 +1,6 @@
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 @import "@material/image-list/mdc-image-list.import.scss";
-
+@import "leaflet/dist/leaflet.css";
 
 $small: 767.98pxpx;
 $medium: 991.98px;
@@ -92,4 +92,8 @@ html:focus-within {
 
 .mat-tooltip{
     font-size: 16px !important;
+}
+
+.leaflet-default-icon-path {
+    background-image: url(https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png);
 }

@@ -24,6 +24,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 2vw;
 }
 
 .dialog-header-left {
@@ -40,7 +41,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    
+
 }
 
 .dialog-header-button {
@@ -120,4 +121,39 @@
 ::ng-deep .ngxImageZoomContainer > img {
     max-height: 70vh !important;
     max-width: 50vw !important;
+}
+
+.property-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 40px;
+    margin-right: 1vw;
+}
+
+.property-container {
+    height: 40px;
+    flex: 100%;
+    //margin-left: 5%;
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+    font-size: 22px;
+    align-items: center;
+    justify-content: start;
+    display: flex;
+}
+
+.property-list-container {
+    padding: 1vw 2vw 2vw 2vw;
+    width: 45%;
+    margin-left: 20px;
+    border: 0.5px solid #c8c8c8;
+    display: flex;
+    flex-wrap: wrap;
+    height: fit-content;
+}
+
+.map-container {
+    width: 40vw;
+    height: 20vw;
+    //background-color: rebeccapurple;
 }

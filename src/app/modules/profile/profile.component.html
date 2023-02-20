@@ -2,10 +2,10 @@
     <div style="display: flex;justify-content: center;align-items: center;flex-direction: column ">
         <input *ngIf="isOwner" type="file" id="upload" style="display: none" (change)="filesUploaded($event)" alt=""/>
         <label for="upload" class="area area-hover" appDragDrop *ngIf="user && isOwner"
-               [style.background-image]="'url('+'http://localhost:8080/auth/getProfileData/'+user.id+')'"
+               [style.background-image]="'url('+profilePictureURL+')'"
                (files)="filesDropped($event)"></label>
         <div class="area" *ngIf="!isOwner && user"
-             [style.background-image]="'url('+'http://localhost:8080/auth/getProfileData/'+user.id+')'"></div>
+             [style.background-image]="'url('+profilePictureURL+')'"></div>
         <div
             style="display: flex;justify-content: center;align-items: center;font-size: 28px;position: relative">{{user?.username}}
             <a *ngIf="isOwner" style="position: absolute;left: 150%" mat-stroked-button>Edit profile</a>

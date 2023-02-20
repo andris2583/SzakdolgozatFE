@@ -1,4 +1,14 @@
-import {Component, EventEmitter, HostListener, Inject, OnInit, Optional, Output, ViewChildren} from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    HostListener,
+    Inject,
+    OnDestroy,
+    OnInit,
+    Optional,
+    Output,
+    ViewChildren
+} from '@angular/core';
 import {Image} from '../../../models/image.model';
 import {ImageService} from '../../../services/image/image.service';
 import {NgxMasonryComponent, NgxMasonryOptions} from 'ngx-masonry';
@@ -15,13 +25,16 @@ import {Observable} from 'rxjs';
 import {CollectionType} from '../../../models/collection-type';
 import {ActivatedRoute} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {ExifFields} from '../../../models/constants/exif-fields';
+import * as L from 'leaflet';
+import {latLng, LeafletMouseEvent, Map as LeafletMap, MapOptions, tileLayer} from 'leaflet';
 
 @Component({
     selector: 'app-image-view-dialog',
     templateUrl: './image-view-dialog.component.html',
     styleUrls: ['./image-view-dialog.component.scss']
 })
-export class ImageViewDialogComponent implements OnInit {
+export class ImageViewDialogComponent implements OnInit, OnDestroy {
 
     constructor(
         @Optional() @Inject(MAT_DIALOG_DATA) public image: Image,
@@ -37,9 +50,11 @@ export class ImageViewDialogComponent implements OnInit {
         if (imageId) {
             this.imageService.getById(imageId).subscribe(value => {
                 this.image = value;
+                this.isDialog = false;
                 this.initData();
             });
         } else {
+            this.isDialog = true;
             this.dialogRef.updateSize('80%', '80%');
             this.initData();
         }
@@ -54,7 +69,7 @@ export class ImageViewDialogComponent implements OnInit {
     deletedImageEvent = new EventEmitter<Image>();
     @Output()
     collectionsChanged = new EventEmitter<Collection[]>;
-    options: NgxMasonryOptions = {
+    masonryOptions: NgxMasonryOptions = {
         gutter: 20,
     };
     @ViewChildren('similarImageList')
@@ -63,8 +78,34 @@ export class ImageViewDialogComponent implements OnInit {
     owner: Observable<User> = new Observable<User>();
     imageViews: Observable<number> = new Observable<number>();
     imageLikes: Observable<number> = new Observable<number>();
+    exifFields = ExifFields;
+    imageProperties: Map<String, String> = new Map<String, String>();
+    isDialog: boolean = true;
+
+    options: MapOptions = {
+        layers: [tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            opacity: 0.7,
+            maxZoom: 19,
+            detectRetina: true,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        })],
+        zoom: 1,
+        center: latLng(0, 0)
+    };
+    public map: LeafletMap | undefined;
+    public zoom: number | undefined;
+    public mapMarkers: L.Marker[] = [];
+
 
     ngOnInit(): void {
+    }
+
+    ngOnDestroy() {
+        let highestIntervalId = setInterval(';');
+        for (let i = 0; i < highestIntervalId; i++) {
+            clearInterval(i);
+        }
+
     }
 
     initData() {
@@ -78,6 +119,18 @@ export class ImageViewDialogComponent implements OnInit {
         });
         this.imageViews = this.imageService.addViewToImage(this.image.id);
         this.imageLikes = this.imageService.getImageLikes(this.image.id);
+        this.imageProperties = new Map<String, String>(Object.entries(this.image.properties));
+        for (let i = 0; i < this.mapMarkers.length; i++) {
+            // @ts-ignore
+            this.map.removeLayer(this.mapMarkers[i]);
+        }
+        if (this.imageProperties.get('latitude') && this.imageProperties.get('longitude') && this.map) {
+            let marker = L.marker([Number(this.imageProperties.get('latitude')), Number(this.imageProperties.get('longitude'))]);
+            this.mapMarkers.push(marker);
+            // @ts-ignore
+            marker.addTo(this.map);
+            this.map.setView([Number(this.imageProperties.get('latitude')), Number(this.imageProperties.get('longitude'))], 6);
+        }
     }
 
     downloadButtonClick() {
@@ -95,34 +148,38 @@ export class ImageViewDialogComponent implements OnInit {
     }
 
     goLeft() {
-        this.loading = true;
-        this.similarImagesLoaded = false;
-        // @ts-ignore
-        if (this.images.indexOf(this.image) == 0) {
-            this.loading = false;
-            this.similarImagesLoaded = true;
-        } else {
-            this.image = this.images[this.images.indexOf(this.image) - 1];
-            this.imageService.getSimilarImages(this.image.tags).subscribe(value => {
-                this.similarImages = value.filter(image => image.id != this.image.id);
+        if (this.isDialog) {
+            this.loading = true;
+            this.similarImagesLoaded = false;
+            // @ts-ignore
+            if (this.images.indexOf(this.image) == 0) {
+                this.loading = false;
                 this.similarImagesLoaded = true;
-            });
+            } else {
+                this.image = this.images[this.images.indexOf(this.image) - 1];
+                this.imageService.getSimilarImages(this.image.tags).subscribe(value => {
+                    this.similarImages = value.filter(image => image.id != this.image.id);
+                    this.similarImagesLoaded = true;
+                });
+            }
         }
     }
 
     goRight() {
-        this.loading = true;
-        this.similarImagesLoaded = false;
-        // @ts-ignore
-        if (this.images.indexOf(this.image) == this.images.length - 1) {
-            this.loading = false;
-            this.similarImagesLoaded = true;
-        } else {
-            this.image = this.images[this.images.indexOf(this.image) + 1];
-            this.imageService.getSimilarImages(this.image.tags).subscribe(value => {
-                this.similarImages = value.filter(image => image.id != this.image.id);
+        if (this.isDialog) {
+            this.loading = true;
+            this.similarImagesLoaded = false;
+            // @ts-ignore
+            if (this.images.indexOf(this.image) == this.images.length - 1) {
+                this.loading = false;
                 this.similarImagesLoaded = true;
-            });
+            } else {
+                this.image = this.images[this.images.indexOf(this.image) + 1];
+                this.imageService.getSimilarImages(this.image.tags).subscribe(value => {
+                    this.similarImages = value.filter(image => image.id != this.image.id);
+                    this.similarImagesLoaded = true;
+                });
+            }
         }
     }
 
@@ -190,14 +247,19 @@ export class ImageViewDialogComponent implements OnInit {
     }
 
     imageClicked(image: Image) {
+        // this.loading = true;
+        // this.similarImagesLoaded = false;
+        // this.image = image;
+        // this.imageService.getSimilarImages(this.image.tags).subscribe(value => {
+        //     this.images = this.similarImages;
+        //     this.similarImages = value.filter(image => image.id != this.image.id);
+        //     this.similarImagesLoaded = true;
+        // });
         this.loading = true;
         this.similarImagesLoaded = false;
         this.image = image;
-        this.imageService.getSimilarImages(this.image.tags).subscribe(value => {
-            this.images = this.similarImages;
-            this.similarImages = value.filter(image => image.id != this.image.id);
-            this.similarImagesLoaded = true;
-        });
+        this.initData();
+
     }
 
     privacyChanged() {
@@ -215,5 +277,43 @@ export class ImageViewDialogComponent implements OnInit {
 
     shareWithUrl() {
         this.snackBar.open('URL copied to clipboard!', '', {duration: 5000});
+    }
+
+
+    onMapReady(map: LeafletMap) {
+        this.map = map;
+        this.zoom = map.getZoom();
+        if (this.imageProperties.get('latitude') && this.imageProperties.get('longitude')) {
+            let marker = L.marker([Number(this.imageProperties.get('latitude')), Number(this.imageProperties.get('longitude'))]);
+            this.mapMarkers.push(marker);
+            marker.addTo(this.map);
+            this.map.setView([Number(this.imageProperties.get('latitude')), Number(this.imageProperties.get('longitude'))], 6);
+        }
+        setInterval(function () {
+            //TODO check if runs after leaving this comp
+            if (map) {
+                map.invalidateSize();
+            }
+        }, 100);
+    }
+
+    onMapClick(e: LeafletMouseEvent) {
+        if (this.authService.getCurrentUser().id == this.image.ownerId) {
+            for (let i = 0; i < this.mapMarkers.length; i++) {
+                // @ts-ignore
+                this.map.removeLayer(this.mapMarkers[i]);
+            }
+            let marker = L.marker([e.latlng.lat, e.latlng.lng]);
+            this.mapMarkers.push(marker);
+            // @ts-ignore
+            marker.addTo(this.map);
+            // @ts-ignore
+            this.image.properties.latitude = e.latlng.lat;
+            // @ts-ignore
+            this.image.properties.longitude = e.latlng.lng;
+            this.imageService.updateImage(this.image).subscribe(value => {
+
+            });
+        }
     }
 }
