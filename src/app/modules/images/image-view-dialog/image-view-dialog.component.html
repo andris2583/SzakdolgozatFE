@@ -71,7 +71,7 @@
         </div>
     </div>
     <div
-        style="display: flex;justify-content: space-between;align-items: center;width: 60%;margin-bottom: 4vh;margin-top: 4vh">
+        style="display: flex;justify-content: space-between;align-items: center;width: 60%;margin-bottom: 6vh;margin-top: 6vh">
         <div
             style="font-size: 30px;display: flex;">
             Similar images
@@ -99,11 +99,8 @@
         <div class="property-list-container">
             <div class="property-container" >
                 <mat-icon matTooltip="Device model" class="property-icon">photo_camera</mat-icon>
-            <span *ngIf="imageProperties.get(exifFields.Make);">
-                {{imageProperties.get(exifFields.Make)?.toUpperCase()}}&nbsp;
-            </span>
             <span *ngIf="imageProperties.get(exifFields.Model);else noPropertyFound">
-                {{imageProperties.get(exifFields.Model)}}
+                {{imageProperties.get(exifFields.Make)? imageProperties.get(exifFields.Make)?.toUpperCase() : ''}} {{imageProperties.get(exifFields.Model)}}
             </span>
             </div>
             <div class="property-container" >
@@ -131,7 +128,7 @@
             </span>
             </div>
             <div class="property-container" >
-                <div matTooltip="Focal length" [style.background-image]="'url(assets/icon/angle-icon.svg)'" alt="" style="width: 30px;height: 30px;margin-right: 1.5vw;display: inline-block;background-repeat: no-repeat;"></div>
+                <div matTooltip="Focal length" [style.background-image]="'url(assets/icon/angle-icon.svg)'" alt="" style="width: 20px;height: 20px;margin-right: 1.5vw;display: inline-block;background-repeat: no-repeat;"></div>
             <span *ngIf="imageProperties.get(exifFields.FocalLength);else noPropertyFound">
                 {{imageProperties.get(exifFields.FocalLength)}} mm
             </span>
