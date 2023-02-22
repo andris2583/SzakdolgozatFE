@@ -69,8 +69,11 @@
 
 .filter-button {
     padding: 0 10px 0 10px;
-    width: fit-content;
+    //width: fit-content;
     overflow: auto;
+    width: 400px;
+    height: 200px;
+
 }
 
 #sort-tab {
@@ -89,6 +92,7 @@
 
 .sort-button {
     width: calc(7vw);
+    text-align: left;
 }
 
 .image-search-container {
@@ -109,14 +113,16 @@
 .tag-list {
     width: 100%;
     margin-left: 1vw;
+    overflow: auto;
+    padding-bottom: 1.34375em;
 }
 
 .slider-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-right: 1vw;
-    width: 10vw;
+    margin-left: 1vw;
+    //width: 10vw;
 }
 
 .start-selection-icon {
@@ -124,4 +130,28 @@
     width: 1.5vw;
     height: 1.5vw;
     margin-right: 1vw;
+}
+
+.tag-filter-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    max-width: 40vw;
+    padding: 1vw 1vw 0 1vw;
+}
+
+.date-filter-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    max-width: 40vw;
+    padding: 0 1vw 0 1vw;
+}
+
+.map-container {
+    width: 100%;
+    min-width: 28vw;
+    height: 20vw;
+    border: 1px solid #c8c8c8;
+    //background-color: rebeccapurple;
 }

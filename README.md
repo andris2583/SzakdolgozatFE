@@ -29,7 +29,7 @@
 
 - [] Filterek (pl: szépia, élénk, film)
 - [X] EXIF információ feldolgozása
-    - [] Térképen lokáció
+    - [X] Térképen lokáció
     - [] Idővonal
     - [] GPS koordináta alapján szűrés
 
@@ -81,7 +81,7 @@
 - update images list when imageuploaddialog emits
 - Maybe something is buggy with removing images when deleted from collections
 - Fullscreen image on click
-- Delete from no dialog view,redirect
+- Delete from not dialog view,redirect
 
 - ~~Every user has default liked photos collection~~
 - ~~Can create collection~~
@@ -103,7 +103,7 @@
 - ~~Privacy~~
 - Props object -> map str str
 
-- View count Collection id -> count: Map<imageId: String,viewCount: Integer>
+- ~~View count Collection id -> count: Map<imageId: String,viewCount: Integer>~~
 
 User
 

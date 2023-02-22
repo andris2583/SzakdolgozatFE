@@ -145,7 +145,13 @@ export class SearchbarComponent implements OnInit {
                 tags: [],
                 batchSize: -1,
                 pageCount: 0,
-                requestFilter: {nameFilterString: this.searchbarValue, maxCount: 10, ownerId: null},
+                requestFilter: {
+                    nameFilterString: this.searchbarValue,
+                    maxCount: 10,
+                    ownerId: null,
+                    fromDate: null,
+                    toDate: null
+                },
                 requestOrderByType: RequestOrderByType.ALPHABETICAL,
                 requestOrderType: RequestOrderType.ASC,
                 requestTagType: RequestTagType.OR,

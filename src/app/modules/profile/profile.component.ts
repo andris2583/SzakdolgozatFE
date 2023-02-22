@@ -57,6 +57,8 @@ export class ProfileComponent implements OnInit, AfterViewInit {
                     ownerId: value.id,
                     nameFilterString: null,
                     maxCount: null,
+                    fromDate: null,
+                    toDate: null,
                 };
                 this.imageCount = this.imageService.getCountByUser(this.user.id);
                 this.likeCount = this.imageService.getLikesByUser(this.user.id);

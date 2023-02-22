@@ -15,6 +15,8 @@ import {Tag} from '../../models/tag.model';
 import {map, Observable, startWith} from 'rxjs';
 import {TagService} from '../../services/tag/tag.service';
 import {RequestTagType} from '../../models/request/request-tag-type';
+import * as L from 'leaflet';
+import {latLng, LeafletMouseEvent, Map as LeafletMap, MapOptions, tileLayer} from 'leaflet';
 
 @Component({
     selector: 'app-image-list',
@@ -33,7 +35,7 @@ export class ImageListComponent implements OnInit {
     batchImageRequest: BatchImageRequest;
 
     sortTabOpen: boolean = false;
-    filterTabOpen: boolean = false;
+    filterTabOpen: boolean = true;
 
     @ViewChild('filterTab') filterTab: ElementRef | undefined;
     @ViewChild('sortTab') sortTab: ElementRef | undefined;
@@ -51,6 +53,21 @@ export class ImageListComponent implements OnInit {
 
     selection: boolean = false;
 
+    mapOptions: MapOptions = {
+        layers: [tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            opacity: 0.7,
+            maxZoom: 19,
+            detectRetina: true,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        })],
+        zoomControl: false,
+        zoom: 1,
+        center: latLng(0, 0)
+    };
+    public map: LeafletMap | undefined;
+    public zoom: number | undefined;
+    public mapMarkers: L.Marker[] = [];
+
     constructor(
         private imageService: ImageService,
         public dialog: MatDialog,
@@ -64,9 +81,6 @@ export class ImageListComponent implements OnInit {
     ) {
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
         this.batchImageRequest = this.imageUtilService.defaultBatchImageRequest;
-        if (this.batchImageRequest == null) {
-            this.batchImageRequest = this.imageUtilService.defaultBatchImageRequest;
-        }
         if (this.activatedRoute.snapshot.paramMap.get('tag')!.trim() == '') {
             this.tagName = null;
         } else {
@@ -83,10 +97,10 @@ export class ImageListComponent implements OnInit {
         };
         this.renderer.listen('window', 'click', (event) => {
             if (this.filterTab != undefined && this.filterTabButton != undefined) {
-                // @ts-ignore
-                if (event.target != this.filterTab.nativeElement && !this.filterTabButton._elementRef.nativeElement.contains(event.target)) {
-                    this.filterTabOpen = false;
-                }
+                //TODO handle outside click
+                // if (!this.filterTab.nativeElement.contains(event.target) && event.target != this.filterTabButton.nativeElement) {
+                //     this.filterTabOpen = false;
+                // }
             }
             if (this.sortTab != undefined && this.sortTabButton != undefined) {
                 // @ts-ignore
@@ -169,7 +183,7 @@ export class ImageListComponent implements OnInit {
     deleteTag(tagToDelete: any) {
         this.batchImageRequest.tags = this.batchImageRequest.tags.filter(tempTag => tempTag != tagToDelete);
         if (this.batchImageRequest.tags.length == 0) {
-            this.router.navigate(['images/ ']);
+            this.router.navigate(['images/list/ ']);
         } else {
             this.tagSearch.reset();
             this.batchImageRequest.pageCount = 0;
@@ -198,5 +212,48 @@ export class ImageListComponent implements OnInit {
 
     startSelection() {
         this.selection = !this.selection;
+    }
+
+    dateFilterChanged() {
+        this.images = [];
+        this.batchImageRequest.pageCount = 0;
+        this.loadImageData();
+    }
+
+    clearDateSelection() {
+        this.batchImageRequest.requestFilter!.fromDate = null;
+        this.batchImageRequest.requestFilter!.toDate = null;
+        this.dateFilterChanged();
+    }
+
+    onMapReady(map: LeafletMap) {
+        this.map = map;
+        this.zoom = map.getZoom();
+        setInterval(function () {
+            //TODO check if runs after leaving this comp
+            if (map) {
+                map.invalidateSize();
+            }
+        }, 100);
+    }
+
+    onMapClick(e: LeafletMouseEvent) {
+        // if (this.authService.getCurrentUser().id == this.image.ownerId) {
+        //     for (let i = 0; i < this.mapMarkers.length; i++) {
+        //         // @ts-ignore
+        //         this.map.removeLayer(this.mapMarkers[i]);
+        //     }
+        //     let marker = L.marker([e.latlng.lat, e.latlng.lng]);
+        //     this.mapMarkers.push(marker);
+        //     // @ts-ignore
+        //     marker.addTo(this.map);
+        //     // @ts-ignore
+        //     this.image.properties.latitude = e.latlng.lat;
+        //     // @ts-ignore
+        //     this.image.properties.longitude = e.latlng.lng;
+        //     this.imageService.updateImage(this.image).subscribe(value => {
+        //
+        //     });
+        // }
     }
 }

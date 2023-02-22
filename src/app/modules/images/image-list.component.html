@@ -1,36 +1,36 @@
 <div
     id="tag-name">{{tagName == null ? 'Browse images' : tagName}}</div>
 <div class="image-search-container">
-    <div class="slider-container">
-        <mat-slide-toggle
-            class="example-margin"
-            [checked]='batchImageRequest.requestTagType == "AND"'
-            (change)="requestTagTypeChanged()">
-            {{batchImageRequest.requestTagType}}
-        </mat-slide-toggle>
-    </div>
-    <form id="tag-search-form">
-        <mat-form-field>
-            <input matInput [formControl]="tagSearch" placeholder="Filter width tags" [matAutocomplete]="auto"
-                   (keyup.enter)="addTag(null)">
-            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                <mat-option *ngFor="let suggestion of filteredSuggestions | async | slice:0:10;"
-                            [value]="suggestion"
-                            (click)="addTag(suggestion)">
-                    <span>{{suggestion}}</span>
-                </mat-option>
-            </mat-autocomplete>
-        </mat-form-field>
-    </form>
-    <mat-chip-list class="tag-list">
-        <mat-chip class="tag-chip" *ngFor="let tag of batchImageRequest.tags">
-            <span routerLink="/images/list/{{tag}}" [mat-dialog-close]="true">{{tag}}</span>
-            <!--        &nbsp;&nbsp;&nbsp;&nbsp;-->
-            <button matChipRemove (click)="deleteTag(tag)">
-                <mat-icon>cancel</mat-icon>
-            </button>
-        </mat-chip>
-    </mat-chip-list>
+    <!--    <div class="slider-container">-->
+    <!--        <mat-slide-toggle-->
+    <!--            class="example-margin"-->
+    <!--            [checked]='batchImageRequest.requestTagType == "AND"'-->
+    <!--            (change)="requestTagTypeChanged()">-->
+    <!--            {{batchImageRequest.requestTagType}}-->
+    <!--        </mat-slide-toggle>-->
+    <!--    </div>-->
+    <!--    <form id="tag-search-form">-->
+    <!--        <mat-form-field>-->
+    <!--            <input matInput [formControl]="tagSearch" placeholder="Filter width tags" [matAutocomplete]="auto"-->
+    <!--                   (keyup.enter)="addTag(null)">-->
+    <!--            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">-->
+    <!--                <mat-option *ngFor="let suggestion of filteredSuggestions | async | slice:0:10;"-->
+    <!--                            [value]="suggestion"-->
+    <!--                            (click)="addTag(suggestion)">-->
+    <!--                    <span>{{suggestion}}</span>-->
+    <!--                </mat-option>-->
+    <!--            </mat-autocomplete>-->
+    <!--        </mat-form-field>-->
+    <!--    </form>-->
+    <!--    <mat-chip-list class="tag-list">-->
+    <!--        <mat-chip class="tag-chip" *ngFor="let tag of batchImageRequest.tags">-->
+    <!--            <span routerLink="/images/list/{{tag}}" [mat-dialog-close]="true">{{tag}}</span>-->
+    <!--            &lt;!&ndash;        &nbsp;&nbsp;&nbsp;&nbsp;&ndash;&gt;-->
+    <!--            <button matChipRemove (click)="deleteTag(tag)">-->
+    <!--                <mat-icon>cancel</mat-icon>-->
+    <!--            </button>-->
+    <!--        </mat-chip>-->
+    <!--    </mat-chip-list>-->
     <div id="filter-sort-container">
         <!--        <div>-->
         <!--            <img src="assets/selection.png" class="start-selection-icon" (click)="startSelection()" alt="x">-->
@@ -41,9 +41,67 @@
 
         </button>
         <div #filterTab id="filter-tab" *ngIf="filterTabOpen">
-            <button mat-button class="filter-button">Some complicated</button>
-            <br>
-            <button mat-button class="filter-button">filter options</button>
+            <div class="tag-filter-container">
+                <form id="tag-search-form">
+                    <mat-form-field appearance="outline">
+                        <input matInput [formControl]="tagSearch" placeholder="Filter by tags"
+                               [matAutocomplete]="auto"
+                               (keyup.enter)="addTag(null)">
+                        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                            <mat-option *ngFor="let suggestion of filteredSuggestions | async | slice:0:10;"
+                                        [value]="suggestion"
+                                        (click)="addTag(suggestion)">
+                                <span>{{suggestion}}</span>
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </form>
+                <div class="slider-container">
+                    <mat-slide-toggle
+                        class="example-margin" style="padding-bottom: 1.34375em;width: 4vw"
+                        [checked]='batchImageRequest.requestTagType == "AND"'
+                        (change)="requestTagTypeChanged()">
+                        {{batchImageRequest.requestTagType}}
+                    </mat-slide-toggle>
+                </div>
+                <mat-chip-list class="tag-list">
+                    <mat-chip class="tag-chip" *ngFor="let tag of batchImageRequest.tags">
+                        <span routerLink="/images/list/{{tag}}" [mat-dialog-close]="true">{{tag}}</span>
+                        <!--        &nbsp;&nbsp;&nbsp;&nbsp;-->
+                        <button matChipRemove (click)="deleteTag(tag)">
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+                    </mat-chip>
+                </mat-chip-list>
+            </div>
+            <div class="date-filter-container">
+                <mat-form-field appearance="outline">
+                    <mat-label>Filter by date</mat-label>
+                    <mat-date-range-input [rangePicker]="picker">
+                        <input matStartDate [(ngModel)]="batchImageRequest!.requestFilter!.fromDate"
+                               (dateChange)="dateFilterChanged()"
+                               placeholder="Start date">
+                        <input matEndDate [(ngModel)]="batchImageRequest!.requestFilter!.toDate"
+                               (dateChange)="dateFilterChanged()"
+                               placeholder="End date">
+                    </mat-date-range-input>
+                    <!--                    <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>-->
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                    <mat-datepicker-toggle matSuffix
+                                           (click)="clearDateSelection()">
+                        <mat-icon matDatepickerToggleIcon>clear</mat-icon>
+                    </mat-datepicker-toggle>
+                </mat-form-field>
+            </div>
+            <!--            TODO implement filtering by location-->
+            <div style="padding: 1vw">
+                <div class="map-container" leaflet
+                     [leafletOptions]="mapOptions"
+                     (leafletMapReady)="onMapReady($event)"
+                     (leafletClick)="onMapClick($event)"
+                ></div>
+            </div>
         </div>
         <button #sortTabButton class="filter-sort-button" (click)="sortButtonClicked()" mat-raised-button>
             {{getOrderByTypeString(batchImageRequest.requestOrderByType)}}
