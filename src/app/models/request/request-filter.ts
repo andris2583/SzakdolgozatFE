@@ -4,4 +4,7 @@ export interface RequestFilter {
     ownerId: string | null;
     fromDate: Date | null;
     toDate: Date | null;
+    latitude: number | null;
+    longitude: number | null;
+    distance: number | null;
 }

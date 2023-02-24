@@ -82,6 +82,7 @@
 - Maybe something is buggy with removing images when deleted from collections
 - Fullscreen image on click
 - Delete from not dialog view,redirect
+- Only reload d change if circle is set
 
 - ~~Every user has default liked photos collection~~
 - ~~Can create collection~~

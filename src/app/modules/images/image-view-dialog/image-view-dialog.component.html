@@ -136,7 +136,7 @@
                 <div class="map-container" leaflet
                      [leafletOptions]="options"
                      (leafletMapReady)="onMapReady($event)"
-                     (leafletClick)="onMapClick($event)"
+                     (leafletDoubleClick)="onMapClick($event)"
                 ></div>
         </div>
         <ng-template #noPropertyFound>N/A</ng-template>

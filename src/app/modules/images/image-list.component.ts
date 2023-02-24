@@ -2,7 +2,7 @@ import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core
 import {Image} from '../../models/image.model';
 import {ImageService} from '../../services/image/image.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {NgxMasonryOptions} from 'ngx-masonry';
+import {NgxMasonryComponent, NgxMasonryOptions} from 'ngx-masonry';
 import {BatchImageRequest} from '../../models/request/batch-image-request.model';
 import {MatDialog} from '@angular/material/dialog';
 import {RequestOrderByType} from '../../models/request/request-order-by-type';
@@ -17,6 +17,7 @@ import {TagService} from '../../services/tag/tag.service';
 import {RequestTagType} from '../../models/request/request-tag-type';
 import * as L from 'leaflet';
 import {latLng, LeafletMouseEvent, Map as LeafletMap, MapOptions, tileLayer} from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 
 @Component({
     selector: 'app-image-list',
@@ -24,10 +25,6 @@ import {latLng, LeafletMouseEvent, Map as LeafletMap, MapOptions, tileLayer} fro
     styleUrls: ['./image-list.component.scss']
 })
 export class ImageListComponent implements OnInit {
-
-    options: NgxMasonryOptions = {
-        gutter: 20,
-    };
 
     images: Image[] = [];
     tagName: string | null = null;
@@ -64,9 +61,12 @@ export class ImageListComponent implements OnInit {
         zoom: 1,
         center: latLng(0, 0)
     };
-    public map: LeafletMap | undefined;
-    public zoom: number | undefined;
-    public mapMarkers: L.Marker[] = [];
+    map: LeafletMap | undefined;
+    zoom: number | undefined;
+    mapMarker: L.Circle | null = null;
+
+    imageLoadingOnCooldown: boolean = false;
+
 
     constructor(
         private imageService: ImageService,
@@ -81,6 +81,7 @@ export class ImageListComponent implements OnInit {
     ) {
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
         this.batchImageRequest = this.imageUtilService.defaultBatchImageRequest;
+        this.batchImageRequest.requestFilter!.distance = 100000;
         if (this.activatedRoute.snapshot.paramMap.get('tag')!.trim() == '') {
             this.tagName = null;
         } else {
@@ -229,31 +230,52 @@ export class ImageListComponent implements OnInit {
     onMapReady(map: LeafletMap) {
         this.map = map;
         this.zoom = map.getZoom();
-        setInterval(function () {
+        setInterval(() => {
             //TODO check if runs after leaving this comp
-            if (map) {
-                map.invalidateSize();
+            if (this.map) {
+                this.map.invalidateSize();
             }
         }, 100);
     }
 
     onMapClick(e: LeafletMouseEvent) {
-        // if (this.authService.getCurrentUser().id == this.image.ownerId) {
-        //     for (let i = 0; i < this.mapMarkers.length; i++) {
-        //         // @ts-ignore
-        //         this.map.removeLayer(this.mapMarkers[i]);
-        //     }
-        //     let marker = L.marker([e.latlng.lat, e.latlng.lng]);
-        //     this.mapMarkers.push(marker);
-        //     // @ts-ignore
-        //     marker.addTo(this.map);
-        //     // @ts-ignore
-        //     this.image.properties.latitude = e.latlng.lat;
-        //     // @ts-ignore
-        //     this.image.properties.longitude = e.latlng.lng;
-        //     this.imageService.updateImage(this.image).subscribe(value => {
-        //
-        //     });
-        // }
+        if (this.mapMarker && this.map) {
+            this.map.removeLayer(this.mapMarker);
+        }
+        let marker = L.circle([e.latlng.lat, e.latlng.lng], Number(this.batchImageRequest.requestFilter!.distance));
+        this.mapMarker = marker;
+        // @ts-ignore
+        marker.addTo(this.map);
+        this.batchImageRequest.requestFilter!.latitude = e.latlng.lat;
+        this.batchImageRequest.requestFilter!.longitude = e.latlng.lng;
+        this.images = [];
+        this.batchImageRequest.pageCount = 0;
+        this.loadImageData();
+
     }
+
+    //
+    // formatLabel(value: number): string {
+    //     return Math.round(value / 1000) + 'km';
+    // }
+
+    distanceChanged(event: any) {
+        this.batchImageRequest.requestFilter!.distance = event.value;
+        if (this.mapMarker) {
+            this.mapMarker.setRadius(Number(this.batchImageRequest.requestFilter!.distance));
+        }
+        if (!this.imageLoadingOnCooldown && this.mapMarker) {
+            this.images = [];
+            this.batchImageRequest.pageCount = 0;
+            this.loadImageData();
+            this.imageLoadingOnCooldown = true;
+            setTimeout(() => this.imageLoadingOnCooldown = false, 1000);
+        }
+
+    }
+
+    //
+    // distanceSliderDragEnd() {
+    //     console.log('end');
+    // }
 }

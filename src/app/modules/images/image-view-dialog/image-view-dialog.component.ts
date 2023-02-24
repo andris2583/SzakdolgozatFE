@@ -23,11 +23,12 @@ import {Privacy} from '../../../models/privacy';
 import {User} from '../../../models/user.model';
 import {Observable} from 'rxjs';
 import {CollectionType} from '../../../models/collection-type';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {ExifFields} from '../../../models/constants/exif-fields';
 import * as L from 'leaflet';
 import {latLng, LeafletMouseEvent, Map as LeafletMap, MapOptions, tileLayer} from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 
 @Component({
     selector: 'app-image-view-dialog',
@@ -45,6 +46,7 @@ export class ImageViewDialogComponent implements OnInit, OnDestroy {
         public authService: AuthService,
         private activatedRoute: ActivatedRoute,
         private snackBar: MatSnackBar,
+        private router: Router
     ) {
         let imageId = this.activatedRoute.snapshot.paramMap.get('imageId');
         if (imageId) {
@@ -185,6 +187,9 @@ export class ImageViewDialogComponent implements OnInit, OnDestroy {
     deleteImage() {
         this.imageService.deleteImage(this.image).subscribe(() => {
             this.deletedImageEvent.emit(this.image);
+            if (!this.isDialog) {
+                this.router.navigate(['dashboard']);
+            }
         });
         this.dialogRef.close();
     }
@@ -286,14 +291,14 @@ export class ImageViewDialogComponent implements OnInit, OnDestroy {
     }
 
     onMapClick(e: LeafletMouseEvent) {
-        if (this.authService.getCurrentUser().id == this.image.ownerId) {
+        if (this.authService.getCurrentUser().id == this.image.ownerId && this.map) {
+            this.map.doubleClickZoom.disable();
             for (let i = 0; i < this.mapMarkers.length; i++) {
                 // @ts-ignore
                 this.map.removeLayer(this.mapMarkers[i]);
             }
             let marker = L.marker([e.latlng.lat, e.latlng.lng]);
             this.mapMarkers.push(marker);
-            // @ts-ignore
             marker.addTo(this.map);
             // @ts-ignore
             this.image.properties.latitude = e.latlng.lat;

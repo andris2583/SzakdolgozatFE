@@ -150,7 +150,10 @@ export class SearchbarComponent implements OnInit {
                     maxCount: 10,
                     ownerId: null,
                     fromDate: null,
-                    toDate: null
+                    toDate: null,
+                    distance: null,
+                    latitude: null,
+                    longitude: null,
                 },
                 requestOrderByType: RequestOrderByType.ALPHABETICAL,
                 requestOrderType: RequestOrderType.ASC,

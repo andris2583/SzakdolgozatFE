@@ -1,4 +1,14 @@
-import {Component, EventEmitter, Input, OnInit, Output, Renderer2} from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    Input,
+    OnChanges,
+    OnInit,
+    Output,
+    Renderer2,
+    SimpleChanges,
+    ViewChild
+} from '@angular/core';
 import {Image} from '../../../models/image.model';
 import {CollectionType} from '../../../models/collection-type';
 import {CollectionManagerDialogComponent} from '../collection-manager-dialog/collection-manager-dialog.component';
@@ -10,7 +20,7 @@ import {AuthService} from '../../../services/auth/auth.service';
 import {CollectionService} from '../../../services/collection/collection.service';
 import {ImageUtilService} from '../../../services/image/image-util.service';
 import {ImageViewDialogComponent} from '../../images/image-view-dialog/image-view-dialog.component';
-import {NgxMasonryOptions} from 'ngx-masonry';
+import {NgxMasonryComponent, NgxMasonryOptions} from 'ngx-masonry';
 import {Page} from '../../../models/page.model';
 
 @Component({
@@ -18,15 +28,19 @@ import {Page} from '../../../models/page.model';
     templateUrl: './image-masonry-list.component.html',
     styleUrls: ['./image-masonry-list.component.scss']
 })
-export class ImageMasonryListComponent implements OnInit {
+export class ImageMasonryListComponent implements OnInit, OnChanges {
 
     @Input()
     images: Image[] = [];
     @Input()
     userCollections: Collection[] = [];
     options: NgxMasonryOptions = {
-        gutter: 40,
+        gutter: 20,
+        initLayout: true,
+        percentPosition: true
     };
+    @ViewChild('masonry')
+    ngxMasonryList: NgxMasonryComponent | undefined;
     @Output()
     loadImageData = new EventEmitter<null>();
     @Output()
@@ -50,6 +64,13 @@ export class ImageMasonryListComponent implements OnInit {
     }
 
     ngOnInit(): void {
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        if (this.ngxMasonryList) {
+            this.ngxMasonryList.reloadItems();
+            this.ngxMasonryList.layout();
+        }
     }
 
     getRandomColor(): string {

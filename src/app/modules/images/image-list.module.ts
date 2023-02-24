@@ -30,6 +30,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import {MatSliderModule} from '@angular/material/slider';
 
 
 @NgModule({
@@ -68,6 +69,7 @@ import {MatNativeDateModule} from '@angular/material/core';
         LeafletModule,
         MatDatepickerModule,
         MatNativeDateModule,
+        MatSliderModule,
     ],
     exports: [
         DragDropDirective

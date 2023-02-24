@@ -40,7 +40,7 @@
             <mat-icon>{{filterTabOpen ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</mat-icon>
 
         </button>
-        <div #filterTab id="filter-tab" *ngIf="filterTabOpen">
+        <div #filterTab id="filter-tab" [style.display]="filterTabOpen ? 'block' : 'none'">
             <div class="tag-filter-container">
                 <form id="tag-search-form">
                     <mat-form-field appearance="outline">
@@ -94,13 +94,18 @@
                     </mat-datepicker-toggle>
                 </mat-form-field>
             </div>
-            <!--            TODO implement filtering by location-->
-            <div style="padding: 1vw">
+            <div style="padding: 1vw 1vw 0 1vw">
                 <div class="map-container" leaflet
                      [leafletOptions]="mapOptions"
                      (leafletMapReady)="onMapReady($event)"
                      (leafletClick)="onMapClick($event)"
                 ></div>
+            </div>
+            <div class="distance-slider-container">
+                <mat-slider min="1000" max="2500000" step="1000" (input)="distanceChanged($event)" discrete
+                            style="width: 100%">
+                </mat-slider>
+
             </div>
         </div>
         <button #sortTabButton class="filter-sort-button" (click)="sortButtonClicked()" mat-raised-button>
