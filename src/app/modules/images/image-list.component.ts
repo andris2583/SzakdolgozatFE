@@ -2,7 +2,6 @@ import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core
 import {Image} from '../../models/image.model';
 import {ImageService} from '../../services/image/image.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {NgxMasonryComponent, NgxMasonryOptions} from 'ngx-masonry';
 import {BatchImageRequest} from '../../models/request/batch-image-request.model';
 import {MatDialog} from '@angular/material/dialog';
 import {RequestOrderByType} from '../../models/request/request-order-by-type';
@@ -18,6 +17,7 @@ import {RequestTagType} from '../../models/request/request-tag-type';
 import * as L from 'leaflet';
 import {latLng, LeafletMouseEvent, Map as LeafletMap, MapOptions, tileLayer} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import {MatButton} from '@angular/material/button';
 
 @Component({
     selector: 'app-image-list',
@@ -32,12 +32,12 @@ export class ImageListComponent implements OnInit {
     batchImageRequest: BatchImageRequest;
 
     sortTabOpen: boolean = false;
-    filterTabOpen: boolean = true;
+    filterTabOpen: boolean = false;
 
     @ViewChild('filterTab') filterTab: ElementRef | undefined;
     @ViewChild('sortTab') sortTab: ElementRef | undefined;
-    @ViewChild('filterTabButton') filterTabButton: ElementRef | undefined;
-    @ViewChild('sortTabButton') sortTabButton: ElementRef | undefined;
+    @ViewChild('filterTabButton') filterTabButton: MatButton | undefined;
+    @ViewChild('sortTabButton') sortTabButton: MatButton | undefined;
 
     orderByTypes = RequestOrderByType;
 
@@ -97,14 +97,14 @@ export class ImageListComponent implements OnInit {
             return false;
         };
         this.renderer.listen('window', 'click', (event) => {
-            if (this.filterTab != undefined && this.filterTabButton != undefined) {
-                //TODO handle outside click
-                // if (!this.filterTab.nativeElement.contains(event.target) && event.target != this.filterTabButton.nativeElement) {
+            if (this.filterTab && this.filterTabButton) {
+                // TODO try to fix outside click
+                // if user clicks on filter circle for some reason the filtertab closes, the problem should be with the circle not being the descendant of the filter tab
+                // if (!this.filterTab.nativeElement.contains(event.target) && !this.isDescendant(this.filterTabButton._elementRef.nativeElement, event.target)) {
                 //     this.filterTabOpen = false;
                 // }
             }
-            if (this.sortTab != undefined && this.sortTabButton != undefined) {
-                // @ts-ignore
+            if (this.sortTab && this.sortTabButton) {
                 if (event.target != this.sortTab.nativeElement && !this.sortTabButton._elementRef.nativeElement.contains(event.target)) {
                     this.sortTabOpen = false;
                 }
@@ -272,6 +272,21 @@ export class ImageListComponent implements OnInit {
             setTimeout(() => this.imageLoadingOnCooldown = false, 1000);
         }
 
+    }
+
+    isDescendant(pParent: any, pChild: HTMLElement) {
+        try {
+            while (pChild !== null) {
+                if (pChild === pParent) {
+                    return true;
+                } else {
+                    pChild = (pChild.parentNode as HTMLElement);
+                }
+            }
+        } catch (e) {
+            console.warn('isDescendant ', e);
+        }
+        return false;
     }
 
     //

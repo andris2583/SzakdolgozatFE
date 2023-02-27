@@ -66,7 +66,7 @@
 - appTag width from px to vw
 - Routing scrolltop not fucking working
 - ~~Weird af zindex bug on dashboard header-tag component~~
-- leaflet
+- ~~leaflet~~
 - Show tags no currently in use, but mark them so user knows they are empty
 - ~~randomize tag component images so not always the same~~
 - ~~seasonal dashboard image~~
@@ -79,10 +79,12 @@
 - Redesign image view dialog
 - ImageId -> Userid hasaccess map String -> String[]
 - update images list when imageuploaddialog emits
-- Maybe something is buggy with removing images when deleted from collections
+- ~~Maybe something is buggy with removing images when deleted from collections~~
 - Fullscreen image on click
-- Delete from not dialog view,redirect
-- Only reload d change if circle is set
+- ~~Delete from not dialog view,redirect~~
+- ~~Only reload d change if circle is set~~
+- Click on filter circle closes tab for some fuckeng reason
+- Clear location filtering
 
 - ~~Every user has default liked photos collection~~
 - ~~Can create collection~~

@@ -1,17 +1,40 @@
+<div class="selection-controller-container" *ngIf="selectionOn">
+    <div class="selection-controller-button" matTooltip="Select all" (click)="selectAll()">
+        <button mat-icon-button>
+            <mat-icon>select_all</mat-icon>
+        </button>
+    </div>
+    <div class="selection-controller-button" matTooltip="Deselect all" (click)="deselectAll()">
+        <button mat-icon-button>
+            <mat-icon>deselect</mat-icon>
+        </button>
+    </div>
+    <div class="selection-controller-button" matTooltip="Download as ZIP" (click)="downloadAsZip()">
+        <button mat-icon-button>
+            <mat-icon>download</mat-icon>
+        </button>
+    </div>
+    <div class="selection-controller-button" matTooltip="Quit selection" (click)="quitSelection()">
+        <button mat-icon-button>
+            <mat-icon>highlight_off</mat-icon>
+        </button>
+    </div>
+</div>
 <ngx-masonry [options]="options" [ordered]="true"
              infiniteScroll
              [infiniteScrollDistance]="0"
              (scrolled)="scrolled()"
              [fromRoot]="true"
              [infiniteScrollContainer]="'.app-body-container'"
-             [scrollWindow]="false">
+             [scrollWindow]="false"
+             #masonry>
     <ng-container *ngIf="images.length != 0">
-        <div ngxMasonryItem *ngFor="let image of images" #masonry
-             class="shared-image-box-shadow image-container masonry-item-width"
-             (click)="openImageViewDialog(image)">
+        <div ngxMasonryItem *ngFor="let image of images"
+             class="shared-image-box-shadow image-container masonry-item-width">
             <img class="masonry-item-width" style="margin-bottom: -6px;"
+                 [style.filter]="inSelection(image) ? 'brightness(0.5)' : 'none'"
                  [src]="image.imgB64 | sanitizeImage" alt="X">
-            <div class="image-hover-data">
+            <div #imageHoverData class="image-hover-data" *ngIf="!selectionOn">
                 <div
                     style="position: absolute;bottom: 5px;left: 10px;color: white;z-index: 10;display: flex;justify-content: center;align-items: center"
                     (click)="onUserClickEvent($event,image.ownerId)">
@@ -44,6 +67,23 @@
                     </button>
                 </div>
             </div>
+            <!--            <div style="position: absolute;bottom: 1vw;right: 1vw;z-index: 10" *ngIf="selectionOn">-->
+            <!--                <mat-checkbox style="transform: scale(2);" [checked]="selection.includes(image)" [disableRipple]="true"-->
+            <!--                              (click)="$event.preventDefault()"></mat-checkbox>-->
+            <!--            </div>-->
+            <div class="selection-checkmark"
+                 *ngIf="inSelection(image)">
+                <mat-icon>check_circle</mat-icon>
+            </div>
+            <div
+                [class]="selectionOn ? 'image-hold-container-selection-on': 'image-hold-container'"
+                (mousedown)="mousedown($event,image)"
+                (mouseup)="mouseup($event,image)"
+                (mouseleave)="mouseup($event,image)"></div>
+            <div class="image-hold-container-top-left"
+                 (mousedown)="mousedown($event,image)"
+                 (mouseup)="mouseup($event,image)"
+                 (mouseleave)="mouseup($event,image)"></div>
         </div>
     </ng-container>
     <!--        maybe only hide it if all imgs is loaded-->

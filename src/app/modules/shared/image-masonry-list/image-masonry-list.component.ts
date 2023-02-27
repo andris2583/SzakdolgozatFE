@@ -35,10 +35,12 @@ export class ImageMasonryListComponent implements OnInit, OnChanges {
     @Input()
     userCollections: Collection[] = [];
     options: NgxMasonryOptions = {
-        gutter: 20,
+        gutter: 40,
         initLayout: true,
         percentPosition: true
     };
+    @Input()
+    selectionAllowed: boolean = true;
     @ViewChild('masonry')
     ngxMasonryList: NgxMasonryComponent | undefined;
     @Output()
@@ -49,6 +51,11 @@ export class ImageMasonryListComponent implements OnInit, OnChanges {
     imageDeleted = new EventEmitter<Image>();
     @Output()
     imageOpened = new EventEmitter<null>();
+
+    timeoutHandler: NodeJS.Timeout | null = null;
+    selectionOn: boolean = false;
+    selection: Image[] = [];
+    firstSelectionImage: boolean = true;
     public profilePage: Page = {route: '/profile', name: 'Profile', protected: true};
 
     constructor(private imageService: ImageService,
@@ -67,8 +74,7 @@ export class ImageMasonryListComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (this.ngxMasonryList) {
-            this.ngxMasonryList.reloadItems();
+        if (this.ngxMasonryList && changes['images']) {
             this.ngxMasonryList.layout();
         }
     }
@@ -147,5 +153,73 @@ export class ImageMasonryListComponent implements OnInit, OnChanges {
 
     scrolled() {
         this.loadImageData.emit();
+    }
+
+    public mouseup(event: MouseEvent, image: Image) {
+        if (event.button == 0) {
+            if (!this.selectionOn) {
+                if (this.timeoutHandler) {
+                    clearTimeout(this.timeoutHandler);
+                    this.selectionOn = false;
+                    this.timeoutHandler = null;
+                    if (event.type == 'mouseleave') {
+                    }
+                    if (event.type == 'mouseup') {
+                        this.openImageViewDialog(image);
+                    }
+                }
+            } else if (event.type == 'mouseup') {
+                if (!this.firstSelectionImage) {
+                    this.changeSelectionForImage(image);
+                } else {
+                    this.firstSelectionImage = false;
+                }
+            }
+        }
+    }
+
+    public mousedown(event: MouseEvent, image: Image) {
+        console.log('as');
+        if (event.button == 0) {
+            if (!this.selectionOn) {
+                this.timeoutHandler = setTimeout(() => {
+                    this.selectionOn = true;
+                    this.selection.push(image);
+                    this.firstSelectionImage = true;
+                    this.timeoutHandler = null;
+                }, 500);
+            }
+        }
+        // }
+    }
+
+    changeSelectionForImage(image: Image) {
+        if (this.selection.includes(image)) {
+            this.selection.splice(this.selection.indexOf(image), 1);
+        } else {
+            this.selection.push(image);
+        }
+    }
+
+    inSelection(image: Image) {
+        return this.selection.map(selectionImage => selectionImage.id).includes(image.id);
+    }
+
+    selectAll() {
+        this.selection = this.images;
+    }
+
+    deselectAll() {
+        this.selection = [];
+    }
+
+    downloadAsZip() {
+
+    }
+
+    quitSelection() {
+        this.selectionOn = false;
+        this.selection = [];
+        this.firstSelectionImage = true;
     }
 }
