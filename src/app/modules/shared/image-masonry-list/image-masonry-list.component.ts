@@ -22,6 +22,9 @@ import {ImageUtilService} from '../../../services/image/image-util.service';
 import {ImageViewDialogComponent} from '../../images/image-view-dialog/image-view-dialog.component';
 import {NgxMasonryComponent, NgxMasonryOptions} from 'ngx-masonry';
 import {Page} from '../../../models/page.model';
+import * as JSZip from 'jszip';
+import {saveAs} from 'file-saver';
+
 
 @Component({
     selector: 'app-image-masonry-list',
@@ -214,7 +217,9 @@ export class ImageMasonryListComponent implements OnInit, OnChanges {
     }
 
     downloadAsZip() {
-
+        this.imageService.getImageDatas(this.selection.map(image => image.id)).subscribe(value => {
+            this.saveAsZip(value);
+        });
     }
 
     quitSelection() {
@@ -222,4 +227,14 @@ export class ImageMasonryListComponent implements OnInit, OnChanges {
         this.selection = [];
         this.firstSelectionImage = true;
     }
+
+    private saveAsZip(content: string[]): void {
+        // @ts-ignore
+        var zip = new JSZip.default();
+        for (let i = 0; i != content.length; i++) {
+            zip.file(this.selection[i].name + '.png', content[i], {base64: true});
+        }
+        zip.generateAsync({type: 'blob'})
+            .then((blob: string | Blob) => saveAs(blob, Date.now().toString() + '.zip'));
+    };
 }

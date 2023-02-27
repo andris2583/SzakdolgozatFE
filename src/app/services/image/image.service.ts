@@ -73,4 +73,8 @@ export class ImageService {
     getImageLikes(id: string): Observable<number> {
         return this.httpClient.get<number>(this.baseUrl + '/getImageLikes/' + id);
     }
+
+    getImageDatas(ids: string[]): Observable<string[]> {
+        return this.httpClient.put<string[]>(this.baseUrl + '/getImageDatas/', ids);
+    }
 }
