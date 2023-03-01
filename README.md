@@ -13,7 +13,7 @@
 - [X] Rendszerezés gyűjteményekbe
 - [] Zip fájlba exportálás
     - [] Gyűjtemények exportálása
-    - [] Csak kiválasztott képek exportálása
+    - [X] Csak kiválasztott képek exportálása
 - [X] Képadat tárolás
     - [X] Fájlrendszer
     - [X] Cloud storage
