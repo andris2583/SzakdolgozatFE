@@ -1,10 +1,12 @@
 <div class="selection-controller-container" *ngIf="selectionOn">
-    <div class="selection-controller-button" matTooltip="Select all" (click)="selectAll()">
+    <div class="selection-controller-button" *ngIf="selection.length != images.length" matTooltip="Select all"
+         (click)="selectAll()">
         <button mat-icon-button>
             <mat-icon>select_all</mat-icon>
         </button>
     </div>
-    <div class="selection-controller-button" matTooltip="Deselect all" (click)="deselectAll()">
+    <div class="selection-controller-button" *ngIf="selection.length == images.length" matTooltip="Deselect all"
+         (click)="deselectAll()">
         <button mat-icon-button>
             <mat-icon>deselect</mat-icon>
         </button>

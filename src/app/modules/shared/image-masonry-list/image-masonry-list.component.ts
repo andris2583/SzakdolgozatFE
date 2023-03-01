@@ -219,6 +219,7 @@ export class ImageMasonryListComponent implements OnInit, OnChanges {
     downloadAsZip() {
         this.imageService.getImageDatas(this.selection.map(image => image.id)).subscribe(value => {
             this.saveAsZip(value);
+            this.quitSelection();
         });
     }
 

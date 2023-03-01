@@ -80,7 +80,7 @@
 .selection-controller-container {
     width: 100%;
     height: 100%;
-    margin-bottom: 2vh;
+    margin-bottom: 3vh;
     margin-top: 1vh;
     display: flex;
     justify-content: flex-end;
@@ -91,6 +91,10 @@
     margin-left: 2vw;
     transform: scale(2);
     display: block;
+}
+
+.selection-controller-button:hover {
+    color: #575756;
 }
 
 .image-hold-container {

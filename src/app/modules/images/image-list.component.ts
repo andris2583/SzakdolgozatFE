@@ -100,9 +100,9 @@ export class ImageListComponent implements OnInit {
             if (this.filterTab && this.filterTabButton) {
                 // TODO try to fix outside click
                 // if user clicks on filter circle for some reason the filtertab closes, the problem should be with the circle not being the descendant of the filter tab
-                // if (!this.filterTab.nativeElement.contains(event.target) && !this.isDescendant(this.filterTabButton._elementRef.nativeElement, event.target)) {
-                //     this.filterTabOpen = false;
-                // }
+                if (!this.filterTab.nativeElement.contains(event.target) && !this.isDescendant(this.filterTabButton._elementRef.nativeElement, event.target)) {
+                    this.filterTabOpen = false;
+                }
             }
             if (this.sortTab && this.sortTabButton) {
                 if (event.target != this.sortTab.nativeElement && !this.sortTabButton._elementRef.nativeElement.contains(event.target)) {
