@@ -25,6 +25,7 @@ import {SharedModule} from './modules/shared/shared.module';
 import {MAT_TOOLTIP_DEFAULT_OPTIONS} from '@angular/material/tooltip';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
+import {ProfileModule} from './modules/profile/profile.module';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import {LeafletModule} from '@asymmetrik/ngx-leaflet';
         MatFormFieldModule,
         MatInputModule,
         SharedModule,
-        LeafletModule
+        LeafletModule,
+        ProfileModule
     ],
     providers: [
         // {

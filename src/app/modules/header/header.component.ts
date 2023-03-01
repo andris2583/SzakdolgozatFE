@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
     public pages = new Pages().pages;
 
-    public profileTabs = ProfileTabs;
+    public profileTabs = [ProfileTabs.IMAGES, ProfileTabs.COLLECTIONS, ProfileTabs.STATISTICS, ProfileTabs.TIMELINE];
 
     public profilePage: Page = {route: '/profile', name: 'Profile', protected: true};
 
@@ -63,7 +63,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
         if (e.stopPropagation) e.stopPropagation();
     }
 
-    goToProfile(e: MouseEvent, subPage?: ProfileTabs) {
+    goToProfile(e: MouseEvent, subPage?: any) {
         if (subPage) {
             this.router.navigate([this.profilePage.route + '/' + this.authService.getCurrentUser().id + '/' + subPage]);
         } else {

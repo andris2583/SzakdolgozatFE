@@ -11,8 +11,8 @@
     - [X] Automatikus címkézés
     - [X] Szűrés címkék alapján
 - [X] Rendszerezés gyűjteményekbe
-- [] Zip fájlba exportálás
-    - [] Gyűjtemények exportálása
+- [X] Zip fájlba exportálás
+    - [X] Gyűjtemények exportálása
     - [X] Csak kiválasztott képek exportálása
 - [X] Képadat tárolás
     - [X] Fájlrendszer
@@ -31,7 +31,7 @@
 - [X] EXIF információ feldolgozása
     - [X] Térképen lokáció
     - [] Idővonal
-    - [] GPS koordináta alapján szűrés
+    - [X] GPS koordináta alapján szűrés
 
 ## TODO
 

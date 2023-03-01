@@ -22,8 +22,9 @@ import {Page} from '../../models/page.model';
 export class ProfileComponent implements OnInit, AfterViewInit {
 
     public user: User | null = null;
-    public tabs = ProfileTabs;
-    public activeTab = this.tabs.IMAGES;
+    public tabEnum = ProfileTabs;
+    public tabs = [ProfileTabs.IMAGES, ProfileTabs.COLLECTIONS, ProfileTabs.TIMELINE, ProfileTabs.STATISTICS];
+    public activeTab = ProfileTabs.TIMELINE;
     public collections: Observable<Collection[]> = new Observable<Collection[]>();
     public collectionsValue: Collection[] = [];
     public images: Image[] = [];
@@ -41,7 +42,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
                 public collectionService: CollectionService,
                 public imageService: ImageService,
                 public imageUtilService: ImageUtilService,
-                private activatedRoute: ActivatedRoute,
+                public activatedRoute: ActivatedRoute,
     ) {
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     }
@@ -86,16 +87,8 @@ export class ProfileComponent implements OnInit, AfterViewInit {
                 });
             }
             this.loadImageData();
-            switch (this.activatedRoute.snapshot.paramMap.get('subPage')!.trim()) {
-                case this.tabs.IMAGES:
-                    this.activeTab = ProfileTabs.IMAGES;
-                    break;
-                case this.tabs.COLLECTIONS:
-                    this.activeTab = ProfileTabs.COLLECTIONS;
-                    break;
-                case this.tabs.STATISTICS:
-                    this.activeTab = ProfileTabs.STATISTICS;
-                    break;
+            if (this.activatedRoute.snapshot.paramMap.get('subPage')!.trim() != '') {
+                this.activeTab = this.activatedRoute.snapshot.paramMap.get('subPage')!.trim() as ProfileTabs;
             }
         });
     }
@@ -152,6 +145,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
         reader.readAsDataURL(file);
         reader.onload = () => {
             this.authService.uploadProfilePicture(reader.result as string).subscribe(() => {
+                console.log('reload');
                 window.location.reload();
             });
         };

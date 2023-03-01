@@ -37,21 +37,13 @@
                 Profile
                 <mat-icon #profileDropdownButton (click)="profileDropdownClick($event)">keyboard_arrow_down</mat-icon>
                 <div #profileDropdownTab class="profile-dropdown" *ngIf="profileDropdownOpen">
-                    <button mat-button class="profile-dropdown-element"
-                            (click)="goToProfile($event,profileTabs.IMAGES)">
-                        Images
+                    <ng-container *ngFor="let profileTab of profileTabs">
+                        <button mat-button class="profile-dropdown-element"
+                                (click)="goToProfile($event,profileTab)">
+                        {{profileTab | titlecase}}
                     </button>
                     <br>
-                    <button mat-button class="profile-dropdown-element"
-                            (click)="goToProfile($event,profileTabs.COLLECTIONS)">
-                        Collections
-                    </button>
-                    <br>
-                    <button mat-button class="profile-dropdown-element"
-                            (click)="goToProfile($event,profileTabs.STATISTICS)">
-                        Statistics
-                    </button>
-                    <br>
+                    </ng-container>
                     <button mat-button class="profile-dropdown-element"
                             (click)="profileDropdownOpen = false;authService.logOut()">
                         Logout

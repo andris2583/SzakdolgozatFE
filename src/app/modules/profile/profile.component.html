@@ -1,7 +1,8 @@
 <div style="display: flex;justify-content: center;align-items: center">
     <div style="display: flex;justify-content: center;align-items: center;flex-direction: column ">
-        <input *ngIf="isOwner" type="file" id="upload" style="display: none" (change)="filesUploaded($event)" alt=""/>
-        <label for="upload" class="area area-hover" appDragDrop *ngIf="user && isOwner"
+        <input *ngIf="isOwner" type="file" id="profile-upload" style="display: none" (change)="filesUploaded($event)"
+               alt=""/>
+        <label for="profile-upload" class="area area-hover" appDragDrop *ngIf="user && isOwner"
                [style.background-image]="'url('+profilePictureURL+')'"
                (files)="filesDropped($event)"></label>
         <div class="area" *ngIf="!isOwner && user"
@@ -44,34 +45,24 @@
 <div style="height: 10vh;"></div>
 
 <div style="display: flex;justify-content: center;align-items: center;width: fit-content" #profileTabSelector>
-    <div>
-        <button mat-flat-button (click)="tabButtonClick(tabs.IMAGES)">Images</button>
-        <div [ngStyle]="activeTab == tabs.IMAGES?{'background-color':'#575756'} : {'background-color': '#eaeaea'}"
-             class="tab-underline"></div>
-    </div>
-    <div>
-        <button mat-flat-button (click)="tabButtonClick(tabs.COLLECTIONS)">Collections</button>
-        <div [ngStyle]="activeTab == tabs.COLLECTIONS?{'background-color':'#575756'} : {'background-color': '#eaeaea'}"
-             class="tab-underline"></div>
-
-    </div>
-    <div>
-        <button mat-flat-button (click)="tabButtonClick(tabs.STATISTICS)" *ngIf="isOwner">Statistics</button>
-        <div [ngStyle]="activeTab == tabs.STATISTICS?{'background-color':'#575756'} : {'background-color': '#eaeaea'}"
-             class="tab-underline"></div>
-
-    </div>
+    <ng-container *ngFor="let tab of tabs">
+        <div *ngIf="tab != tabEnum.STATISTICS || isOwner">
+            <button mat-flat-button (click)="tabButtonClick(tab)">{{tab | titlecase}}</button>
+            <div [ngStyle]="activeTab == tab?{'background-color':'#575756'} : {'background-color': '#eaeaea'}"
+                 class="tab-underline"></div>
+        </div>
+    </ng-container>
 </div>
 
 <div>
-    <div *ngIf="activeTab == tabs.IMAGES" style="margin-top: 1vw;">
+    <div *ngIf="activeTab == tabEnum.IMAGES" style="margin-top: 1vw;">
         <div class="tab-title" *ngIf="isOwner">Your images</div>
         <app-image-masonry-list (loadImageData)="loadImageData()" [images]="images"
                                 (collectionChanged)="collectionsChanged()" (imageDeleted)="imageDeleted()"
                                 (imageOpened)="imageOpened()"
                                 [userCollections]="collectionsValue"></app-image-masonry-list>
     </div>
-    <div *ngIf="activeTab == tabs.COLLECTIONS">
+    <div *ngIf="activeTab == tabEnum.COLLECTIONS">
         <div class="tab-title" *ngIf="isOwner">Your collections</div>
         <!--        <div *ngFor="let collection of (collections | async)">-->
         <!--            <div>{{collection.name}}</div>-->
@@ -93,8 +84,11 @@
 
 
     </div>
-    <div *ngIf="activeTab == tabs.STATISTICS && isOwner">
+    <div *ngIf="activeTab == tabEnum.STATISTICS && isOwner">
         IMPLEMENT PROFILE STATISTICS
+    </div>
+    <div *ngIf="activeTab == tabEnum.TIMELINE">
+        <app-image-timeline [user]="user"></app-image-timeline>
     </div>
 </div>
 <div style="height: 80vh"></div>
