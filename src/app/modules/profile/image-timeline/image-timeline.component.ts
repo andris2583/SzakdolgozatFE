@@ -24,6 +24,7 @@ export class ImageTimelineComponent implements OnInit {
     user: User | undefined | null;
 
     batchImageRequest: BatchImageRequest = this.imageUtilService.defaultBatchImageRequest;
+    stepBatchImageRequest: BatchImageRequest = this.imageUtilService.defaultBatchImageRequest;
     steps: { images: Image[], date: Date }[] = [];
     // @ts-ignore
     userCollections: Collection[];
@@ -39,7 +40,7 @@ export class ImageTimelineComponent implements OnInit {
     timelineOptions: { name: string, value: number }[] = [{name: 'Daily', value: (604800000 / 7)}, {
         name: 'Weekly',
         value: 604800000
-    }, {name: 'Monthly', value: 604800000 * 30}];
+    }, {name: 'Monthly', value: 604800000 * 4}];
     loadedImages: Image[] = [];
 
     constructor(
@@ -55,6 +56,7 @@ export class ImageTimelineComponent implements OnInit {
         this.batchImageRequest.batchSize = -1;
         this.batchImageRequest.requestFilter!.ownerId = this.user!.id;
         this.batchImageRequest.requestOrderByType = RequestOrderByType.TIME;
+        this.batchImageRequest.loadThumbnails = false;
         this.collectionService.getCollectionsByUserId(this.user!.id).subscribe(value => {
             this.userCollections = value;
         });
@@ -65,7 +67,12 @@ export class ImageTimelineComponent implements OnInit {
     }
 
     timelineStepClick(step: { images: Image[]; date: Date }) {
-        this.images = step.images;
+        this.stepBatchImageRequest.requestFilter!.ownerId = this.user!.id;
+        this.stepBatchImageRequest.requestFilter!.fromDate = new Date(step.date);
+        this.stepBatchImageRequest.requestFilter!.toDate = new Date(new Date(step.date).getTime() + this.selectedTimelineOption.value);
+        this.stepBatchImageRequest.pageCount = 0;
+        this.images = [];
+        this.loadImageDataForList();
     }
 
     imageClicked(image: Image) {
@@ -88,6 +95,7 @@ export class ImageTimelineComponent implements OnInit {
             requestTagType: RequestTagType.OR,
             collectionId: null,
             requestUserId: this.authService.getCurrentUser().id,
+            loadThumbnails: true,
         }).subscribe(value => instance!.images = value);
 
     }
@@ -113,5 +121,13 @@ export class ImageTimelineComponent implements OnInit {
         if (this.loadedImages) {
             this.steps.push({images: tempImages, date: startDate});
         }
+    }
+
+    loadImageDataForList() {
+        this.imageService.getImages(this.stepBatchImageRequest).subscribe(value => {
+            this.images = this.images.concat(value);
+        });
+
+        this.batchImageRequest.pageCount++;
     }
 }

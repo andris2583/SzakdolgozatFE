@@ -6,6 +6,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin-top: 4vw;
 }
 
 .timeline-images-container {
@@ -120,14 +121,25 @@
 
 .timeline-data-date-left {
     position: absolute;
-    transform: translateX(calc(-100% - 2vw)) translateY(-140%);
+    transform: translateX(calc(-100% - 2vw)) translateY(-150%);
     font-size: 20px;
 
 }
 
 .timeline-data-date-right {
     position: absolute;
-    transform: translateX(2.5vw) translateY(-140%);
+    transform: translateX(2.5vw) translateY(-150%);
     font-size: 20px;
 
+}
+
+.tab-title {
+    margin: 2vw 0 2vw 2vw !important;
+    font-size: 28px;
+}
+
+.timeline-data-container:hover > .timeline-dot > .timeline-dot-icon,
+.timeline-data-container:hover > .timeline-data-date-right,
+.timeline-data-container:hover > .timeline-data-date-left {
+    filter: opacity(0.7);
 }

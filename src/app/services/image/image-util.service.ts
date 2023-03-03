@@ -29,6 +29,7 @@ export class ImageUtilService {
         requestTagType: RequestTagType.OR,
         collectionId: null,
         requestUserId: this.authService.getCurrentUser().id,
+        loadThumbnails: true,
     };
 
     constructor(private authService: AuthService) {

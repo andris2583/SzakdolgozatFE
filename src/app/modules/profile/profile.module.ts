@@ -10,6 +10,7 @@ import {PipeModule} from '../pipe/pipe/pipe.module';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {FormsModule} from '@angular/forms';
+import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import {FormsModule} from '@angular/forms';
         PipeModule,
         MatFormFieldModule,
         MatSelectModule,
-        FormsModule
+        FormsModule,
+        InfiniteScrollModule
     ]
 })
 export class ProfileModule {

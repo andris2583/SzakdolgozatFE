@@ -13,4 +13,5 @@ export interface BatchImageRequest {
     requestFilter: RequestFilter | null;
     collectionId: string | null;
     requestUserId: string | null;
+    loadThumbnails: boolean | null;
 }

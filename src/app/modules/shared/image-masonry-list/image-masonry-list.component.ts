@@ -74,6 +74,11 @@ export class ImageMasonryListComponent implements OnInit, OnChanges {
     }
 
     ngOnInit(): void {
+        if (!this.userCollections || !this.userCollections.length) {
+            this.collectionService.getCollectionsByUserId(this.authService.getCurrentUser().id).subscribe(value => {
+                this.userCollections = value;
+            });
+        }
     }
 
     ngOnChanges(changes: SimpleChanges) {

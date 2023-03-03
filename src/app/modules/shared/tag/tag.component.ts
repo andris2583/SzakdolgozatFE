@@ -37,6 +37,7 @@ export class TagComponent implements OnInit {
             requestTagType: RequestTagType.OR,
             collectionId: null,
             requestUserId: this.authService.getCurrentUser().id,
+            loadThumbnails: true,
         }).subscribe(value => {
             this.previewImages = value;
         });

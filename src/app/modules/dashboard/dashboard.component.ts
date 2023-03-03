@@ -96,6 +96,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
             requestTagType: RequestTagType.OR,
             collectionId: null,
             requestUserId: this.authService.getCurrentUser().id,
+            loadThumbnails: true,
         }).subscribe(value => instance!.images = value);
     }
 

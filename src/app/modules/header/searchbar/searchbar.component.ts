@@ -160,6 +160,7 @@ export class SearchbarComponent implements OnInit {
                 requestTagType: RequestTagType.OR,
                 collectionId: null,
                 requestUserId: this.authService.getCurrentUser().id,
+                loadThumbnails: true,
             }).pipe(tap(() => this.imageSuggestionsLoaded = true));
             this.collectionSuggestions = this.collectionService.getAllCollections().pipe(map(allCollections => allCollections.filter(collection => {
                 if ((collection.privacy == Privacy.PUBLIC) || (collection.privacy == Privacy.PRIVATE && collection.userId == this.authService.getCurrentUser().id)) {
@@ -193,6 +194,7 @@ export class SearchbarComponent implements OnInit {
             requestTagType: RequestTagType.OR,
             collectionId: null,
             requestUserId: this.authService.getCurrentUser().id,
+            loadThumbnails: true,
         }).subscribe(value => instance.images = value);
         this.onSearchBlur();
     }
