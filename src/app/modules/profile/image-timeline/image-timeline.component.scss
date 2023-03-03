@@ -9,7 +9,7 @@
 }
 
 .timeline-images-container {
-    width: 80%;
+    width: 50%;
     height: 100%;
     padding: 1vw;
     display: flex;
@@ -36,10 +36,14 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+
 }
 
 .timeline-dot {
-    transform: rotate(45deg);
+    height: 24px !important;
+    margin-top: 0.5vw;
+    margin-bottom: 0.5vw;
+    transform: scale(1.5);
 }
 
 .timeline-data {
@@ -47,15 +51,14 @@
     height: 10vw;
     position: absolute;
     background-color: #f3f3f3;
-    overflow: auto;
 }
 
 .timeline-data-left {
-    transform: translateX(calc(-100% - 1vw)) translateY(-60%);
+    transform: translateX(calc(-100% - 4vw)) translateY(-60%);
 }
 
 .timeline-data-right {
-    transform: translateX(2vw) translateY(-60%);
+    transform: translateX(6vw) translateY(-60%);
 }
 
 .image-masonry-container {
@@ -74,4 +77,57 @@
     position: absolute;
     top: 0;
     width: 100%;
+}
+
+.masonry-item-width {
+    width: calc((40vw - (2vw + 25px)) / 2);
+}
+
+.preview-image-container {
+    width: 10vw;
+    height: 10vw;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.preview-image-left {
+    right: 1vw;
+    bottom: -0vw;
+    z-index: 3;
+    transform: rotate(-4deg)
+}
+
+.preview-image-right {
+    left: 1vw;
+    bottom: -0vw;
+    z-index: 1;
+    transform: rotate(4deg);
+
+}
+
+.timeline-data:hover > div > .preview-image-left {
+    right: 5vw;
+    transform: rotate(-20deg);
+    bottom: -1vw;
+}
+
+.timeline-data:hover > div > .preview-image-right {
+    left: 5vw;
+    transform: rotate(20deg);
+    bottom: -1vw;
+}
+
+.timeline-data-date-left {
+    position: absolute;
+    transform: translateX(calc(-100% - 2vw)) translateY(-140%);
+    font-size: 20px;
+
+}
+
+.timeline-data-date-right {
+    position: absolute;
+    transform: translateX(2.5vw) translateY(-140%);
+    font-size: 20px;
+
 }

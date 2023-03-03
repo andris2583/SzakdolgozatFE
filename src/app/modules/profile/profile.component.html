@@ -87,7 +87,8 @@
     <div *ngIf="activeTab == tabEnum.STATISTICS && isOwner">
         IMPLEMENT PROFILE STATISTICS
     </div>
-    <div *ngIf="activeTab == tabEnum.TIMELINE">
+    <div *ngIf="activeTab == tabEnum.TIMELINE && user">
+        <div class="tab-title">Timeline</div>
         <app-image-timeline [user]="user"></app-image-timeline>
     </div>
 </div>

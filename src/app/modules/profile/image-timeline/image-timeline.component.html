@@ -1,26 +1,52 @@
-<div style="display: flex;justify-content: center;align-items: flex-start;flex-wrap: nowrap;border: 1px solid black;
+<mat-form-field appearance="fill" style="margin-bottom: 5vw;margin-left: 2vw">
+    <mat-label>Timeline type</mat-label>
+    <mat-select [(ngModel)]="selectedTimelineOption" (selectionChange)="calculateTimeline()">
+        <mat-option *ngFor="let timelineOption of timelineOptions" [value]="timelineOption">
+            {{timelineOption.name}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+<div style="display: flex;justify-content: center;align-items: flex-start;flex-wrap: nowrap
 ">
     <div class="timeline-container">
         <!--    <div *ngFor="let image of images | async">-->
         <!--        {{image.name}}-->
         <!--    </div>-->
         <div *ngFor="let i = index;let step of steps">
-            <div class="timeline-stick-container">
+            <div class="timeline-stick-container" *ngIf="i != 0">
                 <div class="timeline-stick"></div>
             </div>
             <div class="timeline-data-container" (click)="timelineStepClick(step)">
                 <div class="timeline-dot">
-                    <mat-icon>grid_view</mat-icon>
+                    <mat-icon>radio_button_checked</mat-icon>
                 </div>
                 <div class="timeline-data" [ngClass]="i % 2 == 0 ? 'timeline-data-left' : 'timeline-data-right'">
-                    {{step.date}}
-                    <span *ngFor="let image of step.images">{{image.name}}<br></span>
+                    <!--                    {{step.date}}-->
+                    <!--                    <span *ngFor="let image of step.images">{{image.name}}<br></span>-->
+                    <div>
+                        <img class="preview-image-container shared-image-box-shadow"
+                             style="bottom: 0;position: absolute;z-index: 2"
+                             [src]="step.images[0 % step.images.length].imgB64 | sanitizeImage" alt="">
+                    </div>
+                    <div>
+                        <img class="preview-image-container shared-image-box-shadow preview-image-left"
+                             style="position: absolute;"
+                             [src]="step.images[2 % step.images.length].imgB64 | sanitizeImage" alt="">
+                    </div>
+                    <div>
+                        <img class="preview-image-container shared-image-box-shadow preview-image-right"
+                             style="position: absolute;"
+                             [src]="step.images[1 % step.images.length].imgB64 | sanitizeImage" alt="">
+                    </div>
+                </div>
+                <div [ngClass]="i % 2 == 0 ? 'timeline-data-date-right' : 'timeline-data-date-left'">
+                    {{getFormattedDate(step.date)}}
                 </div>
             </div>
         </div>
     </div>
     <div class="timeline-images-container">
-        <ngx-masonry style="margin-bottom: 2vh;width: 45%"
+        <ngx-masonry style="margin-bottom: 2vh;width: 100%"
                      [options]="masonryOptions" [ordered]="true">
             <ng-container>
                 <div ngxMasonryItem *ngFor="let image of images"

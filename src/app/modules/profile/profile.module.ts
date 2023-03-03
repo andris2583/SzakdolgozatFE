@@ -7,6 +7,9 @@ import {MatDividerModule} from '@angular/material/divider';
 import {SharedModule} from '../shared/shared.module';
 import {NgxMasonryModule} from 'ngx-masonry';
 import {PipeModule} from '../pipe/pipe/pipe.module';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
+import {FormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -23,7 +26,10 @@ import {PipeModule} from '../pipe/pipe/pipe.module';
         MatDividerModule,
         SharedModule,
         NgxMasonryModule,
-        PipeModule
+        PipeModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        FormsModule
     ]
 })
 export class ProfileModule {

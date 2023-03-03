@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Image} from '../../../models/image.model';
 import {ImageService} from '../../../services/image/image.service';
 import {ImageUtilService} from '../../../services/image/image-util.service';
@@ -18,7 +18,7 @@ import {MatDialog} from '@angular/material/dialog';
     templateUrl: './image-timeline.component.html',
     styleUrls: ['./image-timeline.component.scss']
 })
-export class ImageTimelineComponent implements OnInit, OnChanges {
+export class ImageTimelineComponent implements OnInit {
 
     @Input()
     user: User | undefined | null;
@@ -31,6 +31,16 @@ export class ImageTimelineComponent implements OnInit, OnChanges {
     masonryOptions = {
         gutter: 20
     };
+    selectedTimelineOption: { name: string, value: number } = {
+        name: 'Weekly',
+        value: 604800000
+    };
+    //TODO better monthly splitting
+    timelineOptions: { name: string, value: number }[] = [{name: 'Daily', value: (604800000 / 7)}, {
+        name: 'Weekly',
+        value: 604800000
+    }, {name: 'Monthly', value: 604800000 * 30}];
+    loadedImages: Image[] = [];
 
     constructor(
         private imageService: ImageService,
@@ -42,9 +52,6 @@ export class ImageTimelineComponent implements OnInit, OnChanges {
     }
 
     ngOnInit(): void {
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
         this.batchImageRequest.batchSize = -1;
         this.batchImageRequest.requestFilter!.ownerId = this.user!.id;
         this.batchImageRequest.requestOrderByType = RequestOrderByType.TIME;
@@ -52,21 +59,8 @@ export class ImageTimelineComponent implements OnInit, OnChanges {
             this.userCollections = value;
         });
         this.imageService.getImages(this.batchImageRequest).subscribe(images => {
-            let startDate = images[0].uploaded;
-            let tempImages: Image[] = [];
-            for (let image of images) {
-                if (new Date(image.uploaded).getTime() < new Date(startDate).getTime() + 604800000) {
-                    tempImages.push(image);
-                } else {
-                    this.steps.push({images: tempImages, date: startDate});
-                    tempImages = [];
-                    startDate = image.uploaded;
-                    tempImages.push(image);
-                }
-            }
-            if (images) {
-                this.steps.push({images: tempImages, date: startDate});
-            }
+            this.loadedImages = images;
+            this.calculateTimeline();
         });
     }
 
@@ -96,5 +90,28 @@ export class ImageTimelineComponent implements OnInit, OnChanges {
             requestUserId: this.authService.getCurrentUser().id,
         }).subscribe(value => instance!.images = value);
 
+    }
+
+    getFormattedDate(date: Date) {
+        return new Date(date).toDateString();
+    }
+
+    calculateTimeline() {
+        let startDate = this.loadedImages[0].uploaded;
+        let tempImages: Image[] = [];
+        this.steps = [];
+        for (let image of this.loadedImages) {
+            if (new Date(image.uploaded).getTime() < new Date(startDate).getTime() + this.selectedTimelineOption.value) {
+                tempImages.push(image);
+            } else {
+                this.steps.push({images: tempImages, date: startDate});
+                tempImages = [];
+                startDate = image.uploaded;
+                tempImages.push(image);
+            }
+        }
+        if (this.loadedImages) {
+            this.steps.push({images: tempImages, date: startDate});
+        }
     }
 }
