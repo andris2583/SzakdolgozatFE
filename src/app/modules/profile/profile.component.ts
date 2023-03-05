@@ -24,7 +24,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     public user: User | null = null;
     public tabEnum = ProfileTabs;
     public tabs = [ProfileTabs.IMAGES, ProfileTabs.COLLECTIONS, ProfileTabs.TIMELINE, ProfileTabs.STATISTICS];
-    public activeTab = ProfileTabs.TIMELINE;
+    public activeTab = ProfileTabs.IMAGES;
     public collections: Observable<Collection[]> = new Observable<Collection[]>();
     public collectionsValue: Collection[] = [];
     public images: Image[] = [];

@@ -38,7 +38,7 @@ export class ImageMasonryListComponent implements OnInit, OnChanges {
     @Input()
     userCollections: Collection[] = [];
     options: NgxMasonryOptions = {
-        gutter: 40,
+        gutter: 20,
         initLayout: true,
         percentPosition: true
     };

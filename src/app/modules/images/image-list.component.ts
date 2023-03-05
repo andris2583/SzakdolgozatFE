@@ -18,6 +18,7 @@ import * as L from 'leaflet';
 import {latLng, LeafletMouseEvent, Map as LeafletMap, MapOptions, tileLayer} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {MatButton} from '@angular/material/button';
+import {RequestOrderType} from '../../models/request/request-order-type';
 
 @Component({
     selector: 'app-image-list',
@@ -40,6 +41,7 @@ export class ImageListComponent implements OnInit {
     @ViewChild('sortTabButton') sortTabButton: MatButton | undefined;
 
     orderByTypes = RequestOrderByType;
+    orderByTypesArray: RequestOrderByType[] = [RequestOrderByType.ALPHABETICAL, RequestOrderByType.TIME, RequestOrderByType.LIKE, RequestOrderByType.VIEW];
 
     // @ts-ignore
     userCollections: Collection[];
@@ -152,12 +154,31 @@ export class ImageListComponent implements OnInit {
         switch (sortType) {
             case RequestOrderByType.ALPHABETICAL:
                 return 'Alphabetical';
-            case RequestOrderByType.POPULAR:
-                return 'Popularity';
+            case RequestOrderByType.LIKE:
+                return 'Likes';
+            case RequestOrderByType.VIEW:
+                return 'Views';
             case RequestOrderByType.TIME:
                 return 'Upload date';
             case RequestOrderByType.RANDOM:
                 return 'Random';
+        }
+    }
+
+    getOrderByTypeIcon(sortType: RequestOrderByType | null): string {
+        switch (sortType) {
+            case RequestOrderByType.ALPHABETICAL:
+                return 'sort_by_alpha';
+            case RequestOrderByType.LIKE:
+                return 'star_border';
+            case RequestOrderByType.VIEW:
+                return 'visibility';
+            case RequestOrderByType.TIME:
+                return 'access_time';
+            case RequestOrderByType.RANDOM:
+                return 'Random';
+            default:
+                return '';
         }
     }
 
@@ -293,4 +314,14 @@ export class ImageListComponent implements OnInit {
     // distanceSliderDragEnd() {
     //     console.log('end');
     // }
+    orderTypeChanged() {
+        if (this.batchImageRequest.requestOrderType == RequestOrderType.ASC) {
+            this.batchImageRequest.requestOrderType = RequestOrderType.DESC;
+        } else if (this.batchImageRequest.requestOrderType == RequestOrderType.DESC) {
+            this.batchImageRequest.requestOrderType = RequestOrderType.ASC;
+        }
+        this.images = [];
+        this.batchImageRequest.pageCount = 0;
+        this.loadImageData();
+    }
 }

@@ -53,6 +53,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
                 this.similarToUsersImages = this.similarToUsersImages.slice(0, 10);
             }
         });
+        this.loadImageData();
     }
 
     ngOnInit(): void {
