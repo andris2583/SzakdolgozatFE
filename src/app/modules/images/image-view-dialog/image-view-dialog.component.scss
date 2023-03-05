@@ -158,3 +158,16 @@
     border: 1px solid #c8c8c8;
     //background-color: rebeccapurple;
 }
+
+#zoom-image {
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-size: contain;
+    background-repeat: no-repeat no-repeat;
+    background-position: center center;
+    background-color: black;
+}

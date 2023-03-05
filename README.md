@@ -48,8 +48,8 @@
 - ~~Batchimagerequest tag to tags, exclusive or inclusive search, crossection or union~~
 - ~~Dashboard with popular categories, themes, maybe season specific tags~~
 - ~~categories most popular, few preview images in category card~~
-- save img w,h to image entity, so loading ghost w,h is good
-- ~~like,dislike, comment~~ star/favourite instead
+- ~~save img w,h to image entity, so loading ghost w,h is good~~
+- ~~like,dislike, comment~~ ~~star/favourite instead~~
 - ~~order by likes/dislikes/comments/upload,date/~~
 - ~~filter by date~~
 - ~~create album automatically~~
@@ -61,7 +61,7 @@
 - ~~Replace redundant endpoints with rest save~~
 - ~~When deleting images remove from collections~~
 - ~~private/public collection, image accessibility~~
-- edit collections,images
+- ~~edit collections,images~~
 - ~~Navigate to specific page of user with dropdown menu~~
 - appTag width from px to vw
 - Routing scrolltop not fucking working
@@ -76,7 +76,7 @@
 - ~~search for others profiles by username~~
 - ~~like in imageViewDialog~~
 - ~~order by likes or views~~
-- Redesign image view dialog
+- ~~Redesign image view dialog~~
 - ImageId -> Userid hasaccess map String -> String[]
 - update images list when imageuploaddialog emits
 - ~~Maybe something is buggy with removing images when deleted from collections~~

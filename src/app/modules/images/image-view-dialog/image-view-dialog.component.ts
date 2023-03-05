@@ -98,6 +98,7 @@ export class ImageViewDialogComponent implements OnInit, OnDestroy {
     public map: LeafletMap | undefined;
     public zoom: number | undefined;
     public mapMarkers: L.Marker[] = [];
+    fullScreenImage: boolean = false;
 
 
     ngOnInit(): void {
