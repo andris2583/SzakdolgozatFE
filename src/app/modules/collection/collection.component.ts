@@ -100,4 +100,10 @@ export class CollectionComponent implements OnInit {
             });
         }
     }
+
+    deleteCollection() {
+        this.collectionService.deleteCollection(this.collection).subscribe(() => {
+            this.router.navigate(['dashboard']);
+        });
+    }
 }

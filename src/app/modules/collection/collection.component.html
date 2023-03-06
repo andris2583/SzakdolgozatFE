@@ -18,6 +18,10 @@
             (change)="privacyChanged()">
             {{collection.privacy}}
         </mat-slide-toggle>
+        <button class="dialog-header-button" mat-stroked-button [disabled]="collection.type == 'FAVOURITE'"
+                *ngIf="authService.getCurrentUser()?.id == collection.userId"
+                (click)="deleteCollection()">Delete
+        </button>
     </div>
     <app-image-masonry-list (loadImageData)="loadImageData()" [images]="images"
                             [userCollections]="userCollections"

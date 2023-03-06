@@ -32,4 +32,8 @@ export class CollectionService {
     getCollectionsById(id: string): Observable<Collection> {
         return this.httpClient.get<Collection>(this.baseUrl + '/getCollectionsById/' + id);
     }
+
+    deleteCollection(collection: Collection | null): Observable<void> {
+        return this.httpClient.delete<void>(this.baseUrl + '/delete/' + collection!.id);
+    }
 }
