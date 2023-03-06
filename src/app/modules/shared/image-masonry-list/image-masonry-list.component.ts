@@ -187,7 +187,6 @@ export class ImageMasonryListComponent implements OnInit, OnChanges {
     }
 
     public mousedown(event: MouseEvent, image: Image) {
-        console.log('as');
         if (event.button == 0) {
             if (!this.selectionOn) {
                 this.timeoutHandler = setTimeout(() => {

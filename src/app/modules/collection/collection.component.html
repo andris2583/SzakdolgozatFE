@@ -4,7 +4,7 @@
     <!--    </div>-->
     <div class="collection-name">
         <input [disabled]="!editingName" placeholder="Collection name" #CollectionNameForm
-               style="-webkit-appearance: none;font-size: 40px;border: 0;text-align: center"
+               style="-webkit-appearance: none;font-size: 40px;border: 0;text-align: center;background-color: white;"
                [style.width]="collection.name.length+1+'ch'"
                [(ngModel)]="collection.name">
         <mat-icon *ngIf="authService.getCurrentUser().id == collection.userId" class="edit-button"

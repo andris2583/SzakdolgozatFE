@@ -1,6 +1,22 @@
 <div class="content" [class.hide]="loading" *ngIf="image">
     <div class="dialog-header">
-        <span class="dialog-header-left">{{image.name}} by {{(owner | async)?.username}}</span>
+        <span class="dialog-header-left">
+            <ng-container>
+                <input *ngIf="image.name != null" [disabled]="authService.getCurrentUser().id != image.ownerId"
+                       placeholder="Collection name"
+                       #CollectionNameForm
+                       class="image-name"
+                       [style.width]="image.name.length+1+'ch'"
+                       [(ngModel)]="image.name" (change)="saveImage()">
+            </ng-container>
+            by
+            <ng-container>
+                    <div class="profile-picture" (click)="onUserClickEvent($event,image.ownerId)"
+                         [style.background-image]="'url('+'http://localhost:8080/auth/getProfileData/'+image.ownerId+')'">
+                    </div>
+            </ng-container>
+            <div (click)="onUserClickEvent($event,image.ownerId)">{{(owner | async)?.username}}</div>
+        </span>
         <span class="dialog-header-right">
             <!--TODO dialog not showing inside other dialog-->
             <!--      <button class="dialog-header-button" (click)="onAddToCollectionClickEvent($event)" mat-stroked-button>Save to collection</button>-->

@@ -29,6 +29,7 @@ import {ExifFields} from '../../../models/constants/exif-fields';
 import * as L from 'leaflet';
 import {latLng, LeafletMouseEvent, Map as LeafletMap, MapOptions, tileLayer} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import {Page} from '../../../models/page.model';
 
 @Component({
     selector: 'app-image-view-dialog',
@@ -99,7 +100,7 @@ export class ImageViewDialogComponent implements OnInit, OnDestroy {
     public zoom: number | undefined;
     public mapMarkers: L.Marker[] = [];
     fullScreenImage: boolean = false;
-
+    public profilePage: Page = {route: '/profile', name: 'Profile', protected: true};
 
     ngOnInit(): void {
     }
@@ -309,5 +310,14 @@ export class ImageViewDialogComponent implements OnInit, OnDestroy {
 
             });
         }
+    }
+
+    saveImage() {
+        this.imageService.updateImage(this.image).subscribe(value => this.image = value);
+    }
+
+    onUserClickEvent(event: MouseEvent, userId: string) {
+        this.router.navigate([this.profilePage.route + '/' + userId + '/ ']);
+        if (event.stopPropagation) event.stopPropagation();
     }
 }
