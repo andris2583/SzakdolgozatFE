@@ -26,6 +26,7 @@ import {MAT_TOOLTIP_DEFAULT_OPTIONS} from '@angular/material/tooltip';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {ProfileModule} from './modules/profile/profile.module';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import {ProfileModule} from './modules/profile/profile.module';
         MatInputModule,
         SharedModule,
         LeafletModule,
-        ProfileModule
+        ProfileModule,
+        MatProgressBarModule
     ],
     providers: [
         // {

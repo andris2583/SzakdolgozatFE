@@ -30,7 +30,7 @@
 - [] Filterek (pl: szépia, élénk, film)
 - [X] EXIF információ feldolgozása
     - [X] Térképen lokáció
-    - [] Idővonal
+    - [X] Idővonal
     - [X] GPS koordináta alapján szűrés
 
 ## TODO
@@ -63,15 +63,15 @@
 - ~~private/public collection, image accessibility~~
 - ~~edit collections,images~~
 - ~~Navigate to specific page of user with dropdown menu~~
-- appTag width from px to vw
-- Routing scrolltop not fucking working
+- ~~appTag width from px to vw~~
+- ~~Routing scrolltop not fucking working~~
 - ~~Weird af zindex bug on dashboard header-tag component~~
 - ~~leaflet~~
 - Show tags no currently in use, but mark them so user knows they are empty
 - ~~randomize tag component images so not always the same~~
 - ~~seasonal dashboard image~~
 - components not getting destroyed after logout
-- megosztás user, ~~link~~ stb
+- megosztás user, ~~link~~
 - ~~see other peoples profiles~~
 - ~~search for others profiles by username~~
 - ~~like in imageViewDialog~~
@@ -80,11 +80,14 @@
 - ImageId -> Userid hasaccess map String -> String[]
 - update images list when imageuploaddialog emits
 - ~~Maybe something is buggy with removing images when deleted from collections~~
-- Fullscreen image on click
+- ~~Fullscreen image on click~~
 - ~~Delete from not dialog view,redirect~~
 - ~~Only reload d change if circle is set~~
 - Click on filter circle closes tab for some fuckeng reason
 - Clear location filtering
+- Size limit for users: FREE/PRO/UNLIMITED
+- Edit profile
+
 
 - ~~Every user has default liked photos collection~~
 - ~~Can create collection~~

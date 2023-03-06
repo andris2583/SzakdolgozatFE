@@ -13,6 +13,7 @@ import {BatchImageRequest} from '../../models/request/batch-image-request.model'
 import {FileHandle} from '../../directives/drag-drop/drag-drop.directive';
 import {Privacy} from '../../models/privacy';
 import {Page} from '../../models/page.model';
+import {SubscriptionType, SubscriptionTypeMBSize} from '../../models/request/subscription-type';
 
 @Component({
     selector: 'app-profile',
@@ -32,10 +33,12 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     public isOwner: boolean = false;
     public profilePage: Page = {route: '/profile', name: 'Profile', protected: true};
     public profilePictureURL: string | null = null;
+    public subscriptionType = SubscriptionType;
     @ViewChild('profileTabSelector') profileTabSelector: ElementRef | undefined;
     imageCount: Observable<number> = new Observable<number>();
     likeCount: Observable<number> = new Observable<number>();
     viewCount: Observable<number> = new Observable<number>();
+    storage: Observable<number> = new Observable<number>();
 
     constructor(public authService: AuthService,
                 public router: Router,
@@ -67,6 +70,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
                 this.imageCount = this.imageService.getCountByUser(this.user.id);
                 this.likeCount = this.imageService.getLikesByUser(this.user.id);
                 this.viewCount = this.imageService.getViewsByUser(this.user.id);
+                this.storage = this.imageService.getStorageByUser(this.user.id);
                 this.collections = this.collectionService.getCollectionsByUserId(this.user!.id).pipe(map(collections => {
                     if (this.isOwner) {
                         return collections;
@@ -163,10 +167,39 @@ export class ProfileComponent implements OnInit, AfterViewInit {
         this.likeCount = this.imageService.getLikesByUser(this.user.id);
         // @ts-ignore
         this.viewCount = this.imageService.getViewsByUser(this.user.id);
+        // @ts-ignore
+        this.storage = this.imageService.getStorageByUser(this.user.id);
     }
 
     imageOpened() {
         // @ts-ignore
         this.viewCount = this.imageService.getViewsByUser(this.user.id);
+    }
+
+    byteToMb(async: number | null) {
+        if (async) {
+            return Math.ceil(async / 1048576);
+        } else {
+            return 0;
+        }
+    }
+
+    getMaxStorage(): number {
+        switch (this.user?.subscriptionType) {
+            case SubscriptionType.PRO:
+                return SubscriptionTypeMBSize.PRO;
+            case SubscriptionType.FREE:
+                return SubscriptionTypeMBSize.FREE;
+            default:
+                return 0;
+        }
+    }
+
+    getStorageValue(async: number | null) {
+        if (async) {
+            return Math.ceil((this.byteToMb(async) / this.getMaxStorage()) * 100);
+        } else {
+            return 0;
+        }
     }
 }

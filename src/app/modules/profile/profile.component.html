@@ -4,11 +4,13 @@
                alt=""/>
         <label for="profile-upload" class="area area-hover" appDragDrop *ngIf="user && isOwner"
                [style.background-image]="'url('+profilePictureURL+')'"
+               [style.box-shadow]="user.subscriptionType == subscriptionType.PRO ? '0 0 50px 15px #E0C748FF' : ''"
                (files)="filesDropped($event)"></label>
         <div class="area" *ngIf="!isOwner && user"
+             [style.box-shadow]="user.subscriptionType == subscriptionType.PRO ? '0 0 50px 15px #E0C748FF' : ''"
              [style.background-image]="'url('+profilePictureURL+')'"></div>
         <div
-            style="display: flex;justify-content: center;align-items: center;font-size: 28px;position: relative">{{user?.username}}
+            style="display: flex;justify-content: center;align-items: center;font-size: 28px;position: relative;margin-top: 1vw">{{user?.username}}
             <a *ngIf="isOwner" style="position: absolute;left: 150%" mat-stroked-button>Edit profile</a>
         </div>
         <div
@@ -36,7 +38,14 @@
                 {{likeCount | async}}
             </div>
         </div>
-        <div>
+        <div *ngIf="isOwner" style="width: 100%;margin-top: 0.5vw;">
+            <mat-progress-bar mode="determinate" [value]="getStorageValue(storage | async)"></mat-progress-bar>
+        </div>
+        <div *ngIf="isOwner" class="storage-container">
+            <div>{{byteToMb(storage | async)}} MB</div>
+            <div>{{getMaxStorage()}} MB</div>
+        </div>
+        <div style="margin-top: 1.5vw">
             <a *ngIf="isOwner" mat-stroked-button (click)="logOut()">Logout</a>
         </div>
     </div>

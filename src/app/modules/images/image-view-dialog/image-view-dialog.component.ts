@@ -319,5 +319,6 @@ export class ImageViewDialogComponent implements OnInit, OnDestroy {
     onUserClickEvent(event: MouseEvent, userId: string) {
         this.router.navigate([this.profilePage.route + '/' + userId + '/ ']);
         if (event.stopPropagation) event.stopPropagation();
+        this.dialogRef.close();
     }
 }

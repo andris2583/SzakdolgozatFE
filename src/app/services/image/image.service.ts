@@ -70,6 +70,10 @@ export class ImageService {
         return this.httpClient.get<number>(this.baseUrl + '/getViewsByUser/' + id);
     }
 
+    getStorageByUser(id: string): Observable<number> {
+        return this.httpClient.get<number>(this.baseUrl + '/getStorageByUser/' + id);
+    }
+
     getImageLikes(id: string): Observable<number> {
         return this.httpClient.get<number>(this.baseUrl + '/getImageLikes/' + id);
     }
