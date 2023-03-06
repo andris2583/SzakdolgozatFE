@@ -6,6 +6,7 @@ import exifr from 'exifr';
 import {FileHandle} from '../../../directives/drag-drop/drag-drop.directive';
 import {Privacy} from '../../../models/privacy';
 import {AuthService} from '../../../services/auth/auth.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-image-upload-dialog',
@@ -19,6 +20,7 @@ export class ImageUploadDialogComponent implements OnInit {
         public dialogRef: MatDialogRef<any>,
         private imageService: ImageService,
         private authService: AuthService,
+        private snackBar: MatSnackBar,
     ) {
     }
 
@@ -61,6 +63,8 @@ export class ImageUploadDialogComponent implements OnInit {
                             delete image.properties[prop[0]];
                         }
                     }
+                    // @ts-ignore
+                    image.properties['size'] = files[i].size;
                 });
             const reader = new FileReader();
             reader.readAsDataURL(files[i]);
@@ -78,12 +82,18 @@ export class ImageUploadDialogComponent implements OnInit {
     }
 
     uploadButtonClick() {
-        for (let image of this.images) {
-            this.imageService.insertImage(image).subscribe(value => {
-                this.uploadImage.emit(value);
-            });
-        }
-        this.dialogRef.close();
+        let sizeSum = this.images.map(image => image.properties['size']).reduce((partialSum, a) => partialSum + a, 0);
+        this.imageService.getStorageByUser(this.authService.getCurrentUser().id).subscribe(usedStorage => {
+            if (usedStorage + sizeSum < this.authService.getMaxStorage())
+                for (let image of this.images) {
+                    this.imageService.insertImage(image).subscribe(value => {
+                        this.uploadImage.emit(value);
+                    });
+                    this.dialogRef.close();
+                } else {
+                this.snackBar.open('Space limit exceeded, try removing images!', '', {duration: 5000});
+            }
+        });
     }
 
 

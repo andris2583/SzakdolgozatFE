@@ -3,6 +3,7 @@ import {User} from '../../models/user.model';
 import {HttpClient, HttpHeaders,} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {Subject} from 'rxjs';
+import {SubscriptionType, SubscriptionTypeMBSize} from '../../models/request/subscription-type';
 
 @Injectable({
     providedIn: 'root',
@@ -77,5 +78,16 @@ export class AuthService {
     getCurrentUser(): User {
         // @ts-ignore
         return this.currentUser;
+    }
+
+    getMaxStorage(): number {
+        switch (this.currentUser!.subscriptionType) {
+            case SubscriptionType.PRO:
+                return SubscriptionTypeMBSize.PRO * 1000000;
+            case SubscriptionType.FREE:
+                return SubscriptionTypeMBSize.FREE * 1000000;
+            default:
+                return SubscriptionTypeMBSize.FREE * 1000000;
+        }
     }
 }
