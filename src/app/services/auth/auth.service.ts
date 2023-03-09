@@ -53,6 +53,10 @@ export class AuthService {
         return this.http.put<boolean>(this.baseUrl + '/uploadProfilePicture', array);
     }
 
+    updateUser(user: User) {
+        return this.http.put<boolean>(this.baseUrl + '/update', user);
+    }
+
     getAllUsers() {
         return this.http.get<User[]>(this.baseUrl + '/getAll');
     }

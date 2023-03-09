@@ -202,4 +202,11 @@ export class ProfileComponent implements OnInit, AfterViewInit {
             return 0;
         }
     }
+
+    saveUser() {
+        if (this.user) {
+            this.authService.updateUser(this.user).subscribe(() => {
+            });
+        }
+    }
 }

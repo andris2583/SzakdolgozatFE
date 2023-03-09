@@ -50,7 +50,7 @@
                         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
                             <mat-option *ngFor="let suggestion of filteredSuggestions | async | slice:0:10;"
                                         [value]="suggestion"
-                                        (click)="addTag(suggestion)">
+                                        (click)="addTag(suggestion,$event)">
                                 <span>{{suggestion}}</span>
                             </mat-option>
                         </mat-autocomplete>
@@ -68,7 +68,7 @@
                     <mat-chip class="tag-chip" *ngFor="let tag of batchImageRequest.tags">
                         <span routerLink="/images/list/{{tag}}" [mat-dialog-close]="true">{{tag}}</span>
                         <!--        &nbsp;&nbsp;&nbsp;&nbsp;-->
-                        <button matChipRemove (click)="deleteTag(tag)">
+                        <button matChipRemove (click)="deleteTag(tag,$event)">
                             <mat-icon>cancel</mat-icon>
                         </button>
                     </mat-chip>
@@ -102,10 +102,12 @@
                 ></div>
             </div>
             <div class="distance-slider-container">
-                <mat-slider min="1000" max="2500000" step="1000" (input)="distanceChanged($event)" discrete
-                            style="width: 100%">
+                <mat-slider style="width: 100%" min="1000" max="2500000" step="1000" (input)="distanceChanged($event)"
+                            discrete>
                 </mat-slider>
-
+                <button mat-icon-button (click)="clearGeolocation()">
+                    <mat-icon>close</mat-icon>
+                </button>
             </div>
         </div>
         <button #sortTabButton class="filter-sort-button" (click)="sortButtonClicked()" mat-raised-button>

@@ -1,69 +1,82 @@
-<div class="tab-title">{{selectedTimelineOption.name}} timeline</div>
-<mat-form-field appearance="fill" style="margin-left: 2vw">
-    <mat-label>Timeline type</mat-label>
-    <mat-select [(ngModel)]="selectedTimelineOption" (selectionChange)="calculateTimeline()">
-        <mat-option *ngFor="let timelineOption of timelineOptions" [value]="timelineOption">
-            {{timelineOption.name}}
-        </mat-option>
-    </mat-select>
-</mat-form-field>
-<div style="display: flex;justify-content: center;align-items: flex-start;flex-wrap: nowrap
+<ng-container *ngIf="images.length">
+    <div class="tab-title">{{selectedTimelineOption.name}} timeline</div>
+    <mat-form-field appearance="fill" style="margin-left: 2vw">
+        <mat-label>Timeline type</mat-label>
+        <mat-select [(ngModel)]="selectedTimelineOption" (selectionChange)="calculateTimeline()">
+            <mat-option *ngFor="let timelineOption of timelineOptions" [value]="timelineOption">
+                {{timelineOption.name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <div style="display: flex;justify-content: center;align-items: flex-start;flex-wrap: nowrap
 ">
-    <div class="timeline-container">
-        <!--    <div *ngFor="let image of images | async">-->
-        <!--        {{image.name}}-->
-        <!--    </div>-->
-        <div *ngFor="let i = index;let step of steps">
-            <div class="timeline-stick-container" *ngIf="i != 0">
-                <div class="timeline-stick"></div>
-            </div>
-            <div class="timeline-data-container" (click)="timelineStepClick(step)">
-                <div class="timeline-dot">
-                    <mat-icon class="timeline-dot-icon">radio_button_checked</mat-icon>
+        <div class="timeline-container">
+            <!--    <div *ngFor="let image of images | async">-->
+            <!--        {{image.name}}-->
+            <!--    </div>-->
+            <div *ngFor="let i = index;let step of steps">
+                <div class="timeline-stick-container" *ngIf="i != 0">
+                    <div class="timeline-stick"></div>
                 </div>
-                <div class="timeline-data" [ngClass]="i % 2 == 0 ? 'timeline-data-left' : 'timeline-data-right'">
-                    <!--                    {{step.date}}-->
-                    <!--                    <span *ngFor="let image of step.images">{{image.name}}<br></span>-->
-                    <div>
-                        <img class="preview-image-container shared-image-box-shadow"
-                             style="bottom: 0;position: absolute;z-index: 2"
-                             [src]="'http://localhost:8080/image/getImageThumbnailData/'+step.images[0 % step.images.length].id">
+                <div class="timeline-data-container" (click)="timelineStepClick(step)">
+                    <div class="timeline-dot">
+                        <mat-icon class="timeline-dot-icon">radio_button_checked</mat-icon>
                     </div>
-                    <div>
-                        <img class="preview-image-container shared-image-box-shadow preview-image-left"
-                             style="position: absolute;"
-                             [src]="'http://localhost:8080/image/getImageThumbnailData/'+step.images[1 % step.images.length].id">
+                    <div class="timeline-data" [ngClass]="i % 2 == 0 ? 'timeline-data-left' : 'timeline-data-right'">
+                        <!--                    {{step.date}}-->
+                        <!--                    <span *ngFor="let image of step.images">{{image.name}}<br></span>-->
+                        <div>
+                            <img class="preview-image-container shared-image-box-shadow"
+                                 style="bottom: 0;position: absolute;z-index: 2"
+                                 [src]="'http://localhost:8080/image/getImageThumbnailData/'+step.images[0 % step.images.length].id">
+                        </div>
+                        <div>
+                            <img class="preview-image-container shared-image-box-shadow preview-image-left"
+                                 style="position: absolute;"
+                                 [src]="'http://localhost:8080/image/getImageThumbnailData/'+step.images[1 % step.images.length].id">
+                        </div>
+                        <div>
+                            <img class="preview-image-container shared-image-box-shadow preview-image-right"
+                                 style="position: absolute;"
+                                 [src]="'http://localhost:8080/image/getImageThumbnailData/'+step.images[2 % step.images.length].id">
+                        </div>
                     </div>
-                    <div>
-                        <img class="preview-image-container shared-image-box-shadow preview-image-right"
-                             style="position: absolute;"
-                             [src]="'http://localhost:8080/image/getImageThumbnailData/'+step.images[2 % step.images.length].id">
+                    <div [ngClass]="i % 2 == 0 ? 'timeline-data-date-right' : 'timeline-data-date-left'">
+                        {{getFormattedDate(step.date)}}
                     </div>
-                </div>
-                <div [ngClass]="i % 2 == 0 ? 'timeline-data-date-right' : 'timeline-data-date-left'">
-                    {{getFormattedDate(step.date)}}
                 </div>
             </div>
         </div>
+        <div class="timeline-images-container">
+            <ngx-masonry style="margin-bottom: 2vh;width: 100%"
+                         [options]="masonryOptions" infiniteScroll
+                         [infiniteScrollDistance]="0"
+                         (scrolled)="loadImageDataForList()"
+                         [fromRoot]="true"
+                         [infiniteScrollContainer]="'.app-body-container'"
+                         [scrollWindow]="false">
+                <ng-container>
+                    <div ngxMasonryItem *ngFor="let image of images"
+                         class="shared-image-box-shadow image-masonry-container masonry-item-width"
+                         (click)="imageClicked(image)">
+                        <img class="masonry-item-width" style="margin-bottom: -6px;"
+                             [src]="image.imgB64 | sanitizeImage" alt="X">
+                        <!--                <div class="image-hover-data"-->
+                        <!--                     style="position: absolute;bottom: 5px;left: 10px;color: white;z-index: 10">{{image.name | getNoExtensionName}}</div>-->
+                    </div>
+                </ng-container>
+            </ngx-masonry>
+        </div>
     </div>
-    <div class="timeline-images-container">
-        <ngx-masonry style="margin-bottom: 2vh;width: 100%"
-                     [options]="masonryOptions" infiniteScroll
-                     [infiniteScrollDistance]="0"
-                     (scrolled)="loadImageDataForList()"
-                     [fromRoot]="true"
-                     [infiniteScrollContainer]="'.app-body-container'"
-                     [scrollWindow]="false">
-            <ng-container>
-                <div ngxMasonryItem *ngFor="let image of images"
-                     class="shared-image-box-shadow image-masonry-container masonry-item-width"
-                     (click)="imageClicked(image)">
-                    <img class="masonry-item-width" style="margin-bottom: -6px;"
-                         [src]="image.imgB64 | sanitizeImage" alt="X">
-                    <!--                <div class="image-hover-data"-->
-                    <!--                     style="position: absolute;bottom: 5px;left: 10px;color: white;z-index: 10">{{image.name | getNoExtensionName}}</div>-->
-                </div>
-            </ng-container>
-        </ngx-masonry>
+</ng-container>
+<div *ngIf="!images.length">
+    <div style="display: flex;justify-content: center;align-items: center;flex-wrap: wrap;flex-direction: row">
+        <div
+            style="width: 100%;display: flex;justify-content: center;align-items: center;margin-top: 2vw;margin-bottom: 2vw">
+            <img
+                class="empty-tab-image"
+                [src]="'https://raw.githubusercontent.com/material-icons/material-icons/af0ed9c0e1276bad43c4d6ca8e8aaa283e425195/svg/image_not_supported/baseline.svg'">
+        </div>
+        <div style="font-size: 28px">No images found for timeline</div>
     </div>
 </div>

@@ -159,4 +159,7 @@
 .distance-slider-container {
     padding: 0 1vw 0 1vw;
     width: calc(100% - 2vw);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

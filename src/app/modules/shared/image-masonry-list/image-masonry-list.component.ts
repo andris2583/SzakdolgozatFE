@@ -213,7 +213,7 @@ export class ImageMasonryListComponent implements OnInit, OnChanges {
     }
 
     selectAll() {
-        this.selection = this.images;
+        this.selection = [...this.images];
     }
 
     deselectAll() {

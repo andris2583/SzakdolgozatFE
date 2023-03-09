@@ -13,7 +13,7 @@ import {LoginModule} from './modules/login/login.module';
 import {ProfileComponent} from './modules/profile/profile.component';
 import {MatButtonModule} from '@angular/material/button';
 import {RegisterComponent} from './modules/register/register.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TagListModule} from './modules/tags/tag-list.module';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatGridListModule} from '@angular/material/grid-list';
@@ -57,7 +57,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
         SharedModule,
         LeafletModule,
         ProfileModule,
-        MatProgressBarModule
+        MatProgressBarModule,
+        FormsModule
     ],
     providers: [
         // {

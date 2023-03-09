@@ -85,9 +85,9 @@
 - ~~Only reload d change if circle is set~~
 - Click on filter circle closes tab for some fuckeng reason
 - Clear location filtering
-- Size limit for users: FREE/PRO/UNLIMITED
+- ~~Size limit for users: FREE/PRO/UNLIMITED~~
 - Edit profile
-- Disable upload if storage would be over capacity
+- ~~Disable upload if storage would be over capacity~~
 
 
 - ~~Every user has default liked photos collection~~

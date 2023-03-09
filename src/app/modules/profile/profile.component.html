@@ -10,8 +10,12 @@
              [style.box-shadow]="user.subscriptionType == subscriptionType.PRO ? '0 0 50px 15px #E0C748FF' : ''"
              [style.background-image]="'url('+profilePictureURL+')'"></div>
         <div
-            style="display: flex;justify-content: center;align-items: center;font-size: 28px;position: relative;margin-top: 1vw">{{user?.username}}
-            <a *ngIf="isOwner" style="position: absolute;left: 150%" mat-stroked-button>Edit profile</a>
+            style="display: flex;justify-content: center;align-items: center;position: relative;margin-top: 1vw">
+            <input *ngIf="user!.username.length > -1" [disabled]="authService.getCurrentUser().id != user!.id"
+                   class="user-name"
+                   [style.width]="user!.username.length+1+'ch'"
+                   [(ngModel)]="user!.username" (change)="saveUser()">
+            <!--            <a *ngIf="isOwner" style="position: absolute;left: 150%" mat-stroked-button>Edit profile</a>-->
         </div>
         <div
             style="display: grid;column-gap: 1vw;row-gap: 1vw;margin-top: 2vw;margin-bottom: 2vw;grid-template-columns: 4vw 0.1vw 4vw 0.1vw 4vw;">
@@ -65,20 +69,41 @@
 
 <div>
     <div *ngIf="activeTab == tabEnum.IMAGES" style="margin-top: 1vw;">
+        <ng-container *ngIf="images.length;then USER_IMAGES;else USER_NO_IMAGES"></ng-container>
+    </div>
+    <ng-template #USER_IMAGES>
         <div class="tab-title" *ngIf="isOwner">Your images</div>
+        <div class="tab-title" *ngIf="!isOwner">{{user!.username}}'s images</div>
         <app-image-masonry-list (loadImageData)="loadImageData()" [images]="images"
                                 (collectionChanged)="collectionsChanged()" (imageDeleted)="imageDeleted()"
                                 (imageOpened)="imageOpened()"
                                 [userCollections]="collectionsValue"></app-image-masonry-list>
-    </div>
+    </ng-template>
+    <ng-template #USER_NO_IMAGES>
+        <div style="display: flex;justify-content: center;align-items: center;flex-wrap: wrap;flex-direction: row">
+            <div
+                style="width: 100%;display: flex;justify-content: center;align-items: center;margin-top: 2vw;margin-bottom: 2vw">
+                <img
+                    class="empty-tab-image"
+                    [src]="'https://raw.githubusercontent.com/material-icons/material-icons/af0ed9c0e1276bad43c4d6ca8e8aaa283e425195/svg/image_not_supported/baseline.svg'">
+            </div>
+            <div style="font-size: 28px">No images found</div>
+        </div>
+    </ng-template>
     <div *ngIf="activeTab == tabEnum.COLLECTIONS">
+        <ng-container
+            *ngIf="(collections | async)?.length;then USER_COLLECTION;else USER_NO_COLLECTION"></ng-container>
+    </div>
+    <ng-template #USER_COLLECTION>
         <div class="tab-title" *ngIf="isOwner">Your collections</div>
+        <div class="tab-title" *ngIf="!isOwner">{{user!.username}}'s collections</div>
         <!--        <div *ngFor="let collection of (collections | async)">-->
         <!--            <div>{{collection.name}}</div>-->
         <!--            <div *ngFor="let imageId of collection.imageIds">&nbsp;&nbsp;&nbsp;&nbsp;{{imageId}}</div>-->
         <!--        </div>-->
         <div class="collection-list-container">
-            <div *ngFor="let collection of (collections | async)" class="collection-grid-tile shared-image-box-shadow"
+            <div *ngFor="let collection of (collections | async)"
+                 class="collection-grid-tile shared-image-box-shadow"
                  routerLink="/collection/{{collection.id}}">
                 <img *ngIf="collection.imageIds.length != 0" class="collection-image"
                      style="margin-bottom: -6px;"
@@ -90,14 +115,26 @@
                 <div class="collection-image-data"></div>
             </div>
         </div>
-
-
-    </div>
+    </ng-template>
+    <ng-template #USER_NO_COLLECTION>
+        <div style="display: flex;justify-content: center;align-items: center;flex-wrap: wrap;flex-direction: row">
+            <div
+                style="width: 100%;display: flex;justify-content: center;align-items: center;margin-top: 2vw;margin-bottom: 2vw">
+                <img
+                    class="empty-tab-image"
+                    [src]="'https://raw.githubusercontent.com/material-icons/material-icons/af0ed9c0e1276bad43c4d6ca8e8aaa283e425195/svg/image_not_supported/baseline.svg'">
+            </div>
+            <div style="font-size: 28px">No collections found</div>
+        </div>
+    </ng-template>
     <div *ngIf="activeTab == tabEnum.STATISTICS && isOwner">
         IMPLEMENT PROFILE STATISTICS
     </div>
-    <div *ngIf="user" [style.display]="(activeTab == tabEnum.TIMELINE) ? 'inline' : 'none'">
-        <app-image-timeline [user]="user"></app-image-timeline>
-    </div>
+    <div *ngIf="user;then USER_TIMELINE;else USER_NO_TIMELINE"></div>
+    <ng-template #USER_TIMELINE>
+        <app-image-timeline [style.display]="(activeTab == tabEnum.TIMELINE) ? 'inline' : 'none'"
+                            [user]="user"></app-image-timeline>
+    </ng-template>
+    <ng-template #USER_NO_TIMELINE></ng-template>
 </div>
 <div style="height: 40vh"></div>

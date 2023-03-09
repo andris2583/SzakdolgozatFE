@@ -105,21 +105,23 @@ export class ImageTimelineComponent implements OnInit {
     }
 
     calculateTimeline() {
-        let startDate = this.loadedImages[0].uploaded;
-        let tempImages: Image[] = [];
-        this.steps = [];
-        for (let image of this.loadedImages) {
-            if (new Date(image.uploaded).getTime() < new Date(startDate).getTime() + this.selectedTimelineOption.value) {
-                tempImages.push(image);
-            } else {
-                this.steps.push({images: tempImages, date: startDate});
-                tempImages = [];
-                startDate = image.uploaded;
-                tempImages.push(image);
+        if (this.loadedImages && this.loadedImages.length) {
+            let startDate = this.loadedImages[0].uploaded;
+            let tempImages: Image[] = [];
+            this.steps = [];
+            for (let image of this.loadedImages) {
+                if (new Date(image.uploaded).getTime() < new Date(startDate).getTime() + this.selectedTimelineOption.value) {
+                    tempImages.push(image);
+                } else {
+                    this.steps.push({images: tempImages, date: startDate});
+                    tempImages = [];
+                    startDate = image.uploaded;
+                    tempImages.push(image);
+                }
             }
-        }
-        if (this.loadedImages) {
-            this.steps.push({images: tempImages, date: startDate});
+            if (this.loadedImages) {
+                this.steps.push({images: tempImages, date: startDate});
+            }
         }
     }
 

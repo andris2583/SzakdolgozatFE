@@ -133,3 +133,19 @@
     width: 100%;
     justify-content: space-between;
 }
+
+.user-name {
+    -webkit-appearance: none;
+    border: 0;
+    text-align: center;
+    background-color: white;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 28px;
+    font-weight: 500;
+}
+
+.empty-tab-image {
+    width: 20%;
+    filter: opacity(0.5);
+
+}

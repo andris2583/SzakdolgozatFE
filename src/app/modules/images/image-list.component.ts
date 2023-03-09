@@ -189,7 +189,7 @@ export class ImageListComponent implements OnInit {
         this.loadImageData();
     }
 
-    addTag(value: any) {
+    addTag(value: any, event?: Event) {
         if (value == null) {
             value = this.tagSearch.value;
         }
@@ -200,9 +200,11 @@ export class ImageListComponent implements OnInit {
             this.images = [];
             this.loadImageData();
         }
+        if (event?.stopPropagation) event.stopPropagation();
+
     }
 
-    deleteTag(tagToDelete: any) {
+    deleteTag(tagToDelete: any, event?: Event) {
         this.batchImageRequest.tags = this.batchImageRequest.tags.filter(tempTag => tempTag != tagToDelete);
         if (this.batchImageRequest.tags.length == 0) {
             this.router.navigate(['images/list/ ']);
@@ -212,6 +214,7 @@ export class ImageListComponent implements OnInit {
             this.images = [];
             this.loadImageData();
         }
+        if (event?.stopPropagation) event.stopPropagation();
     }
 
     filter(value: string): Tag[] {
@@ -320,6 +323,18 @@ export class ImageListComponent implements OnInit {
         } else if (this.batchImageRequest.requestOrderType == RequestOrderType.DESC) {
             this.batchImageRequest.requestOrderType = RequestOrderType.ASC;
         }
+        this.images = [];
+        this.batchImageRequest.pageCount = 0;
+        this.loadImageData();
+    }
+
+    clearGeolocation() {
+        if (this.mapMarker && this.map) {
+            this.map.removeLayer(this.mapMarker);
+        }
+        this.batchImageRequest.requestFilter!.latitude = null;
+        this.batchImageRequest.requestFilter!.longitude = null;
+        this.batchImageRequest.requestFilter!.distance = null;
         this.images = [];
         this.batchImageRequest.pageCount = 0;
         this.loadImageData();
