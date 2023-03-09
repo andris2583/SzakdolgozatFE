@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
     public pages = new Pages().pages;
 
-    public profileTabs = [ProfileTabs.IMAGES, ProfileTabs.COLLECTIONS, ProfileTabs.STATISTICS, ProfileTabs.TIMELINE];
+    public profileTabs = [ProfileTabs.IMAGES, ProfileTabs.COLLECTIONS, ProfileTabs.TIMELINE];
 
     public profilePage: Page = {route: '/profile', name: 'Profile', protected: true};
 

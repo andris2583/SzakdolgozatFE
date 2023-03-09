@@ -72,19 +72,10 @@ export class CollectionComponent implements OnInit {
     }
 
     editButtonClicked() {
-        this.editingName = !this.editingName;
-        if (this.editingName) {
-            setTimeout(() => {
-                if (this.collectionNameForm) {
-                    this.collectionNameForm.nativeElement.focus();
-                }
-            }, 0);
-        } else {
-            if (this.collection) {
-                this.collectionService.saveCollection(this.collection).subscribe(value => {
-                    this.collection = value;
-                });
-            }
+        if (this.collection) {
+            this.collectionService.saveCollection(this.collection).subscribe(value => {
+                this.collection = value;
+            });
         }
     }
 

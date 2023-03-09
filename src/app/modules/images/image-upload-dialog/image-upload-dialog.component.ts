@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
 import {ImageService} from '../../../services/image/image.service';
 import {Image} from '../../../models/image.model';
@@ -7,6 +7,7 @@ import {FileHandle} from '../../../directives/drag-drop/drag-drop.directive';
 import {Privacy} from '../../../models/privacy';
 import {AuthService} from '../../../services/auth/auth.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {ImageUtilService} from '../../../services/image/image-util.service';
 
 @Component({
     selector: 'app-image-upload-dialog',
@@ -21,11 +22,9 @@ export class ImageUploadDialogComponent implements OnInit {
         private imageService: ImageService,
         private authService: AuthService,
         private snackBar: MatSnackBar,
+        private imageUtilService: ImageUtilService
     ) {
     }
-
-    @Output()
-    uploadImage = new EventEmitter<Image>();
 
     public images: Image[] = [];
 
@@ -87,7 +86,7 @@ export class ImageUploadDialogComponent implements OnInit {
             if (usedStorage + sizeSum < this.authService.getMaxStorage())
                 for (let image of this.images) {
                     this.imageService.insertImage(image).subscribe(value => {
-                        this.uploadImage.emit(value);
+                        this.imageUtilService.imageUploadSubject.next(value);
                     });
                     this.dialogRef.close();
                 } else {

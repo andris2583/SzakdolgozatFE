@@ -84,9 +84,9 @@
 - ~~Delete from not dialog view,redirect~~
 - ~~Only reload d change if circle is set~~
 - Click on filter circle closes tab for some fuckeng reason
-- Clear location filtering
+- ~~Clear location filtering~~
 - ~~Size limit for users: FREE/PRO/UNLIMITED~~
-- Edit profile
+- ~~Edit profile~~
 - ~~Disable upload if storage would be over capacity~~
 
 

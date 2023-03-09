@@ -4,11 +4,15 @@ import {RequestOrderByType} from '../../models/request/request-order-by-type';
 import {RequestOrderType} from '../../models/request/request-order-type';
 import {RequestTagType} from '../../models/request/request-tag-type';
 import {AuthService} from '../auth/auth.service';
+import {Subject} from 'rxjs';
+import {Image} from '../../models/image.model';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ImageUtilService {
+
+    private _imageUploadSubject: Subject<Image> = new Subject<Image>();
 
     private _defaultBatchImageRequest: BatchImageRequest = {
         tags: [],
@@ -40,5 +44,10 @@ export class ImageUtilService {
 
     get defaultBatchImageRequest(): BatchImageRequest {
         return structuredClone(this._defaultBatchImageRequest);
+    }
+
+
+    get imageUploadSubject(): Subject<Image> {
+        return this._imageUploadSubject;
     }
 }

@@ -24,7 +24,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
 
     public user: User | null = null;
     public tabEnum = ProfileTabs;
-    public tabs = [ProfileTabs.IMAGES, ProfileTabs.COLLECTIONS, ProfileTabs.TIMELINE, ProfileTabs.STATISTICS];
+    public tabs = [ProfileTabs.IMAGES, ProfileTabs.COLLECTIONS, ProfileTabs.TIMELINE];
     public activeTab = ProfileTabs.IMAGES;
     public collections: Observable<Collection[]> = new Observable<Collection[]>();
     public collectionsValue: Collection[] = [];
@@ -39,6 +39,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     likeCount: Observable<number> = new Observable<number>();
     viewCount: Observable<number> = new Observable<number>();
     storage: Observable<number> = new Observable<number>();
+    emited: boolean = false;
 
     constructor(public authService: AuthService,
                 public router: Router,
@@ -116,6 +117,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
 
     loadImageData() {
         this.imageService.getImages(this.batchImageRequest).subscribe(value => {
+            this.emited = true;
             this.images = this.images.concat(value);
         });
 

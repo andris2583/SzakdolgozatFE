@@ -79,6 +79,9 @@ export class ImageMasonryListComponent implements OnInit, OnChanges {
                 this.userCollections = value;
             });
         }
+        this.imageUtilService.imageUploadSubject.subscribe(uploadedImage => {
+            this.images.push(uploadedImage);
+        });
     }
 
     ngOnChanges(changes: SimpleChanges) {

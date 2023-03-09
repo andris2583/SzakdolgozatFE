@@ -80,7 +80,8 @@
                                 [userCollections]="collectionsValue"></app-image-masonry-list>
     </ng-template>
     <ng-template #USER_NO_IMAGES>
-        <div style="display: flex;justify-content: center;align-items: center;flex-wrap: wrap;flex-direction: row">
+        <div *ngIf="emited"
+             style="display: flex;justify-content: center;align-items: center;flex-wrap: wrap;flex-direction: row">
             <div
                 style="width: 100%;display: flex;justify-content: center;align-items: center;margin-top: 2vw;margin-bottom: 2vw">
                 <img
