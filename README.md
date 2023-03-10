@@ -88,6 +88,7 @@
 - ~~Size limit for users: FREE/PRO/UNLIMITED~~
 - ~~Edit profile~~
 - ~~Disable upload if storage would be over capacity~~
+- selection delete
 
 
 - ~~Every user has default liked photos collection~~

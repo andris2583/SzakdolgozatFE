@@ -90,6 +90,7 @@ export class ImageListComponent implements OnInit {
             this.tagName = this.activatedRoute.snapshot.paramMap.get('tag')!.trim();
             this.batchImageRequest.tags = [this.tagName];
         }
+        this.batchImageRequest.loadThumbnails = false;
         this.loadImageData();
         this.generateRandomHeights();
         this.collectionService.getCollectionsByUserId(this.authService.getCurrentUser().id).subscribe(collections => {

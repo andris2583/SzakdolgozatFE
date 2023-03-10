@@ -24,21 +24,25 @@
                     <div class="slider-container" *ngIf="authService.getCurrentUser().id == image.ownerId">
                         {{image.privacy}}
                         <mat-slide-toggle
-                            style="margin-left: 1vw"
-                            class="example-margin"
-                            [checked]='image.privacy == "PUBLIC"'
-                            (change)="privacyChanged()">
-        </mat-slide-toggle>
-    </div>
+                                style="margin-left: 1vw"
+                                class="example-margin"
+                                [checked]='image.privacy == "PUBLIC"'
+                                (change)="privacyChanged()">
+                        </mat-slide-toggle>
+                    </div>
             </span>
+      <button class="dialog-header-button" *ngIf="authService.getCurrentUser().id == image.ownerId" mat-stroked-button
+              (click)="openImageEditDialog()">
+          Edit
+      </button>
       <button class="dialog-header-button" mat-stroked-button *ngIf="userCollections[0]"
               (click)="onFavouriteClickEvent($event)">
           <mat-icon
-              *ngIf="!userCollections[0].imageIds.includes(image.id)">
+                  *ngIf="!userCollections[0].imageIds.includes(image.id)">
                             star_border
           </mat-icon>
           <mat-icon
-              *ngIf="userCollections[0].imageIds.includes(image.id)">star
+                  *ngIf="userCollections[0].imageIds.includes(image.id)">star
           </mat-icon>
           Add to favourites
       </button>
@@ -55,7 +59,7 @@
     </div>
     <div class="image-view-main-content">
         <div
-            style="width: 200px;display: flex;justify-content: center;align-items: flex-start;font-size: 24px;">
+                style="width: 200px;display: flex;justify-content: center;align-items: flex-start;font-size: 24px;">
             <div style="flex: 50%">
                 <div>{{imageViews | async}}</div>
                 <div style="margin-bottom: 1vw;font-size: 18px;">Views</div>
@@ -67,6 +71,7 @@
         </div>
         <div class="image-container" (click)="fullScreenImage = true">
             <img class="shared-image-box-shadow image" *ngIf="image.id"
+                 [style.filter]="imageUtilService.getImageFilterValue(image)"
                  [src]="'http://localhost:8080/image/getImageData/'+image.id"
                  alt="Failed to load image..."
                  (load)="onLoad(true)">
@@ -87,13 +92,13 @@
         </div>
     </div>
     <div
-        style="display: flex;justify-content: space-between;align-items: center;width: 60%;margin-bottom: 6vh;margin-top: 6vh">
+            style="display: flex;justify-content: space-between;align-items: center;width: 60%;margin-bottom: 6vh;margin-top: 6vh">
         <div
-            style="font-size: 30px;display: flex;">
+                style="font-size: 30px;display: flex;">
             Similar images
         </div>
         <div
-            style="font-size: 30px;display: flex;">
+                style="font-size: 30px;display: flex;">
             Properties
         </div>
     </div>
@@ -170,29 +175,29 @@
 
     </div>
     <div style="height: 20vw"></div>
+</div>
 
-    <div class="content" *ngIf="loading">
-        <div class="dialog-header">
-            <span class="dialog-header-left pulse rounded" style="width: 5vw;height: 30px;"></span>
-            <span class="dialog-header-right">
+<div class="content" *ngIf="loading">
+    <div class="dialog-header">
+        <span class="dialog-header-left pulse rounded" style="width: 5vw;height: 30px;"></span>
+        <span class="dialog-header-right">
 <!--      <button class="dialog-header-button pulse rounded" style="width: 5vw;height: 30px;"></button>-->
       <button class="dialog-header-button pulse rounded" style="width: 5vw;height: 30px;"></button>
       <button class="dialog-header-button pulse rounded" style="width: 5vw;height: 30px;"></button>
     </span>
-        </div>
-        <div class="image-container pulse rounded" style="width: 40vw;height: 60vh">
-        </div>
-        <mat-icon class="move-icon" style="left: 6vw" (click)="goLeft()">keyboard_arrow_left</mat-icon>
-        <mat-icon class="move-icon" style="right: 6vw" (click)="goRight()">keyboard_arrow_right</mat-icon>
+    </div>
+    <div class="image-container pulse rounded" style="width: 40vw;height: 60vh">
+    </div>
+    <mat-icon class="move-icon" style="left: 6vw" (click)="goLeft()">keyboard_arrow_left</mat-icon>
+    <mat-icon class="move-icon" style="right: 6vw" (click)="goRight()">keyboard_arrow_right</mat-icon>
 
-    </div>
-    <div id="zoom-image" (click)="fullScreenImage = false"
-         [ngStyle]="fullScreenImage ? {'display' : 'block'} : {'display' : 'none'}"
-         [style.background-image]="'url('+'http://localhost:8080/image/getImageData/'+image.id+')'">
-        <button mat-icon-button style="color: white;left: 98vw;">
-            <mat-icon
+</div>
+<div id="zoom-image" (click)="fullScreenImage = false"
+     [ngStyle]="fullScreenImage ? {'display' : 'block'} : {'display' : 'none'}"
+     [style.background-image]="'url('+'http://localhost:8080/image/getImageData/'+image.id+')'">
+    <button mat-icon-button style="color: white;left: 98vw;">
+        <mat-icon
                 (click)="fullScreenImage = false">close
-            </mat-icon>
-        </button>
-    </div>
+        </mat-icon>
+    </button>
 </div>

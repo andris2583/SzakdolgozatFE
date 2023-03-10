@@ -34,7 +34,7 @@
                *ngIf="shouldPageBeShown(profilePage)"
                mat-stroked-button
                (click)="goToProfile($event)">
-                Profile
+                {{authService.getCurrentUser().username}}
                 <mat-icon #profileDropdownButton (click)="profileDropdownClick($event)">keyboard_arrow_down</mat-icon>
                 <div #profileDropdownTab class="profile-dropdown" *ngIf="profileDropdownOpen">
                     <ng-container *ngFor="let profileTab of profileTabs">

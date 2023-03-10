@@ -5,6 +5,7 @@ import {RequestOrderByType} from '../../../models/request/request-order-by-type'
 import {RequestOrderType} from '../../../models/request/request-order-type';
 import {RequestTagType} from '../../../models/request/request-tag-type';
 import {AuthService} from '../../../services/auth/auth.service';
+import {ImageUtilService} from '../../../services/image/image-util.service';
 
 @Component({
     selector: 'app-tag',
@@ -23,7 +24,7 @@ export class TagComponent implements OnInit {
 
     imageCount: number = 0;
 
-    constructor(private imageService: ImageService, private authService: AuthService) {
+    constructor(private imageService: ImageService, private authService: AuthService, public imageUtilService: ImageUtilService) {
     }
 
     ngOnInit(): void {
@@ -44,16 +45,6 @@ export class TagComponent implements OnInit {
         this.imageService.getImageCountWithTag(this.tagName).subscribe(value => {
             this.imageCount = Math.max(0, value - 4);
         });
-    }
-
-
-    getPreviewImage(index: number): Image {
-        if (this.previewImages.length < index + 1) {
-            return this.previewImages[index % this.previewImages.length];
-        } else {
-            return this.previewImages[index];
-        }
-
     }
 
     getTagNameFontSize() {

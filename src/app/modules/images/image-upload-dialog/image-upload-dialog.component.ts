@@ -81,6 +81,7 @@ export class ImageUploadDialogComponent implements OnInit {
     }
 
     uploadButtonClick() {
+        // @ts-ignore
         let sizeSum = this.images.map(image => image.properties['size']).reduce((partialSum, a) => partialSum + a, 0);
         this.imageService.getStorageByUser(this.authService.getCurrentUser().id).subscribe(usedStorage => {
             if (usedStorage + sizeSum < this.authService.getMaxStorage())

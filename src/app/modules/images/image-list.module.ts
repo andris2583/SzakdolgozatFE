@@ -31,6 +31,7 @@ import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatSliderModule} from '@angular/material/slider';
+import { ImageEditorDialogComponent } from './image-editor-dialog/image-editor-dialog.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import {MatSliderModule} from '@angular/material/slider';
         ImageUploadDialogComponent,
         DragDropDirective,
         ImageTagListComponent,
+        ImageEditorDialogComponent,
     ],
     imports: [
         CommonModule,

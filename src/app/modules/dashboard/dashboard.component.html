@@ -12,7 +12,7 @@
         <div class="dashboard-container-spacer"></div>
         <h1>Seasonal categories</h1>
         <div
-            class="dashboard-content-container">
+                class="dashboard-content-container">
             <app-tag *ngFor="let tag of seasonalTags"
                      [width]="250" [tagName]=tag></app-tag>
         </div>
@@ -20,7 +20,7 @@
         <!--        TODO tags from user favourites-->
         <h1>Categories you may like</h1>
         <div
-            class="dashboard-content-container">
+                class="dashboard-content-container">
             <app-tag *ngFor="let tag of favouriteTags"
                      [width]="250" [tagName]=tag></app-tag>
         </div>
@@ -28,10 +28,11 @@
         <!--        TODO collections from users images?-->
         <h1>Similar to your images</h1>
         <div
-            class="dashboard-content-container">
+                class="dashboard-content-container">
             <div *ngFor="let similarToUsersImage of similarToUsersImages" class="similar-user-image"
                  (click)="openImageViewDialog(similarToUsersImage)">
                 <img [src]="similarToUsersImage.imgB64 | sanitizeImage"
+                     [style.filter]="imageUtilService.getImageFilterValue(similarToUsersImage)"
                      style="object-fit: cover;width: 250px;height: 250px;border-radius: 10px;margin-left: 2vw" alt="">
             </div>
         </div>

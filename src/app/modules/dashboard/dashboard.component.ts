@@ -35,7 +35,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
                 private renderer: Renderer2,
                 private dashboardService: DashboardService,
                 private imageService: ImageService,
-                private imageUtilService: ImageUtilService,
+                public imageUtilService: ImageUtilService,
                 private collectionService: CollectionService,
                 private dialog: MatDialog) {
         this.collectionService.getCollectionsByUserId(this.authService.getCurrentUser().id).subscribe(value => {

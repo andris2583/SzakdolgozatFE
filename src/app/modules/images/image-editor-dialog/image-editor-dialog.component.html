@@ -1,0 +1,46 @@
+<div class="content" *ngIf="image">
+    <div class="image-container">
+        <img class="image shared-image-box-shadow"
+             [style.filter]="'grayscale('+grayScale+') sepia('+sepia+') hue-rotate('+hueRotate+'deg) saturate('+saturate+') brightness('+brightness+') blur('+blur+'px)'"
+             [src]="'http://localhost:8080/image/getImageData/'+image.id">
+    </div>
+    <div class="editor-container">
+        <div class="image-edit-property">
+            <span>Sepia: {{sepia}}</span>
+            <input type="range" [(ngModel)]="sepia" class="image-edit-slider" step="0.1" min="0" max="1"/>
+        </div>
+        <div class="image-edit-property">
+            <span>Grayscale: {{grayScale}}</span>
+            <input type="range" [(ngModel)]="grayScale" class="image-edit-slider" step="0.1" min="0" max="1"/>
+        </div>
+        <div class="image-edit-property">
+            <span>Hue rotate: {{hueRotate}}°</span>
+            <input type="range" [(ngModel)]="hueRotate" class="image-edit-slider" step="1" min="0" max="360"/>
+        </div>
+        <div class="image-edit-property">
+            <span>Saturate: {{saturate * 100| number:'0.0-0'}}%</span>
+            <input type="range" [(ngModel)]="saturate" class="image-edit-slider" step="0.1" min="0" max="10"/>
+        </div>
+        <div class="image-edit-property">
+            <span>Brightness: {{brightness * 100| number:'0.0-0'}}%</span>
+            <input type="range" [(ngModel)]="brightness" class="image-edit-slider" step="0.1" min="0" max="3"/>
+        </div>
+        <div class="image-edit-property">
+            <span>Blur: {{blur| number:'0.0-0'}}px</span>
+            <input type="range" [(ngModel)]="blur" class="image-edit-slider" step="0.1" min="0" max="10"/>
+        </div>
+    </div>
+</div>
+<div class="button-container">
+    <div>
+        <button class="edit-dialog-button" mat-stroked-button
+                (click)="cancelButtonClick()">Cancel
+        </button>
+        <button class="edit-dialog-button" mat-stroked-button
+                (click)="resetButtonClick()">Reset
+        </button>
+        <button class="edit-dialog-button" mat-stroked-button
+                (click)="saveButtonClick()">Save
+        </button>
+    </div>
+</div>

@@ -1,19 +1,22 @@
 <div class="tag-image-container" [style.width.px]="width" routerLink="/images/list/{{tagName}}">
     <img *ngIf="previewImages.length != 0"
-         [src]="getPreviewImage(0)!.imgB64 | sanitizeImage"
+         [style.filter]="imageUtilService.getImageFilterValue(previewImages[0 % previewImages.length])"
+         [src]="previewImages[0 % previewImages.length].imgB64 | sanitizeImage"
          class="image-top shared-image-box-shadow" [style.height.px]="(width*1.08*0.65)"/>
     <div *ngIf="previewImages.length == 0" class="image-top pulse" [style.height.px]="(width*1.08*0.65)">
 
     </div>
     <div class="image-bottom-container" [style.height.px]="(width*1.08*0.28)">
         <img *ngIf="previewImages.length != 0"
-             [src]="getPreviewImage(1)!.imgB64 | sanitizeImage"
+             [style.filter]="imageUtilService.getImageFilterValue(previewImages[1 % previewImages.length])"
+             [src]="previewImages[1 % previewImages.length]!.imgB64 | sanitizeImage"
              class="image-bottom shared-image-box-shadow"/>
 
         <div *ngIf="previewImages.length == 0" class="image-bottom pulse"></div>
 
         <img *ngIf="previewImages.length != 0"
-             [src]="getPreviewImage(2)!.imgB64 | sanitizeImage"
+             [style.filter]="imageUtilService.getImageFilterValue(previewImages[2 % previewImages.length])"
+             [src]="previewImages[2 % previewImages.length]!.imgB64 | sanitizeImage"
              class="image-bottom shared-image-box-shadow"/>
 
         <div *ngIf="previewImages.length == 0" class="image-bottom shared-image-box-shadow pulse"></div>
@@ -21,7 +24,8 @@
 
         <div class="image-bottom-last-container">
             <img *ngIf="previewImages.length != 0"
-                 [src]="getPreviewImage(3)!.imgB64 | sanitizeImage"
+                 [style.filter]="imageUtilService.getImageFilterValue(previewImages[3 % previewImages.length])"
+                 [src]="previewImages[3 % previewImages.length]!.imgB64 | sanitizeImage"
                  class="image-bottom-last shared-image-box-shadow"/>
             <div *ngIf="previewImages.length != 0 && imageCount > 0" class="image-count"
                  [style.font-size.px]="(width*1.08*0.1)">

@@ -30,6 +30,8 @@ import * as L from 'leaflet';
 import {latLng, LeafletMouseEvent, Map as LeafletMap, MapOptions, tileLayer} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {Page} from '../../../models/page.model';
+import {ImageEditorDialogComponent} from '../image-editor-dialog/image-editor-dialog.component';
+import {ImageUtilService} from '../../../services/image/image-util.service';
 
 @Component({
     selector: 'app-image-view-dialog',
@@ -47,7 +49,8 @@ export class ImageViewDialogComponent implements OnInit, OnDestroy {
         public authService: AuthService,
         private activatedRoute: ActivatedRoute,
         private snackBar: MatSnackBar,
-        private router: Router
+        private router: Router,
+        public imageUtilService: ImageUtilService,
     ) {
         let imageId = this.activatedRoute.snapshot.paramMap.get('imageId');
         if (imageId) {
@@ -320,5 +323,13 @@ export class ImageViewDialogComponent implements OnInit, OnDestroy {
         this.router.navigate([this.profilePage.route + '/' + userId + '/ ']);
         if (event.stopPropagation) event.stopPropagation();
         this.dialogRef.close();
+    }
+
+    openImageEditDialog() {
+        let dialogRef = this.dialog.open(ImageEditorDialogComponent, {
+            data: this.image,
+            panelClass: 'panel-class',
+            autoFocus: false,
+        });
     }
 }

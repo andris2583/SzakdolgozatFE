@@ -26,26 +26,29 @@ export class ImageTimelineComponent implements OnInit {
     batchImageRequest: BatchImageRequest = this.imageUtilService.defaultBatchImageRequest;
     stepBatchImageRequest: BatchImageRequest = this.imageUtilService.defaultBatchImageRequest;
     steps: { images: Image[], date: Date }[] = [];
+    selectedStep: { images: Image[]; date: Date } | null = null;
     // @ts-ignore
     userCollections: Collection[];
     images: Image[] = [];
     masonryOptions = {
-        gutter: 20
+        gutter: 20,
+        initLayout: true,
+        percentPosition: true
     };
     selectedTimelineOption: { name: string, value: number } = {
-        name: 'Weekly',
+        name: 'weekly',
         value: 604800000
     };
     //TODO better monthly splitting
-    timelineOptions: { name: string, value: number }[] = [{name: 'Daily', value: (604800000 / 7)}, {
-        name: 'Weekly',
+    timelineOptions: { name: string, value: number }[] = [{name: 'daily', value: (604800000 / 7)}, {
+        name: 'weekly',
         value: 604800000
-    }, {name: 'Monthly', value: 604800000 * 4}];
+    }, {name: 'monthly', value: 604800000 * 4}];
     loadedImages: Image[] = [];
 
     constructor(
         private imageService: ImageService,
-        private imageUtilService: ImageUtilService,
+        public imageUtilService: ImageUtilService,
         private authService: AuthService,
         private collectionService: CollectionService,
         private dialog: MatDialog) {
@@ -71,7 +74,9 @@ export class ImageTimelineComponent implements OnInit {
         this.stepBatchImageRequest.requestFilter!.fromDate = new Date(step.date);
         this.stepBatchImageRequest.requestFilter!.toDate = new Date(new Date(step.date).getTime() + this.selectedTimelineOption.value);
         this.stepBatchImageRequest.pageCount = 0;
+        this.stepBatchImageRequest.loadThumbnails = false;
         this.images = [];
+        this.selectedStep = step;
         this.loadImageDataForList();
     }
 
@@ -126,10 +131,12 @@ export class ImageTimelineComponent implements OnInit {
     }
 
     loadImageDataForList() {
-        this.imageService.getImages(this.stepBatchImageRequest).subscribe(value => {
-            this.images = this.images.concat(value);
-        });
+        if (this.selectedStep) {
+            this.imageService.getImages(this.stepBatchImageRequest).subscribe(value => {
+                this.images = this.images.concat(value);
+            });
 
-        this.batchImageRequest.pageCount++;
+            this.batchImageRequest.pageCount++;
+        }
     }
 }

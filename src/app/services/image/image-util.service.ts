@@ -50,4 +50,8 @@ export class ImageUtilService {
     get imageUploadSubject(): Subject<Image> {
         return this._imageUploadSubject;
     }
+
+    getImageFilterValue(image: Image) {
+        return 'grayscale(' + image.properties['grayScale'] + ') sepia(' + image.properties['sepia'] + ') hue-rotate(' + image.properties['hueRotate'] + 'deg) saturate(' + image.properties['saturate'] + ') brightness(' + image.properties['brightness'] + ') blur(' + image.properties['blur'] + 'px)';
+    }
 }

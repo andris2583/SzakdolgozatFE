@@ -64,11 +64,11 @@ export class ImageMasonryListComponent implements OnInit, OnChanges {
     constructor(private imageService: ImageService,
                 public dialog: MatDialog,
                 private activatedRoute: ActivatedRoute,
-                private router: Router,
+                public router: Router,
                 private renderer: Renderer2,
                 public authService: AuthService,
                 private collectionService: CollectionService,
-                private imageUtilService: ImageUtilService,
+                public imageUtilService: ImageUtilService,
     ) {
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     }
@@ -228,6 +228,14 @@ export class ImageMasonryListComponent implements OnInit, OnChanges {
             this.saveAsZip(value);
             this.quitSelection();
         });
+    }
+
+    deleteAll() {
+        for (let image of this.selection) {
+            this.imageService.deleteImage(image).subscribe(() => {
+            });
+            this.images.splice(this.images.indexOf(image), 1);
+        }
     }
 
     quitSelection() {

@@ -8,7 +8,7 @@ export interface Image {
     tags: string[];
     uploaded: Date;
     imgB64: string;
-    properties: Map<String, any>;
+    properties: any;
     ownerId: string;
     privacy: Privacy;
 }

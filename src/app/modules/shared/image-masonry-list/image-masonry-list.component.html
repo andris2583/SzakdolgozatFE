@@ -1,4 +1,12 @@
 <div class="selection-controller-container" *ngIf="selectionOn">
+    <div class="selection-controller-button"
+         *ngIf="selection.length != images.length && router.url.startsWith('/profile') && router.url.includes(authService.getCurrentUser().id)"
+         matTooltip="Delete all"
+         (click)="deleteAll()">
+        <button mat-icon-button>
+            <mat-icon>delete_outline</mat-icon>
+        </button>
+    </div>
     <div class="selection-controller-button" *ngIf="selection.length != images.length" matTooltip="Select all"
          (click)="selectAll()">
         <button mat-icon-button>
@@ -34,12 +42,12 @@
         <div ngxMasonryItem *ngFor="let image of images"
              class="shared-image-box-shadow image-container masonry-item-width">
             <img class="masonry-item-width" style="margin-bottom: -6px;"
-                 [style.filter]="inSelection(image) ? 'brightness(0.5)' : 'none'"
-                 [src]="image.imgB64 | sanitizeImage" alt="X">
+                 [style.filter]="imageUtilService.getImageFilterValue(image)"
+                 [src]="'http://localhost:8080/image/getImageThumbnailData/'+image.id" alt="X">
             <div #imageHoverData class="image-hover-data" *ngIf="!selectionOn">
                 <div
-                    style="position: absolute;bottom: 5px;left: 10px;color: white;z-index: 10;display: flex;justify-content: center;align-items: center"
-                    (click)="onUserClickEvent($event,image.ownerId)">
+                        style="position: absolute;bottom: 5px;left: 10px;color: white;z-index: 10;display: flex;justify-content: center;align-items: center"
+                        (click)="onUserClickEvent($event,image.ownerId)">
                     <div class="profile-picture"
                          [style.background-image]="'url('+'http://localhost:8080/auth/getProfileData/'+image.ownerId+')'"></div>
                     <div style="vertical-align: middle;">{{image.name | getNoExtensionName}}</div>
@@ -54,11 +62,11 @@
                             matTooltip="Add to favourites">
                         <!--                        TODO should replace [0] with something better-->
                         <mat-icon
-                            *ngIf="!userCollections[0].imageIds.includes(image.id)">
+                                *ngIf="!userCollections[0].imageIds.includes(image.id)">
                             star_border
                         </mat-icon>
                         <mat-icon
-                            *ngIf="userCollections[0].imageIds.includes(image.id)">star
+                                *ngIf="userCollections[0].imageIds.includes(image.id)">star
                         </mat-icon>
                     </button>
                 </div>
@@ -78,10 +86,10 @@
                 <mat-icon>check_circle</mat-icon>
             </div>
             <div
-                [class]="selectionOn ? 'image-hold-container-selection-on': 'image-hold-container'"
-                (mousedown)="mousedown($event,image)"
-                (mouseup)="mouseup($event,image)"
-                (mouseleave)="mouseup($event,image)"></div>
+                    [class]="selectionOn ? 'image-hold-container-selection-on': 'image-hold-container'"
+                    (mousedown)="mousedown($event,image)"
+                    (mouseup)="mouseup($event,image)"
+                    (mouseleave)="mouseup($event,image)"></div>
             <div class="image-hold-container-top-left"
                  (mousedown)="mousedown($event,image)"
                  (mouseup)="mouseup($event,image)"

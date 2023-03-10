@@ -1,5 +1,5 @@
 <ng-container *ngIf="loadedImages.length">
-    <div class="tab-title">{{selectedTimelineOption.name}} timeline</div>
+    <div class="tab-title">{{user!.username}}'s {{selectedTimelineOption.name}} timeline</div>
     <mat-form-field appearance="fill" style="margin-left: 2vw">
         <mat-label>Timeline type</mat-label>
         <mat-select [(ngModel)]="selectedTimelineOption" (selectionChange)="calculateTimeline()">
@@ -27,16 +27,19 @@
                         <!--                    <span *ngFor="let image of step.images">{{image.name}}<br></span>-->
                         <div>
                             <img class="preview-image-container shared-image-box-shadow"
+                                 [style.filter]="imageUtilService.getImageFilterValue(step.images[0 % step.images.length])"
                                  style="bottom: 0;position: absolute;z-index: 2"
                                  [src]="'http://localhost:8080/image/getImageThumbnailData/'+step.images[0 % step.images.length].id">
                         </div>
                         <div>
                             <img class="preview-image-container shared-image-box-shadow preview-image-left"
+                                 [style.filter]="imageUtilService.getImageFilterValue(step.images[1 % step.images.length])"
                                  style="position: absolute;"
                                  [src]="'http://localhost:8080/image/getImageThumbnailData/'+step.images[1 % step.images.length].id">
                         </div>
                         <div>
                             <img class="preview-image-container shared-image-box-shadow preview-image-right"
+                                 [style.filter]="imageUtilService.getImageFilterValue(step.images[2 % step.images.length])"
                                  style="position: absolute;"
                                  [src]="'http://localhost:8080/image/getImageThumbnailData/'+step.images[2 % step.images.length].id">
                         </div>
@@ -60,7 +63,8 @@
                          class="shared-image-box-shadow image-masonry-container masonry-item-width"
                          (click)="imageClicked(image)">
                         <img class="masonry-item-width" style="margin-bottom: -6px;"
-                             [src]="image.imgB64 | sanitizeImage" alt="X">
+                             [style.filter]="imageUtilService.getImageFilterValue(image)"
+                             [src]="'http://localhost:8080/image/getImageThumbnailData/'+image.id" alt="X">
                         <!--                <div class="image-hover-data"-->
                         <!--                     style="position: absolute;bottom: 5px;left: 10px;color: white;z-index: 10">{{image.name | getNoExtensionName}}</div>-->
                     </div>
@@ -72,10 +76,10 @@
 <div *ngIf="!loadedImages.length">
     <div style="display: flex;justify-content: center;align-items: center;flex-wrap: wrap;flex-direction: row">
         <div
-            style="width: 100%;display: flex;justify-content: center;align-items: center;margin-top: 2vw;margin-bottom: 2vw">
+                style="width: 100%;display: flex;justify-content: center;align-items: center;margin-top: 2vw;margin-bottom: 2vw">
             <img
-                class="empty-tab-image"
-                [src]="'https://raw.githubusercontent.com/material-icons/material-icons/af0ed9c0e1276bad43c4d6ca8e8aaa283e425195/svg/image_not_supported/baseline.svg'">
+                    class="empty-tab-image"
+                    [src]="'https://raw.githubusercontent.com/material-icons/material-icons/af0ed9c0e1276bad43c4d6ca8e8aaa283e425195/svg/image_not_supported/baseline.svg'">
         </div>
         <div style="font-size: 28px">No images found for timeline</div>
     </div>
