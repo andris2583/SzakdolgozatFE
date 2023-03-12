@@ -52,6 +52,12 @@ export class ImageUtilService {
     }
 
     getImageFilterValue(image: Image) {
-        return 'grayscale(' + image.properties['grayScale'] + ') sepia(' + image.properties['sepia'] + ') hue-rotate(' + image.properties['hueRotate'] + 'deg) saturate(' + image.properties['saturate'] + ') brightness(' + image.properties['brightness'] + ') blur(' + image.properties['blur'] + 'px)';
+        return 'grayscale(' + (image.properties['grayScale'] ? image.properties['grayScale'] : String(0))
+            + ') sepia(' + (image.properties['sepia'] ? image.properties['sepia'] : String(0))
+            + ') hue-rotate(' + (image.properties['hueRotate'] ? image.properties['hueRotate'] : String(0))
+            + 'deg) saturate(' + (image.properties['saturate'] ? image.properties['saturate'] : String(1))
+            + ') brightness(' + (image.properties['brightness'] ? image.properties['brightness'] : String(1))
+            + ') blur(' + (image.properties['blur'] ? image.properties['blur'] : String(0))
+            + 'px)';
     }
 }

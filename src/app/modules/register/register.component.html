@@ -1,28 +1,79 @@
 <div class="container">
     <div class="auth-wrapper">
-        <form class="form-register" [formGroup]="registerForm" (ngSubmit)="registerUser()">
+        <form
+                *ngIf="!isSuccessful"
+                name="form"
+                (ngSubmit)="f.form.valid && onSubmit()"
+                #f="ngForm"
+                novalidate
+                class="form-register"
+        >
             <h3 class="header">Register</h3>
             <mat-form-field appearance="fill" class="form-group">
-                <mat-label>Username</mat-label>
-                <input
-                    type="username"
-                    matInput
-                    formControlName="username"
-                    placeholder="Enter username"
-                    required
+                <mat-label for="username">Username</mat-label>
+                <input matInput
+                       id="username"
+                       type="text"
+                       class="form-control"
+                       name="username"
+                       [(ngModel)]="form.username"
+                       required
+                       minlength="3"
+                       maxlength="20"
+                       #username="ngModel"
+                       [ngClass]="{ 'is-invalid': f.submitted && username.errors }"
                 />
+                <div class="invalid-feedback" *ngIf="username.errors && f.submitted">
+                    <div *ngIf="username.errors['required']">Username is required</div>
+                    <div *ngIf="username.errors['minlength']">
+                        Username must be at least 3 characters
+                    </div>
+                    <div *ngIf="username.errors['maxlength']">
+                        Username must be at most 20 characters
+                    </div>
+                </div>
             </mat-form-field>
             <mat-form-field appearance="fill" class="form-group">
-                <mat-label>Password</mat-label>
-                <input
-                    type="password"
-                    formControlName="password"
-                    matInput
-                    required
+                <mat-label for="email">Email</mat-label>
+                <input matInput
+                       id="email"
+                       type="email"
+                       class="form-control"
+                       name="email"
+                       [(ngModel)]="form.email"
+                       required
+                       email
+                       #email="ngModel"
+                       [ngClass]="{ 'is-invalid': f.submitted && email.errors }"
                 />
+                <div class="invalid-feedback" *ngIf="email.errors && f.submitted">
+                    <div *ngIf="email.errors['required']">Email is required</div>
+                    <div *ngIf="email.errors['email']">
+                        Email must be a valid email address
+                    </div>
+                </div>
             </mat-form-field>
-            <button style="float: right;width: 100%" type="submit" mat-stroked-button>Register
-            </button>
+            <mat-form-field appearance="fill" class="form-group">
+                <mat-label for="password">Password</mat-label>
+                <input matInput
+                       id="password"
+                       type="password"
+                       class="form-control"
+                       name="password"
+                       [(ngModel)]="form.password"
+                       required
+                       minlength="6"
+                       #password="ngModel"
+                       [ngClass]="{ 'is-invalid': f.submitted && password.errors }"
+                />
+                <div class="invalid-feedback" *ngIf="password.errors && f.submitted">
+                    <div *ngIf="password.errors['required']">Password is required</div>
+                    <div *ngIf="password.errors['minlength']">
+                        Password must be at least 6 characters
+                    </div>
+                </div>
+            </mat-form-field>
+            <button style="float: right;width: 100%" type="submit" mat-stroked-button>Register</button>
         </form>
     </div>
 </div>

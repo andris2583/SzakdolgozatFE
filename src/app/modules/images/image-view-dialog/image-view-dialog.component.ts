@@ -104,6 +104,7 @@ export class ImageViewDialogComponent implements OnInit, OnDestroy {
     public mapMarkers: L.Marker[] = [];
     fullScreenImage: boolean = false;
     public profilePage: Page = {route: '/profile', name: 'Profile', protected: true};
+    imageFilterValue: string = '';
 
     ngOnInit(): void {
     }
@@ -117,6 +118,7 @@ export class ImageViewDialogComponent implements OnInit, OnDestroy {
     }
 
     initData() {
+        this.imageFilterValue = this.imageUtilService.getImageFilterValue(this.image);
         this.owner = this.authService.getUserById(this.image.ownerId);
         this.imageService.getSimilarImages(this.image.tags).subscribe(value => {
             this.similarImages = value.filter(image => image.id != this.image.id);

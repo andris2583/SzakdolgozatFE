@@ -55,7 +55,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
         this.authService.getUserById(this.activatedRoute.snapshot.paramMap.get('userId')!.trim()).subscribe(value => {
             if (value != null) {
                 this.user = value;
-                this.profilePictureURL = 'http://localhost:8080/auth/getProfileData/' + this.user.id;
+                this.profilePictureURL = 'http://localhost:8080/user/getProfileData/' + this.user.id;
                 this.isOwner = this.user.id == this.authService.getCurrentUser().id;
                 this.batchImageRequest = this.imageUtilService.defaultBatchImageRequest;
                 this.batchImageRequest.requestFilter = {
@@ -106,8 +106,8 @@ export class ProfileComponent implements OnInit, AfterViewInit {
         }
     }
 
-    logOut() {
-        this.authService.logOut();
+    logout() {
+        this.authService.logout();
     }
 
     tabButtonClick(tab: ProfileTabs) {

@@ -6,6 +6,7 @@ import {Pages} from '../../models/constants/pages';
 import {ProfileTabs} from '../../models/constants/profile-tabs';
 import {ImageUploadDialogComponent} from '../images/image-upload-dialog/image-upload-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
+import {StorageService} from '../../services/auth/storage-service';
 
 @Component({
     selector: 'app-header',
@@ -27,7 +28,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     @ViewChild('profileDropdownTab') profileDropdownTab: ElementRef | undefined;
     @ViewChild('profileDropdownButton') profileDropdownButton: ElementRef | undefined;
 
-    constructor(public authService: AuthService, public router: Router, private renderer: Renderer2, private dialog: MatDialog) {
+    constructor(public authService: AuthService, public storageService: StorageService, public router: Router, private renderer: Renderer2, private dialog: MatDialog) {
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
         this.renderer.listen('window', 'click', (event) => {
             if (this.profileDropdownTab != undefined && this.profileDropdownButton != undefined) {
@@ -46,7 +47,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     }
 
     shouldPageBeShown(page: Page): boolean {
-        let loggedIn = this.authService.isLoggedIn;
+        let loggedIn = this.storageService.isLoggedIn();
         if (loggedIn) {
             return page.protected;
         } else {

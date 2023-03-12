@@ -12,7 +12,7 @@
             by
             <ng-container>
                     <div class="profile-picture" (click)="onUserClickEvent($event,image.ownerId)"
-                         [style.background-image]="'url('+'http://localhost:8080/auth/getProfileData/'+image.ownerId+')'">
+                         [style.background-image]="'url('+'http://localhost:8080/user/getProfileData/'+image.ownerId+')'">
                     </div>
             </ng-container>
             <div (click)="onUserClickEvent($event,image.ownerId)">{{(owner | async)?.username}}</div>
@@ -71,7 +71,7 @@
         </div>
         <div class="image-container" (click)="fullScreenImage = true">
             <img class="shared-image-box-shadow image" *ngIf="image.id"
-                 [style.filter]="imageUtilService.getImageFilterValue(image)"
+                 [style.filter]="imageFilterValue"
                  [src]="'http://localhost:8080/image/getImageData/'+image.id"
                  alt="Failed to load image..."
                  (load)="onLoad(true)">
@@ -193,8 +193,9 @@
 
 </div>
 <div id="zoom-image" (click)="fullScreenImage = false"
-     [ngStyle]="fullScreenImage ? {'display' : 'block'} : {'display' : 'none'}"
-     [style.background-image]="'url('+'http://localhost:8080/image/getImageData/'+image.id+')'">
+     [ngStyle]="fullScreenImage ? {'display' : 'block'} : {'display' : 'none'}">
+    <img style="max-width: 100%;max-height: 100%;position: fixed;top: 50%;left: 50%;transform: translateX(-50%) translateY(-50%);"
+         [src]="'http://localhost:8080/image/getImageData/'+image.id" [style.filter]="imageFilterValue">
     <button mat-icon-button style="color: white;left: 98vw;">
         <mat-icon
                 (click)="fullScreenImage = false">close

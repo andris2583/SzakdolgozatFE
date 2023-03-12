@@ -19,10 +19,10 @@ export class DashboardService {
     }
 
     getFavouriteTags(user: User): Observable<string[]> {
-        return this.httpClient.put<string[]>(this.baseUrl + '/getFavouriteTags/', user);
+        return this.httpClient.put<string[]>(this.baseUrl + '/getFavouriteTags/', user.id);
     }
 
     getSimilarToUserImages(user: User): Observable<Image[]> {
-        return this.httpClient.put<Image[]>(this.baseUrl + '/getSimilarToUserImages', user);
+        return this.httpClient.put<Image[]>(this.baseUrl + '/getSimilarToUserImages', user.id);
     }
 }

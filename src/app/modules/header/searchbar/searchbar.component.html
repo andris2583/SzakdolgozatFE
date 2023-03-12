@@ -51,9 +51,9 @@
             <div class="dropdown-carousel-item" *ngFor="let userSuggestion of (userSuggestions | async)"
                  (click)="onSearchBlur();goToProfile($event,userSuggestion.id)">
                 <div class="user-image"
-                     [style.background-image]="'url('+'http://localhost:8080/auth/getProfileData/'+userSuggestion.id+')'"></div>
+                     [style.background-image]="'url('+'http://localhost:8080/user/getProfileData/'+userSuggestion.id+')'"></div>
                 <div
-                    style="width: 100%;text-align: center;overflow: hidden;font-size: 14px">{{userSuggestion.username}}</div>
+                        style="width: 100%;text-align: center;overflow: hidden;font-size: 14px">{{userSuggestion.username}}</div>
             </div>
         </div>
 

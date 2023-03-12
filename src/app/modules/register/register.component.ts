@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder} from '@angular/forms';
 import {AuthService} from '../../services/auth/auth.service';
 import {Router} from '@angular/router';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-register',
@@ -9,24 +10,39 @@ import {Router} from '@angular/router';
     styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-    registerForm: FormGroup;
+    form: any = {
+        username: null,
+        email: null,
+        password: null
+    };
+    isSuccessful = false;
+    isSignUpFailed = false;
 
     constructor(
         public fb: FormBuilder,
         public authService: AuthService,
-        public router: Router
+        public router: Router,
+        private snackBar: MatSnackBar
     ) {
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-        this.registerForm = this.fb.group({
-            username: [''],
-            password: [''],
-        });
     }
 
     ngOnInit(): void {
     }
 
-    registerUser() {
-        this.authService.register(this.registerForm.value);
+    onSubmit(): void {
+        const {username, email, password} = this.form;
+
+        this.authService.register(username, email, password).subscribe({
+            next: data => {
+                this.router.navigate(['login']);
+                this.isSuccessful = true;
+                this.isSignUpFailed = false;
+            },
+            error: err => {
+                this.snackBar.open('Failed to signin!', '', {duration: 5000});
+                this.isSignUpFailed = true;
+            }
+        });
     }
 }

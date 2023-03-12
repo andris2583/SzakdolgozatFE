@@ -27,6 +27,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {ProfileModule} from './modules/profile/profile.module';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {httpInterceptorProviders} from './interceptors/http-request-interceptor';
 
 
 @NgModule({
@@ -80,7 +81,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
         }, {
             provide: MAT_DIALOG_DATA,
             useValue: {}
-        }
+        },
+        httpInterceptorProviders
     ],
     bootstrap: [AppComponent]
 })

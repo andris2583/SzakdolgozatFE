@@ -19,14 +19,14 @@
         </span>
         <span id="flex-group-two">
             <div class="searchbar-container">
-                <app-searchbar *ngIf="!dashboardHeader && authService.isLoggedIn"></app-searchbar>
+                <app-searchbar *ngIf="!dashboardHeader && storageService.isLoggedIn()"></app-searchbar>
             </div>
         </span>
         <span id="flex-group-three">
             <a class="header-element header-link" [class.dashboard-header-element]="dashboardHeader"
                mat-stroked-button (click)="openImageUploadDialog()"
-               [class.hidden]="!authService.isLoggedIn">
-                <ng-container *ngIf="authService.isLoggedIn">
+               [class.hidden]="!storageService.isLoggedIn()">
+                <ng-container *ngIf="storageService.isLoggedIn()">
                     Upload
                 </ng-container>
             </a>
@@ -45,7 +45,7 @@
                     <br>
                     </ng-container>
                     <button mat-button class="profile-dropdown-element"
-                            (click)="profileDropdownOpen = false;authService.logOut()">
+                            (click)="profileDropdownOpen = false;authService.logout()">
                         Logout
                     </button>
                 </div>
