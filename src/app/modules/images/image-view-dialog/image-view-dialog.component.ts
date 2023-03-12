@@ -333,5 +333,8 @@ export class ImageViewDialogComponent implements OnInit, OnDestroy {
             panelClass: 'panel-class',
             autoFocus: false,
         });
+        dialogRef.componentInstance.imageEdited.subscribe(value => {
+            this.imageFilterValue = this.imageUtilService.getImageFilterValue(value);
+        });
     }
 }

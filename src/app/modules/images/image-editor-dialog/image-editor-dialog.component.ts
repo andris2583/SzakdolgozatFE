@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit, Optional} from '@angular/core';
+import {Component, EventEmitter, Inject, OnInit, Optional, Output} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {Image} from '../../../models/image.model';
 import {ImageService} from '../../../services/image/image.service';
@@ -19,6 +19,9 @@ export class ImageEditorDialogComponent implements OnInit {
     saturate: number = 1;
     brightness: number = 1;
     blur: number = 0;
+
+    @Output()
+    imageEdited: EventEmitter<Image> = new EventEmitter<Image>();
 
     constructor(
         @Optional() @Inject(MAT_DIALOG_DATA) public image: Image,
@@ -86,6 +89,7 @@ export class ImageEditorDialogComponent implements OnInit {
         // @ts-ignore
         this.image.properties['blur'] = this.blur;
         this.imageService.updateImage(this.image).subscribe(() => {
+            this.imageEdited.next(this.image);
             this.dialogRef.close();
         });
     }

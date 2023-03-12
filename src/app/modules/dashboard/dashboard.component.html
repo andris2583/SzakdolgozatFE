@@ -16,19 +16,17 @@
             <app-tag *ngFor="let tag of seasonalTags"
                      [width]="250" [tagName]=tag></app-tag>
         </div>
-        <div class="dashboard-container-spacer"></div>
-        <!--        TODO tags from user favourites-->
-        <h1>Categories you may like</h1>
-        <div
-                class="dashboard-content-container">
+        <div *ngIf="favouriteTags.length" class="dashboard-container-spacer"></div>
+        <h1 *ngIf="favouriteTags.length">Categories you may like</h1>
+        <div *ngIf="favouriteTags.length"
+             class="dashboard-content-container">
             <app-tag *ngFor="let tag of favouriteTags"
                      [width]="250" [tagName]=tag></app-tag>
         </div>
-        <div class="dashboard-container-spacer"></div>
-        <!--        TODO collections from users images?-->
-        <h1>Similar to your images</h1>
-        <div
-                class="dashboard-content-container">
+        <div *ngIf="similarToUsersImages.length" class="dashboard-container-spacer"></div>
+        <h1 *ngIf="similarToUsersImages.length">Similar to your images</h1>
+        <div *ngIf="similarToUsersImages.length"
+             class="dashboard-content-container">
             <div *ngFor="let similarToUsersImage of similarToUsersImages" class="similar-user-image"
                  (click)="openImageViewDialog(similarToUsersImage)">
                 <img [src]="similarToUsersImage.imgB64 | sanitizeImage"

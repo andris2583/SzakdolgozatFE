@@ -1,6 +1,6 @@
 <div class="selection-controller-container" *ngIf="selectionOn">
     <div class="selection-controller-button"
-         *ngIf="selection.length != images.length && router.url.startsWith('/profile') && router.url.includes(authService.getCurrentUser().id)"
+         *ngIf="router.url.startsWith('/profile') && router.url.includes(authService.getCurrentUser().id)"
          matTooltip="Delete all"
          (click)="deleteAll()">
         <button mat-icon-button>

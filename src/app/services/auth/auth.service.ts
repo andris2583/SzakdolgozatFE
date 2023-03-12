@@ -75,8 +75,7 @@ export class AuthService {
     }
 
     getCurrentUser(): User {
-        // @ts-ignore
-        return this.currentUser;
+        return this.storageService.getUser();
     }
 
     getMaxStorage(): number {
