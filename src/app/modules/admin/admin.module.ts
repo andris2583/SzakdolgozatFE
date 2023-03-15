@@ -5,7 +5,8 @@ import {AdminRouting} from './admin.routing';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatTableModule} from '@angular/material/table';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatSelectModule} from '@angular/material/select';
 
 
 @NgModule({
@@ -18,6 +19,8 @@ import {FormsModule} from '@angular/forms';
         MatTabsModule,
         MatTableModule,
         MatTooltipModule,
+        MatSelectModule,
+        ReactiveFormsModule,
         FormsModule
     ]
 })

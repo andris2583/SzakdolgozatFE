@@ -124,5 +124,8 @@ User
 TODO
 
 - Admin oldal
+    - ~~Text prop edit~~
+    - Enum select edit
+    - List edit( tag , role, imageIds)
 - DB generátor szkript
 - Megosztás direkt userekkel maybe
