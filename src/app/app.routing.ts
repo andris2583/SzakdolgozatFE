@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {AuthGuard} from './services/auth/auth.guard';
+import {AuthUserGuard} from './services/auth/auth-user.guard';
+import {AuthAdminGuard} from './services/auth/auth-admin.guard';
 
 
 const routes: Routes = [
@@ -12,32 +13,38 @@ const routes: Routes = [
     },
     {
         path: 'dashboard',
-        canActivate: [AuthGuard],
+        canActivate: [AuthUserGuard],
         loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule),
         runGuardsAndResolvers: 'always',
     },
     {
         path: 'images',
-        canActivate: [AuthGuard],
+        canActivate: [AuthUserGuard],
         loadChildren: () => import('./modules/images/image-list.module').then(m => m.ImageListModule),
         runGuardsAndResolvers: 'always',
     },
     {
         path: 'categories',
-        canActivate: [AuthGuard],
+        canActivate: [AuthUserGuard],
         loadChildren: () => import('./modules/tags/tag-list.module').then(m => m.TagListModule),
         runGuardsAndResolvers: 'always',
     },
     {
         path: 'collection/:id',
-        canActivate: [AuthGuard],
+        canActivate: [AuthUserGuard],
         loadChildren: () => import('./modules/collection/collection.module').then(m => m.CollectionModule),
         runGuardsAndResolvers: 'always',
     },
     {
         path: 'profile/:userId/:subPage',
-        canActivate: [AuthGuard],
+        canActivate: [AuthUserGuard],
         loadChildren: () => import('./modules/profile/profile.module').then(m => m.ProfileModule),
+        runGuardsAndResolvers: 'always',
+    },
+    {
+        path: 'admin',
+        canActivate: [AuthUserGuard, AuthAdminGuard],
+        loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule),
         runGuardsAndResolvers: 'always',
     },
     {

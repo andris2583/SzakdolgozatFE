@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Image} from '../../models/image.model';
 import {BatchImageRequest} from '../../models/request/batch-image-request.model';
+import {ImageUtilService} from './image-util.service';
 
 @Injectable({
     providedIn: 'root'
@@ -11,7 +12,7 @@ export class ImageService {
 
     private readonly baseUrl = 'http://localhost:8080/image';
 
-    constructor(private httpClient: HttpClient) {
+    constructor(private httpClient: HttpClient, private imageUtilService: ImageUtilService) {
     }
 
     getImages(batchImageRequest: BatchImageRequest): Observable<Image[]> {
@@ -80,5 +81,12 @@ export class ImageService {
 
     getImageDatas(ids: string[]): Observable<string[]> {
         return this.httpClient.put<string[]>(this.baseUrl + '/getImageDatas/', ids);
+    }
+
+    getAllImages() {
+        let bir = this.imageUtilService.defaultBatchImageRequest;
+        bir.batchSize = -1;
+        bir.loadThumbnails = false;
+        return this.getImages(bir);
     }
 }

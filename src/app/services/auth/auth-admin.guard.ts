@@ -1,25 +1,27 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
 import {Observable} from 'rxjs';
-import {StorageService} from './storage-service';
+import {AuthService} from './auth.service';
 
 @Injectable({
     providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class AuthAdminGuard implements CanActivate {
+
+
     constructor(
-        public storageService: StorageService,
-        public router: Router
-    ) {
+        public authService: AuthService,
+        public router: Router) {
     }
 
     canActivate(
         next: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-        if (!this.storageService.isLoggedIn()) {
+        if (!this.authService.isAdmin()) {
             window.alert('Access not allowed!');
-            this.router.navigate(['login']);
+            this.router.navigate(['dashboard']);
         }
         return true;
     }
+
 }

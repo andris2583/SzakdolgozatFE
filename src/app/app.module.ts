@@ -28,6 +28,7 @@ import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {ProfileModule} from './modules/profile/profile.module';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {httpInterceptorProviders} from './interceptors/http-request-interceptor';
+import {AdminModule} from './modules/admin/admin.module';
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import {httpInterceptorProviders} from './interceptors/http-request-interceptor'
         LeafletModule,
         ProfileModule,
         MatProgressBarModule,
-        FormsModule
+        FormsModule,
+        AdminModule
     ],
     providers: [
         // {

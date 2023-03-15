@@ -25,6 +25,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
     public profilePage: Page = {route: '/profile', name: 'Profile', protected: true};
 
+    public adminPage: Page = {route: '/admin', name: 'Admin', protected: true}
+
     @ViewChild('profileDropdownTab') profileDropdownTab: ElementRef | undefined;
     @ViewChild('profileDropdownButton') profileDropdownButton: ElementRef | undefined;
 

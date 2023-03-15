@@ -1,0 +1,18 @@
+table {
+    width: 100%;
+}
+
+mat-table {
+    width: 100%;
+    table-layout: fixed;
+    display: table;
+}
+
+td.mat-cell, th.mat-header-cell {
+    vertical-align: middle;
+}
+
+input {
+    -webkit-appearance: none;
+    border: 0;
+}

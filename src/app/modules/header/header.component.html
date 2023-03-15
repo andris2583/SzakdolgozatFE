@@ -31,6 +31,14 @@
                 </ng-container>
             </a>
             <a class="header-element header-link" [class.dashboard-header-element]="dashboardHeader"
+               mat-stroked-button
+               [routerLink]="adminPage.route"
+               [class.hidden]="!storageService.isLoggedIn() || !authService.isAdmin()">
+                <ng-container *ngIf="storageService.isLoggedIn() && authService.isAdmin()">
+                    {{adminPage.name}}
+                </ng-container>
+            </a>
+            <a class="header-element header-link" [class.dashboard-header-element]="dashboardHeader"
                *ngIf="shouldPageBeShown(profilePage)"
                mat-stroked-button
                (click)="goToProfile($event)">

@@ -78,7 +78,7 @@
 - ~~order by likes or views~~
 - ~~Redesign image view dialog~~
 - ImageId -> Userid hasaccess map String -> String[]
-- update images list when imageuploaddialog emits
+- ~~update images list when imageuploaddialog emits~~
 - ~~Maybe something is buggy with removing images when deleted from collections~~
 - ~~Fullscreen image on click~~
 - ~~Delete from not dialog view,redirect~~
@@ -120,3 +120,9 @@ User
 - UserType
 - ~~Profile picture based on id save to folder~~
 - ~~Profile picture alt when no pf~~
+
+TODO
+
+- Admin oldal
+- DB generátor szkript
+- Megosztás direkt userekkel maybe
