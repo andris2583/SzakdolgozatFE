@@ -6,6 +6,7 @@ import {Observable, Subject} from 'rxjs';
 import {SubscriptionType, SubscriptionTypeMBSize} from '../../models/request/subscription-type';
 import {StorageService} from './storage-service';
 import {UserRoleEnum} from '../../models/user-role-enum.model';
+import {UserRole} from '../../models/user-role.model';
 
 const httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -98,5 +99,9 @@ export class AuthService {
 
     set currentUser(value: User | null) {
         this._currentUser = value;
+    }
+
+    getAllRoles() {
+        return this.http.get<UserRole[]>(this.userUrl + '/getAllRoles');
     }
 }

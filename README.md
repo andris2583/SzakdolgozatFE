@@ -27,7 +27,7 @@
 
 ## Extra funkciók
 
-- [] Filterek (pl: szépia, élénk, film)
+- [X] Filterek (pl: szépia, élénk, film)
 - [X] EXIF információ feldolgozása
     - [X] Térképen lokáció
     - [X] Idővonal
@@ -125,7 +125,7 @@ TODO
 
 - Admin oldal
     - ~~Text prop edit~~
-    - Enum select edit
+    - ~~Enum select edit~~
     - List edit( tag , role, imageIds)
 - DB generátor szkript
 - Megosztás direkt userekkel maybe

@@ -9,6 +9,7 @@ import {Collection} from '../../models/collection';
 import {Privacy} from '../../models/privacy';
 import {SubscriptionType} from '../../models/request/subscription-type';
 import {CollectionType} from '../../models/collection-type';
+import {UserRole} from '../../models/user-role.model';
 
 @Component({
     selector: 'app-admin',
@@ -29,6 +30,7 @@ export class AdminComponent implements OnInit {
     privacyOptions: Privacy[] = [Privacy.PUBLIC, Privacy.PRIVATE];
     subscriptionOptions: SubscriptionType[] = [SubscriptionType.FREE, SubscriptionType.PRO];
     collectionTypeOptions: CollectionType[] = [CollectionType.FAVOURITE, CollectionType.CUSTOM];
+    roleOptions: Observable<UserRole[]> = this.authService.getAllRoles();
 
     ngOnInit(): void {
     }
@@ -46,5 +48,32 @@ export class AdminComponent implements OnInit {
     saveImage(image: Image) {
         this.imageService.updateImage(image).subscribe(() => {
         });
+    }
+
+    deleteCollection(collection: Collection) {
+        this.collectionService.deleteCollection(collection).subscribe(() => {
+            this.collections = this.collectionService.getAllCollections();
+        });
+    }
+
+    deleteImage(image: Image) {
+        this.imageService.deleteImage(image).subscribe(() => {
+            this.images = this.imageService.getAllImages();
+        });
+    }
+
+    hasRole(user: User, role: UserRole) {
+        return user.roles.filter(role => role).map(role => role.name).includes(role.name);
+    }
+
+    roleCheckboxClicked($event: any, role: UserRole, user: User) {
+        if ($event.checked) {
+            // @ts-ignore
+            user.roles.push({id: null, name: role.name});
+        } else {
+            user.roles = user.roles.filter(tempRole => tempRole && tempRole.name != role.name);
+        }
+        this.saveUser(user);
+
     }
 }

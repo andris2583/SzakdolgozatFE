@@ -7,6 +7,9 @@ import {MatTableModule} from '@angular/material/table';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 @NgModule({
@@ -21,7 +24,10 @@ import {MatSelectModule} from '@angular/material/select';
         MatTooltipModule,
         MatSelectModule,
         ReactiveFormsModule,
-        FormsModule
+        FormsModule,
+        MatButtonModule,
+        MatIconModule,
+        MatCheckboxModule
     ]
 })
 export class AdminModule {
