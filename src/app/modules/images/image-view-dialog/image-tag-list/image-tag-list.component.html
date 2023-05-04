@@ -2,17 +2,17 @@
     <mat-chip class="tag-chip" *ngFor="let tag of image!.tags">
         <span routerLink="/images/list/{{tag}}" [mat-dialog-close]="true">{{tag}}</span>
         <!--        &nbsp;&nbsp;&nbsp;&nbsp;-->
-        <button matChipRemove (click)="deleteTag(tag)">
+        <button matChipRemove (click)="deleteTag(tag)" *ngIf="authService.getCurrentUser().id == image!.ownerId">
             <mat-icon>cancel</mat-icon>
         </button>
     </mat-chip>
 </mat-chip-list>
-<form id="tag-search-form">
+<form id="tag-search-form" *ngIf="authService.getCurrentUser().id == image!.ownerId">
     <mat-form-field>
         <input matInput [formControl]="tagSearch" placeholder="Add Tags" [matAutocomplete]="auto"
                (keyup.enter)="addTag(null)">
         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-            <mat-option *ngFor="let suggestion of filteredSuggestions | async | slice:0:10;" [value]="suggestion"
+            <mat-option *ngFor="let suggestion of filteredSuggestions | async | slice:0:30;" [value]="suggestion"
                         (click)="addTag(suggestion)">
                 <span>{{suggestion}}</span>
             </mat-option>

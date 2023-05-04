@@ -5,6 +5,7 @@ import {TagService} from '../../../../services/tag/tag.service';
 import {Image} from '../../../../models/image.model';
 import {ImageService} from '../../../../services/image/image.service';
 import {Tag} from '../../../../models/tag.model';
+import {AuthService} from '../../../../services/auth/auth.service';
 
 @Component({
     selector: 'app-image-tag-list',
@@ -20,7 +21,7 @@ export class ImageTagListComponent implements OnInit, OnChanges {
     suggestions: string[] = [];
     filteredSuggestions: Observable<string[]> = new Observable<string[]>();
 
-    constructor(private tagService: TagService, private imageService: ImageService) {
+    constructor(private tagService: TagService, private imageService: ImageService, public authService: AuthService) {
     }
 
     ngOnInit(): void {
@@ -32,7 +33,7 @@ export class ImageTagListComponent implements OnInit, OnChanges {
     }
 
     init() {
-        this.tagService.getAllTags().subscribe(tags => {
+        this.tagService.getAllTags(true).subscribe(tags => {
             this.allTags = tags;
             this.suggestions = this.allTags
                 .map(tempTag => tempTag.name)

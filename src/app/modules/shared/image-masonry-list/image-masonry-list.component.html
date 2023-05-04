@@ -62,11 +62,11 @@
                             matTooltip="Add to favourites">
                         <!--                        TODO should replace [0] with something better-->
                         <mat-icon
-                                *ngIf="!userCollections[0].imageIds.includes(image.id)">
+                                *ngIf="userCollections[0] && !userCollections[0].imageIds.includes(image.id)">
                             star_border
                         </mat-icon>
                         <mat-icon
-                                *ngIf="userCollections[0].imageIds.includes(image.id)">star
+                                *ngIf="userCollections[0] && userCollections[0].imageIds.includes(image.id)">star
                         </mat-icon>
                     </button>
                 </div>

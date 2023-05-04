@@ -117,14 +117,16 @@ export class ImageMasonryListComponent implements OnInit, OnChanges {
 
     onFavouriteClickEvent(event: MouseEvent, image: Image) {
         let favouriteCollection = this.userCollections.filter(tempCollection => tempCollection.type == CollectionType.FAVOURITE)[0];
-        if (favouriteCollection.imageIds.includes(image.id)) {
-            favouriteCollection.imageIds.splice(favouriteCollection.imageIds.indexOf(image.id), 1);
-        } else {
-            favouriteCollection.imageIds.push(image.id);
+        if (favouriteCollection) {
+            if (favouriteCollection.imageIds.includes(image.id)) {
+                favouriteCollection.imageIds.splice(favouriteCollection.imageIds.indexOf(image.id), 1);
+            } else {
+                favouriteCollection.imageIds.push(image.id);
+            }
+            this.collectionService.saveCollection(favouriteCollection).subscribe(value => {
+                this.collectionChanged.emit(this.userCollections);
+            });
         }
-        this.collectionService.saveCollection(favouriteCollection).subscribe(value => {
-            this.collectionChanged.emit(this.userCollections);
-        });
         if (event.stopPropagation) event.stopPropagation();
     }
 

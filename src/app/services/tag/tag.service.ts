@@ -13,8 +13,8 @@ export class TagService {
     constructor(private httpClient: HttpClient) {
     }
 
-    getAllTags(): Observable<Tag[]> {
-        return this.httpClient.get<Tag[]>(this.baseUrl + '/getAll');
+    getAllTags(emptyTags: boolean): Observable<Tag[]> {
+        return this.httpClient.put<Tag[]>(this.baseUrl + '/getAll', emptyTags);
     }
 
     getById(tagID: string): Observable<Tag> {

@@ -25,7 +25,7 @@ export class TagListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.tagService.getAllTags().subscribe(tags => {
+        this.tagService.getAllTags(false).subscribe(tags => {
             this.tags = tags;
             this.loadTags();
         });

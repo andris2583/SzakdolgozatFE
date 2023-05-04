@@ -55,7 +55,7 @@ export class SearchbarComponent implements OnInit {
     dashboard: boolean = false;
 
 
-    allTags: Observable<Tag[]> = this.tagService.getAllTags();
+    allTags: Observable<Tag[]> = this.tagService.getAllTags(false);
     tagSuggestions: Observable<Tag[]> = new Observable<Tag[]>();
     imageSuggestions: Observable<Image[]> = new Observable<Image[]>();
     collectionSuggestions: Observable<Collection[]> = new Observable<Collection[]>();

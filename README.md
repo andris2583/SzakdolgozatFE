@@ -123,9 +123,10 @@ User
 
 TODO
 
-- Admin oldal
+- ~~Admin oldal~~
     - ~~Text prop edit~~
     - ~~Enum select edit~~
-    - List edit( tag , role, imageIds)
-- DB generátor szkript
+    - ~~List edit( tag , role, imageIds)~~
+- ~~DB generátor szkript~~
 - Megosztás direkt userekkel maybe
+- Get only tags with 0 < images

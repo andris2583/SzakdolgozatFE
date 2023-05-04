@@ -113,7 +113,7 @@ export class ImageListComponent implements OnInit {
                 }
             }
         });
-        this.tagService.getAllTags().subscribe(tags => {
+        this.tagService.getAllTags(true).subscribe(tags => {
             this.allTags = tags;
         });
         this.filteredSuggestions = this.tagSearch.valueChanges.pipe(
